@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import './App.css'
 
 type CoinMode = 'null' | 'alternative' | 'custom'
@@ -235,6 +235,10 @@ function App() {
   const powerCurve = buildPowerCurve(p0, p1, alpha, curveStart, curveEnd)
   const chartPeak = Math.max(...nullDistribution, ...alternativeDistribution)
   const tickStep = getTickStep(n)
+  const expectedHeadsH0 = n * p0
+  const expectedHeadsH1 = n * p1
+  const expectedHeadsReal = n * actualP
+  const thresholdPosition = criticalValue > n ? 100 : (criticalValue / n) * 100
   const visibleTrialResult = trialResult?.signature === experimentSignature ? trialResult : null
   const visibleBatchResult = batchResult?.signature === batchSignature ? batchResult : null
 
@@ -265,6 +269,7 @@ function App() {
   function launchBatchExperiment() {
     setBatchResult(runBatchExperiments(n, actualP, nullDistribution, criticalValue, batchRuns, batchSignature))
   }
+
   const actualAlphaText = actualAlpha < alpha * 0.8 ? 'Alpha real mas conservador que el nominal.' : 'Alpha real muy cercano al nominal.'
   const sampleSizeText = minimumN === null ? 'No llega al objetivo antes de n = 240.' : `Objetivo de potencia alcanzable desde n = ${minimumN}.`
   const decisionText = criticalValue > n ? 'No hay region de rechazo util.' : `Rechaza H0 con ${criticalValue} o mas caras.`
@@ -315,12 +320,12 @@ function App() {
             <article className="hypothesis-card null">
               <span>H0</span>
               <strong>Moneda de referencia</strong>
-              <p>Representa el mundo en el que no hay un sesgo relevante. Normalmente parte de p = {formatProbability(p0)}.</p>
+              <p>Representa el mundo en el que no hay un sesgo relevante. Parte de p = {formatProbability(p0)}.</p>
             </article>
             <article className="hypothesis-card alt">
               <span>H1</span>
               <strong>Moneda trucada</strong>
-              <p>Representa el mundo en el que la moneda favorece caras. Aqui la probabilidad alternativa es p = {formatProbability(p1)}.</p>
+              <p>Representa el mundo en el que la moneda favorece caras. Aqui la alternativa usa p = {formatProbability(p1)}.</p>
             </article>
           </div>
         </div>
@@ -355,6 +360,61 @@ function App() {
             <span>La decision</span>
             <strong>{decisionText}</strong>
             <p>La region critica depende de alpha. Cuanto mas la abras, mas facil es detectar el sesgo, pero mayor es el riesgo de falso positivo.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="control-room panel">
+        <div className="section-line compact">
+          <p className="section-tag">Panel de laboratorio</p>
+          <h2>Lecturas en tiempo real del experimento</h2>
+        </div>
+        <div className="instrument-grid">
+          <article className="dial-card accent">
+            <div className="dial-shell" style={{ ['--fill' as string]: `${actualAlpha * 360}deg`, ['--dial-color' as string]: '#f9423a' }}>
+              <div className="dial-core">{formatPercent(actualAlpha, 0)}</div>
+            </div>
+            <span>error tipo I</span>
+            <p>Falso positivo si H0 es cierta.</p>
+          </article>
+          <article className="dial-card dark">
+            <div className="dial-shell" style={{ ['--fill' as string]: `${power * 360}deg`, ['--dial-color' as string]: '#1f1a18' }}>
+              <div className="dial-core">{formatPercent(power, 0)}</div>
+            </div>
+            <span>potencia</span>
+            <p>Capacidad para detectar el sesgo.</p>
+          </article>
+          <article className="dial-card pale">
+            <div className="dial-shell" style={{ ['--fill' as string]: `${beta * 360}deg`, ['--dial-color' as string]: '#7d635c' }}>
+              <div className="dial-core">{formatPercent(beta, 0)}</div>
+            </div>
+            <span>error tipo II</span>
+            <p>Cuando el sesgo existe pero no lo ves.</p>
+          </article>
+          <article className="runway-card">
+            <div className="runway-head">
+              <span>pista de decision</span>
+              <strong>{decisionText}</strong>
+            </div>
+            <div className="runway">
+              <div className="runway-zone" style={{ left: `${thresholdPosition}%` }} />
+              <div className="runway-marker h0" style={{ left: `${(expectedHeadsH0 / n) * 100}%` }}>
+                <i />
+                <span>esperado H0</span>
+              </div>
+              <div className="runway-marker h1" style={{ left: `${(expectedHeadsH1 / n) * 100}%` }}>
+                <i />
+                <span>esperado H1</span>
+              </div>
+              <div className="runway-marker real" style={{ left: `${(expectedHeadsReal / n) * 100}%` }}>
+                <i />
+                <span>moneda real</span>
+              </div>
+            </div>
+            <div className="runway-scale">
+              <span>0 caras</span>
+              <span>{n} caras</span>
+            </div>
           </article>
         </div>
       </section>
@@ -466,7 +526,7 @@ function App() {
                         <span className="bar h1-bar" style={{ height: alternativeHeight }} />
                         <span className="bar h0-bar" style={{ height: nullHeight }} />
                       </div>
-                      {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">Ã‚.</span>}
+                      {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">.</span>}
                     </div>
                   )
                 })}
@@ -631,4 +691,3 @@ function App() {
 }
 
 export default App
-

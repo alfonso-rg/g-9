@@ -26,6 +26,7 @@
 .hero-copy,
 .hero-visual,
 .experiment-brief,
+.control-room,
 .control-rail,
 .metrics-board,
 .chart-card,
@@ -71,12 +72,13 @@
 }
 
 .brand-logo {
-  width: 82px;
-  height: 82px;
+  width: 92px;
+  height: 92px;
   object-fit: contain;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.78);
-  padding: 10px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 8px;
+  box-shadow: 0 12px 30px rgba(130, 61, 42, 0.12);
 }
 
 .eyebrow,
@@ -112,7 +114,9 @@
 .result-panel p,
 .rail-note p,
 .brief-intro p,
-.brief-card p {
+.brief-card p,
+.runway-card p,
+.dial-card p {
   color: #715a55;
 }
 
@@ -169,7 +173,10 @@
 .concept-item span,
 .visual-top span,
 .hypothesis-card span,
-.brief-card span {
+.brief-card span,
+.dial-card span,
+.runway-head span,
+.runway-marker span {
   display: block;
 }
 
@@ -179,7 +186,9 @@
 .metric-tile span,
 .result-tag,
 .visual-top span,
-.concept-item span {
+.concept-item span,
+.dial-card span,
+.runway-head span {
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -190,7 +199,9 @@
 .brief-card span,
 .concept-item span,
 .metric-tile span,
-.result-tag {
+.result-tag,
+.dial-card span,
+.runway-head span {
   color: #a62a22;
 }
 
@@ -393,6 +404,142 @@
   border-color: rgba(249, 66, 58, 0.14);
 }
 
+.control-room {
+  margin-bottom: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 246, 0.98), rgba(255, 245, 240, 0.94)),
+    repeating-linear-gradient(90deg, rgba(249, 66, 58, 0.03) 0, rgba(249, 66, 58, 0.03) 1px, transparent 1px, transparent 80px);
+}
+
+.instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(320px, 1.35fr);
+  gap: 16px;
+}
+
+.dial-card,
+.runway-card {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(88, 42, 33, 0.08);
+}
+
+.dial-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.dial-shell {
+  --fill: 180deg;
+  --dial-color: #f9423a;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--dial-color) 0deg var(--fill), rgba(83, 60, 54, 0.12) var(--fill) 360deg);
+}
+
+.dial-core {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fffaf8;
+  color: #221a19;
+  font-weight: 800;
+}
+
+.dial-card.dark {
+  background: linear-gradient(180deg, rgba(32, 24, 23, 0.96), rgba(58, 39, 34, 0.94));
+}
+
+.dial-card.dark span,
+.dial-card.dark p {
+  color: rgba(255, 246, 241, 0.86);
+}
+
+.dial-card.dark .dial-core {
+  background: #201918;
+  color: #fff8f4;
+}
+
+.runway-card {
+  display: grid;
+  gap: 16px;
+}
+
+.runway-head strong {
+  display: block;
+  margin-top: 6px;
+  color: #231b1a;
+  font-size: 1.18rem;
+}
+
+.runway {
+  position: relative;
+  height: 88px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(39, 27, 24, 0.08), rgba(39, 27, 24, 0.03));
+  border: 1px solid rgba(88, 42, 33, 0.08);
+  overflow: hidden;
+}
+
+.runway-zone {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(249, 66, 58, 0.1);
+  border-left: 2px dashed rgba(249, 66, 58, 0.52);
+}
+
+.runway-marker {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.runway-marker i {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+}
+
+.runway-marker span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #5f4a45;
+}
+
+.runway-marker.h0 i {
+  background: #f9423a;
+}
+
+.runway-marker.h1 i {
+  background: #231a18;
+}
+
+.runway-marker.real i {
+  background: #f6b657;
+  box-shadow: 0 0 0 4px rgba(246, 182, 87, 0.2);
+}
+
+.runway-scale {
+  display: flex;
+  justify-content: space-between;
+  color: #7a625c;
+  font-size: 0.82rem;
+}
+
 .main-grid {
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
@@ -478,7 +625,9 @@
 .concept-item p,
 .power-box p,
 .brief-card p,
-.hypothesis-card p {
+.hypothesis-card p,
+.runway-card p,
+.dial-card p {
   margin: 0;
 }
 
@@ -900,7 +1049,8 @@
   .lab-banner,
   .experiment-brief,
   .brief-grid,
-  .hypothesis-stack {
+  .hypothesis-stack,
+  .instrument-grid {
     grid-template-columns: 1fr;
   }
 
@@ -925,6 +1075,7 @@
   .hero-copy,
   .hero-visual,
   .experiment-brief,
+  .control-room,
   .control-rail,
   .metrics-board,
   .chart-card,
