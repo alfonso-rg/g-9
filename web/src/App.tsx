@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 type CoinMode = 'null' | 'alternative' | 'custom'
@@ -206,13 +206,6 @@ function runBatchExperiments(
   }
 }
 
-function getScenarioReading(effectGap: number, power: number) {
-  if (effectGap < 0.1) return 'Sesgo pequeno: la distribucion alternativa se parece mucho a H0.'
-  if (power < 0.7) return 'El sesgo existe, pero el experimento aun tiene poca sensibilidad.'
-  if (power < 0.9) return 'Buen equilibrio: ya se ve separacion entre H0 y H1.'
-  return 'Escenario muy claro: el test distingue bien entre H0 y H1.'
-}
-
 function App() {
   const initialPreset = presets[1]
   const [p0, setP0] = useState(initialPreset.p0)
@@ -227,7 +220,7 @@ function App() {
   const [batchResult, setBatchResult] = useState<BatchResult | null>(null)
 
   const actualP = coinMode === 'null' ? p0 : coinMode === 'alternative' ? p1 : customP
-  const actualCoinLabel = coinMode === 'null' ? 'H0' : coinMode === 'alternative' ? 'H1' : 'Personalizada'
+  const actualCoinLabel = coinMode === 'null' ? 'Moneda H0' : coinMode === 'alternative' ? 'Moneda H1' : 'Moneda personalizada'
   const experimentSignature = [p0, p1, n, alpha, coinMode, customP].join('|')
   const batchSignature = [experimentSignature, batchRuns].join('|')
 
@@ -242,7 +235,6 @@ function App() {
   const powerCurve = buildPowerCurve(p0, p1, alpha, curveStart, curveEnd)
   const chartPeak = Math.max(...nullDistribution, ...alternativeDistribution)
   const tickStep = getTickStep(n)
-  const effectGap = p1 - p0
   const visibleTrialResult = trialResult?.signature === experimentSignature ? trialResult : null
   const visibleBatchResult = batchResult?.signature === batchSignature ? batchResult : null
 
@@ -273,8 +265,6 @@ function App() {
   function launchBatchExperiment() {
     setBatchResult(runBatchExperiments(n, actualP, nullDistribution, criticalValue, batchRuns, batchSignature))
   }
-
-  const scenarioReading = getScenarioReading(effectGap, power)
   const actualAlphaText = actualAlpha < alpha * 0.8 ? 'Alpha real mas conservador que el nominal.' : 'Alpha real muy cercano al nominal.'
   const sampleSizeText = minimumN === null ? 'No llega al objetivo antes de n = 240.' : `Objetivo de potencia alcanzable desde n = ${minimumN}.`
   const decisionText = criticalValue > n ? 'No hay region de rechazo util.' : `Rechaza H0 con ${criticalValue} o mas caras.`
@@ -282,16 +272,16 @@ function App() {
   return (
     <div className="app-shell">
       <header className="hero">
-        <div className="hero-copy">
+        <div className="hero-copy panel">
           <div className="brand-row">
             <img className="brand-logo" src="/umu-logo.png" alt="Universidad de Murcia" />
             <div>
-              <p className="eyebrow">G-9 · Diseno de experimentos</p>
-              <h1>Monedas trucadas, pero una interfaz mas clara</h1>
+              <p className="eyebrow">Universidad de Murcia - G-9</p>
+              <h1>Monedas trucadas para entender un contraste de hipotesis</h1>
             </div>
           </div>
           <p className="hero-text">
-            La pregunta es simple: con este tamano muestral, este alpha y esta diferencia entre H0 y H1, <strong>cuando detectas el sesgo</strong> y <strong>cuando se te escapa</strong>.
+            En esta practica vas a lanzar una moneda muchas veces, comparar una <strong>moneda de referencia</strong> con una <strong>moneda sesgada</strong> y ver como se conectan significatividad, potencia, error tipo I, error tipo II y tamano muestral.
           </p>
           <div className="preset-strip">
             {presets.map((preset) => {
@@ -306,21 +296,68 @@ function App() {
           </div>
         </div>
 
-        <div className="hero-focus">
-          <div className="focus-label">Lectura del escenario</div>
-          <div className="focus-value">{scenarioReading}</div>
-          <div className="focus-band">
-            <div>
-              <span>Brecha H1 - H0</span>
-              <strong>{formatPercent(effectGap, 0)}</strong>
-            </div>
-            <div>
-              <span>Regla critica</span>
-              <strong>{criticalValue > n ? 'Sin rechazo' : `${criticalValue}+ caras`}</strong>
-            </div>
+        <div className="hero-visual panel">
+          <div className="visual-top">
+            <span>Escena del experimento</span>
+            <strong>{actualCoinLabel} - p = {formatProbability(actualP)}</strong>
+          </div>
+
+          <div className="coin-stage" aria-hidden="true">
+            <div className="coin coin-a"><span>C</span></div>
+            <div className="coin coin-b"><span>X</span></div>
+            <div className="coin coin-c"><span>C</span></div>
+            <div className="coin coin-d"><span>X</span></div>
+            <div className="coin-shadow coin-shadow-a" />
+            <div className="coin-shadow coin-shadow-b" />
+          </div>
+
+          <div className="hypothesis-stack">
+            <article className="hypothesis-card null">
+              <span>H0</span>
+              <strong>Moneda de referencia</strong>
+              <p>Representa el mundo en el que no hay un sesgo relevante. Normalmente parte de p = {formatProbability(p0)}.</p>
+            </article>
+            <article className="hypothesis-card alt">
+              <span>H1</span>
+              <strong>Moneda trucada</strong>
+              <p>Representa el mundo en el que la moneda favorece caras. Aqui la probabilidad alternativa es p = {formatProbability(p1)}.</p>
+            </article>
           </div>
         </div>
       </header>
+
+      <section className="experiment-brief panel">
+        <div className="brief-intro">
+          <p className="section-tag">Antes de empezar</p>
+          <h2>Que vamos a hacer y que significan H0 y H1</h2>
+          <p>
+            El experimento consiste en elegir una moneda, lanzarla <strong>n</strong> veces y contar cuantas caras aparecen. Con ese recuento decidimos si los datos son compatibles con la moneda de referencia o si hay evidencia para pensar que la moneda esta sesgada.
+          </p>
+        </div>
+
+        <div className="brief-grid">
+          <article className="brief-card">
+            <span>La situacion</span>
+            <strong>Lanzamos una moneda repetidas veces</strong>
+            <p>La variable observada es el numero de caras. Un resultado extremo hace sospechar que la moneda no se comporta como la de referencia.</p>
+          </article>
+          <article className="brief-card">
+            <span>H0</span>
+            <strong>Hipotesis nula</strong>
+            <p>Asume que usamos la moneda base. En este momento esa moneda tiene probabilidad de cara {formatProbability(p0)}. Si rechazamos H0 por error, cometemos un error tipo I.</p>
+          </article>
+          <article className="brief-card">
+            <span>H1</span>
+            <strong>Hipotesis alternativa</strong>
+            <p>Asume que la moneda esta trucada y favorece caras con probabilidad {formatProbability(p1)}. Si H1 es cierta y no la detectamos, cometemos un error tipo II.</p>
+          </article>
+          <article className="brief-card accent">
+            <span>La decision</span>
+            <strong>{decisionText}</strong>
+            <p>La region critica depende de alpha. Cuanto mas la abras, mas facil es detectar el sesgo, pero mayor es el riesgo de falso positivo.</p>
+          </article>
+        </div>
+      </section>
 
       <main className="main-grid">
         <aside className="control-rail panel">
@@ -429,7 +466,7 @@ function App() {
                         <span className="bar h1-bar" style={{ height: alternativeHeight }} />
                         <span className="bar h0-bar" style={{ height: nullHeight }} />
                       </div>
-                      {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">·</span>}
+                      {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">Ã‚.</span>}
                     </div>
                   )
                 })}
@@ -517,7 +554,7 @@ function App() {
             <div className="lab-banner">
               <div>
                 <span>Moneda real</span>
-                <strong>{actualCoinLabel} · p = {formatProbability(actualP)}</strong>
+                <strong>{actualCoinLabel} - p = {formatProbability(actualP)}</strong>
               </div>
               <div>
                 <span>Experimentos repetidos</span>
@@ -554,7 +591,7 @@ function App() {
                 ) : (
                   <>
                     <h3>Una sola muestra puede enganarte</h3>
-                    <p>Ejecuta un experimento y mira si, por azar, cae dentro o fuera de la region critica.</p>
+                    <p>Ejecuta un experimento y observa si, por azar, entra o no en la region critica.</p>
                   </>
                 )}
               </article>
@@ -580,8 +617,8 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <h3>La teoria se entiende mejor al repetir</h3>
-                    <p>Al repetir muchas veces ves que alpha y potencia no describen una muestra, sino una frecuencia de decisiones.</p>
+                    <h3>Alpha y potencia son frecuencias, no una muestra</h3>
+                    <p>Al repetir muchas veces ves que la teoria describe proporciones de decisiones a largo plazo.</p>
                   </>
                 )}
               </article>
@@ -594,3 +631,4 @@ function App() {
 }
 
 export default App
+
