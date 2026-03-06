@@ -1,0 +1,911 @@
+﻿\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{00B0}{\textdegree}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{---}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+\DeclareUnicodeCharacter{2026}{\ldots{}}
+\usepackage[spanish,es-noshorthands]{babel}
+
+% Definición del color corporativo aproximado para Pantone Warm Red C
+\definecolor{UMWarmRed}{HTML}{F9423A}
+
+% Tema y esquema de colores
+\usetheme{Madrid}
+\usecolortheme{rose} % Usamos un esquema de color que pueda combinarse bien
+
+% Configuración de colores usando el color corporativo
+\setbeamercolor{title}{bg=UMWarmRed, fg=white}
+\setbeamercolor{frametitle}{bg=UMWarmRed, fg=white}
+\setbeamercolor{structure}{fg=UMWarmRed}
+\setbeamercolor{section number projected}{bg=UMWarmRed,fg=white}
+\setbeamercolor{itemize item}{fg=UMWarmRed}
+\setbeamercolor{itemize subitem}{fg=UMWarmRed}
+\setbeamercolor{enumerate item}{fg=UMWarmRed}
+
+\title[DISEÑO DE EXPERIMENTOS]{METODOLOGÍA Y DISEÑO DE EXPERIMENTOS: \\  DISEÑO EXPERIMENTAL}
+\author[Alfonso Rosa García]{Alfonso Rosa García }
+\institute[G9]{\textbf{Grupo de Universidades G-9}}
+
+\date{9 y 11 de marzo de 2026 \\ 10:00--13:00}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\AtBeginSection[] % Comando para hacer algo al inicio de cada sección
+{
+  \begin{frame}{Índice}
+    \tableofcontents[currentsection] % Muestra el índice, enfocando la sección actual
+  \end{frame}
+}
+
+\section{De la observación a la experimentación}
+
+\begin{frame}
+    \frametitle{De la Observación a la Experimentación}
+    \centering
+    \textbf{\Large Una panorámica sobre el desarrollo de la metodología experimental}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Antigua Grecia: Los inicios del pensamiento empírico}
+    \textbf{Filosofía natural y empirismo}
+    \begin{itemize}
+        \item Búsqueda de explicaciones lógicas y racionales a fenómenos naturales, distanciándose de interpretaciones mitológicas.
+        \item Primeras especulaciones sobre el universo, sin experimentación.
+    \end{itemize}
+  
+    \textbf{Aristóteles (384-323 A.C.): Precursor del pensamiento científico}
+    \begin{itemize}
+        \item Enfoque empírico en biología y física a través de observación y clasificación.
+        \item Intentos por comprender la diversidad de la vida y los principios de los fenómenos naturales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{El mundo islámico medieval: Un puente hacia la modernidad}
+    \textbf{Alhazen (Ibn al-Haytham, 965-1040): padre de la óptica moderna}
+    \begin{itemize}
+        \item Métodos precursores del diseño experimental.
+        \item Investigaciones sobre la luz, incluyendo experimentos controlados que demostraban su propagación en líneas rectas y reflexión.
+        \item Énfasis en la importancia de la evidencia empírica y experimentación sobre la especulación.
+    \end{itemize}
+    \end{frame}
+
+\begin{frame}{El Renacimiento: Un cambio hacia el empirismo}
+    \textbf{Transición y transformación}
+    \begin{itemize}
+        \item Época marcada por el renacer en artes, cultura y ciencia.
+        \item Transición de enfoques dogmáticos hacia un enfoque más empírico y racional del conocimiento.
+        \item El conocimiento empieza a basarse en la observación y experiencia directa.
+        \item Influencia del redescubrimiento de textos antiguos y avances en navegación y tecnología.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Galileo y el método científico}
+    \textbf{Galileo Galilei (1564-1642)}
+    \begin{itemize}
+        \item Se le considera una figura clave en la consolidación del método científico experimental.
+        \item Proceso iterativo de observación, formulación de hipótesis, experimentación y análisis.
+        \item Experimentos con planos inclinados y uso del telescopio para observaciones celestes.
+        \item Fundamentos para el control riguroso de variables y la cuantificación sistemática de observaciones.
+        \item Avances tecnológicos permitieron observaciones detalladas y experimentación más precisa.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{James Lind y uno de los primeros ensayos clínicos controlados}
+    \textbf{1747: Experimento contra el Escorbuto}
+    \begin{itemize}
+        \item James Lind prueba seis tratamientos en 12 marineros enfermos a bordo del HMS Salisbury.
+        \item Tratamientos incluyen sidra, elixir vitriol (ácido sulfúrico diluido), vinagre, agua de mar, cítricos, y una mezcla de ajo, mostaza y rábano.
+    \end{itemize}
+    
+    \textbf{Hallazgos Clave}
+    \begin{itemize}
+        \item Solo los cítricos curaron efectivamente el escorbuto, demostrando la importancia de un diseño experimental controlado.
+    \end{itemize}
+
+    \textbf{Adopción Lenta por la Marina Británica}
+    \begin{itemize}
+        \item Resistencia al cambio y limitaciones en la difusión del conocimiento retrasaron la implementación de los hallazgos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{TAREA: El Experimento de James Lind}
+    \textbf{Contexto y Metodología}
+    En 1747, James Lind, un cirujano de la Marina Real Británica, llevó a cabo un experimento innovador para encontrar una cura para el escorbuto, una enfermedad común entre los marineros. Dividió a 12 marineros enfermos en grupos de dos y administró a cada grupo diferentes tratamientos supuestos para el escorbuto. Los tratamientos variaron desde sidra, ácido sulfúrico, vinagre, una mezcla de ajo, mostaza y rábano picante en agua, dos naranjas y un limón, hasta agua de mar.
+
+    \textbf{Resultados y Conclusiones}
+    El grupo que recibió las dos naranjas y un limón mostró una recuperación notable en comparación con los demás. Este resultado llevó a Lind a concluir que los cítricos eran efectivos contra el escorbuto. Sin embargo, a pesar de sus hallazgos, pasaron décadas antes de que la Marina Británica adoptara el uso de cítricos para prevenir el escorbuto entre sus marineros.
+\end{frame}
+
+\begin{frame}{Reflexiones sobre el Experimento de Lind}
+    \textbf{Preguntas para Reflexionar}
+    \begin{enumerate}
+        \item ¿De dónde salían las hipótesis de Lind para los tratamientos del escorbuto? ¿Qué le motivó a considerar específicamente los cítricos como un posible tratamiento?
+        \item ¿En base a qué evidencia aceptó o rechazó Lind los resultados de su experimento? ¿Qué criterios utilizó para determinar la eficacia de los cítricos?
+        \item Considerando la muestra de solo 12 marineros, divididos en grupos de dos para diferentes tratamientos, ¿era esta muestra lo suficientemente grande para obtener resultados concluyentes? ¿Por qué sí o por qué no?
+        \item Dada la dificultad de transportar limones, Lind aparte del uso de fruta fresca recomendó como alternativa hacer un condensado de limón diluyendo zumo en agua hirviendo durante horas. Esto resultó ineficaz para tratar el escorbuto. Reflexiona sobre por qué recomendó esto.
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Siglos XVIII y XIX}
+    \textbf{Era de la razón y el análisis crítico}
+    \begin{itemize}
+        \item Promoción del escepticismo sobre tradiciones y dogmas, favoreciendo la observación directa y la experimentación controlada.
+    \end{itemize}
+    
+    \textbf{Desarrollo de instrumentos científicos}
+    \begin{itemize}
+        \item Mejoras en microscopios, balanzas, termómetros y barómetros permitieron mediciones más precisas y detalladas.
+        \item Facilitación de experimentos más controlados y replicables, expandiendo los horizontes de la investigación experimental.
+    \end{itemize}
+    
+    \textbf{Institucionalización de la ciencia}
+    \begin{itemize}
+        \item Fundación de sociedades científicas y la publicación de resultados en revistas científicas promovieron el intercambio de conocimientos y establecieron normas para la validación de descubrimientos científicos.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{El desarrollo de la estadística}
+    \textbf{Gauss (1777-1855), Legendre (1752-1833) y la teoría de errores}
+    \begin{itemize}
+        \item Interés creciente en medir precisión de observaciones y experimentos.
+        \item Métodos para estimar errores y ajustar observaciones, conduciendo a la metodología de los mínimos cuadrados.
+    \end{itemize}
+    
+    \textbf{Innovaciones de Francis Galton (1822-1911)}
+    \begin{itemize}
+        \item Investigación sobre variabilidad y herencia en humanos, introduciendo conceptos como regresión y correlación.
+        \item Aportes clave a los conceptos de regresión y correlación, y a la aplicación estadística al estudio de la variabilidad biológica.
+    \end{itemize}
+    
+    \textbf{La Influencia de Karl Pearson (1857-1936)}
+    \begin{itemize}
+        \item Funda el primer departamento universitario de estadística.
+        \item Coeficiente de Pearson y distribución $\chi^2$ (chi-cuadrado).
+    \end{itemize}
+\end{frame}
+
+% Diapositiva condensada sobre el contexto del Instituto Rothamsted antes de Fisher
+\begin{frame}
+\frametitle{El diseño de experimentos moderno: Ronald Fisher}
+    \begin{itemize}
+        \item El Instituto Rothamsted, instituto de investigación británico pionero en investigaciones agrícolas fundado en 1843, se enfrentaba a la limitación de métodos estadísticos rudimentarios para analizar datos complejos de sus experimentos.
+        \item En 1919 Fisher fue incorporado por ser un experto en estadística, con el objetivo de mejorar la interpretación de los datos experimentales y las prácticas de investigación agrícola.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ronald A. Fisher: Innovaciones en el diseño experimental}
+    \textbf{Conceptos clave introducidos por Fisher:}
+    \begin{itemize}
+        \item \textbf{Aleatorización:} Fundamento para la validez interna, evita sesgos al asignar tratamientos al azar.
+        \item \textbf{Replicación:} Esencial para asegurar la reproducibilidad de los resultados. Fisher argumentó que múltiples observaciones bajo condiciones experimentales idénticas son cruciales para estimar la variabilidad natural y los errores experimentales.
+        \item \textbf{Diseño de bloques:} Permite controlar variaciones no aleatorias agrupando unidades experimentales similares. Este enfoque mejora la precisión al reducir el ruido de factores no controlados.
+    \end{itemize}
+
+\end{frame}
+
+% Diapositiva sobre el legado de Fisher
+\begin{frame}
+\frametitle{El Legado de Fisher en el Diseño Experimental}
+    \textbf{Análisis de varianza (ANOVA):}
+    \begin{itemize}
+        \item Fisher desarrolló el ANOVA para descomponer observaciones en componentes atribuibles a diferentes fuentes de variación.
+        \item Permitió comparaciones múltiples entre grupos y fue fundamental para interpretar experimentos complejos.
+    \end{itemize}
+    
+    Estos avances no solo optimizaron el análisis de experimentos agrícolas sino que también sentaron las bases metodológicas para la investigación en numerosas ciencias.
+\end{frame}
+
+\begin{frame}{Expansión y aplicaciones del diseño experimental}
+    \textbf{Desarrollos subsiguientes}
+    \begin{itemize}
+        \item Diseños factoriales completos y fraccionarios por Frank Yates.
+         \item Avances en todos los ámbitos científicos, tanto de las ciencias naturales como de las ciencias sociales.
+    \end{itemize}
+    \textbf{Transformación por la tecnología computacional}
+    \begin{itemize}
+        \item Ampliación de las capacidades del diseño experimental.
+        \item Diseño de experimentos complejos y análisis de grandes volúmenes de datos.
+        \item Software estadístico sofisticado accesible a una audiencia más amplia.
+        \item Facilitación de técnicas avanzadas de diseño experimental.
+    \end{itemize}
+\end{frame}
+
+
+\section{Principios del diseño experimental}
+\begin{frame}
+    \frametitle{Principios del diseño experimental}
+    \centering
+    \textbf{\Large Fundamentos y Componentes Clave}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Principios Básicos del Diseño experimental}
+
+\textbf{Objetivo del diseño experimental}
+\begin{itemize}
+    \item El objetivo básico del diseño experimental es establecer relaciones causales claras y fiables entre variables.
+    \item Para ello, debe asegurarse de que cualquier cambio en la variable dependiente se deba exclusivamente a manipulaciones de la variable independiente, y no a factores externos o al azar.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Etapas en la realización de un experimento}
+\begin{enumerate}
+    \item \textbf{Definir el problema de investigación}
+    \begin{itemize}
+        \item Identificar la pregunta clave que se quiere responder.
+        \item Delimitar el alcance y los objetivos del estudio.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Realizar una revisión bibliográfica}
+    \begin{itemize}
+        \item Analizar estudios previos relacionados.
+        \item Identificar lagunas en el conocimiento existente.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Formular hipótesis y objetivos}
+    \begin{itemize}
+        \item Establecer predicciones basadas en la teoría.
+        \item Definir objetivos específicos y medibles.
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Etapas en la realización de un experimento}
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{Seleccionar el diseño experimental adecuado}
+    \begin{itemize}
+        \item Decidir entre diseños experimentales, cuasi-experimentales, etc.
+        \item Considerar variables independientes y dependientes.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Planificar la recolección y análisis de datos}
+    \begin{itemize}
+        \item Elegir métodos de recolección de datos fiables.
+        \item Determinar técnicas estadísticas para el análisis.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Consideraciones éticas y logísticas}
+    \begin{itemize}
+        \item Obtener aprobaciones éticas necesarias.
+        \item Planificar recursos y cronograma del experimento.
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Principios del Diseño Experimental}
+El diseño experimental consiste en planificar de forma estructurada un experimento para examinar relaciones de causa-efecto. Para que un diseño sea sólido, se deben cumplir varios principios básicos:
+\begin{itemize}
+    \item \textbf{Validez interna}
+    \item \textbf{Validez externa}
+    \item \textbf{Replicabilidad}
+    \item \textbf{Control de variables}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Validez Interna}
+\textbf{Definición:} Se refiere al grado en que los cambios observados en la variable dependiente se deben únicamente a la manipulación de la variable independiente.
+\begin{itemize}
+    \item Permite establecer relaciones causales confiables.
+    \item Ejemplo: En un ensayo clínico, garantizar que las diferencias en la salud se deben al medicamento y no a factores externos.
+    \item Estrategias: Control riguroso de variables extrañas mediante técnicas como la aleatorización y el uso de grupos de control.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Validez Externa}
+\textbf{Definición:} Indica en qué medida los resultados del experimento pueden generalizarse a otras personas, situaciones o contextos.
+\begin{itemize}
+    \item Depende de la representatividad de la muestra y el realismo de las condiciones experimentales.
+    \item Existe una tensión: experimentos con alta validez interna (muy controlados) pueden tener menor validez externa.
+    \item Ejemplo: Un estudio en laboratorio controlado podría no reproducir las condiciones del mundo real.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Replicabilidad}
+\textbf{Definición:} Repetición de un experimento bajo las mismas condiciones para verificar resultados. Confirma la fiabilidad y validez de los hallazgos.
+
+\textbf{Tipos de Replicación:}
+\begin{itemize}
+    \item \textit{Replicación interna:} Con el mismo equipo de investigación.
+    \item \textit{Replicación externa:} Con diferentes equipos de investigación, ubicaciones o poblaciones.
+\end{itemize}
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Verificación de resultados:} Asegura que hallazgos no son por azar.
+    \item \textit{Generalización de los hallazgos:} Confirma que los resultados se aplican a diferentes  poblaciones.
+    \item \textit{Refuerzo del conocimiento científico:} La acumulación de evidencia es clave para  desarrollo de teorías sólidas.
+\end{itemize}
+
+\textbf{Desafíos:}
+\begin{itemize}
+    \item Difícil lograr condiciones exactamente idénticas.
+    \item La replicación externa puede ser costosa.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Control de Variables}
+\textbf{Objetivo:} Minimizar la influencia de factores extraños para aislar el efecto de la variable independiente.
+\begin{itemize}
+    \item \textbf{Aleatorización:} Asignación aleatoria de sujetos a grupos para equilibrar características individuales.
+    \item \textbf{Bloqueo:} Mantener constantes ciertas condiciones (ejemplo: realizar todas las pruebas a la misma hora).
+    \item \textbf{Control estadístico:} Uso de métodos estadísticos para ajustar el efecto de variables extrañas.
+    \item \textbf{Grupos de control:} Incluir condiciones sin intervención para establecer un baseline.
+    \item \textbf{Enmascaramiento o cegamiento:} Permite aislar los efectos de las expectativas o sesgos del investigador o participantes.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Aleatorización}
+\textbf{Definición:} Proceso de asignar tratamientos a unidades experimentales de manera aleatoria. Crucial para reducir  sesgo y garantizar que los grupos son comparables en todos los aspectos.
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Equilibrio de grupos:} Asegura que diferencias observadas son resultado del tratamiento y no de diferencias preexistentes.
+    \item \textit{Control de variables confusas:} Equilibra variables y desconocidas.
+    \item \textit{Base para inferencias estadísticas:} Permite la aplicación legítima de pruebas estadísticas.
+\end{itemize}
+
+\textbf{Implementación:}
+\begin{itemize}
+    \item Generación de secuencias aleatorias.
+    \item Asignación ciega o doble ciega.
+\end{itemize}
+
+\textbf{Ejemplo:} En la eficacia de un nuevo medicamento, los participantes son asignados aleatoriamente a medicamento o placebo, así cualquier diferencia en los resultados se debe al medicamento y no a otras variables.
+\end{frame}
+
+\begin{frame}
+\frametitle{Bloqueo}
+\textbf{Definición:} Técnica que agrupa unidades experimentales similares en características que se espera afecten la respuesta. La aleatorización se aplica dentro de estos bloques.
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Control de variabilidad:} Mejora la precisión de las estimaciones del efecto del tratamiento al controlar la variabilidad entre bloques.
+    \item \textit{Aumento de la eficiencia estadística:} Permite una comparación más efectiva entre tratamientos minimizando el ruido de fondo.
+\end{itemize}
+
+\textbf{Aplicación:}
+\begin{itemize}
+    \item Identificación de variables que puedan influir y agrupación basada en estas variables antes del tratamiento.
+    \item Por ejemplo, en la agricultura, los bloques pueden definirse por características del suelo.
+\end{itemize}
+
+\textbf{Consideraciones:}
+\begin{itemize}
+    \item Elección incorrecta de bloques puede aumentar la variabilidad.
+    \item Esencial definir los criterios antes de iniciar el experimento.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Resumen de Principios del Diseño Experimental}
+\begin{block}{Aspectos clave}
+\begin{itemize}
+    \item \textbf{Validez interna:} Asegura una relación causal directa mediante control riguroso.
+    \item \textbf{Validez externa:} Permite la generalización de los resultados a contextos reales.
+    \item \textbf{Replicabilidad:} Garantiza que otros puedan reproducir el estudio y confirmar los hallazgos.
+    \item \textbf{Control de variables:} Minimiza la influencia de factores confusores, aislando el efecto de la variable independiente.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Importancia del experimento piloto}
+\textbf{Definición y Propósito}
+
+\begin{itemize}
+    \item Un experimento piloto es un estudio preliminar diseñado para probar la viabilidad y metodología de un experimento principal.
+    \item Ayuda a identificar posibles problemas y ajustar el diseño antes de la implementación a gran escala.
+\end{itemize}
+
+\textbf{Ventajas clave}
+
+\begin{itemize}
+    \item \textbf{Identificación de problemas:} Revela desafíos inesperados en la recopilación de datos o en el diseño experimental.
+    \item \textbf{Ajuste de métodos:} Permite refinar procedimientos, herramientas de medición y técnicas de análisis de datos.
+    \item \textbf{Estimación del Error experimental:} Proporciona datos preliminares para estimar la variabilidad y el tamaño de muestra necesario.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo de un experimento piloto}
+\textbf{Ejemplo concreto: Estudio preliminar sobre pánicos bancarios en bancos experimentales grandes}
+\begin{itemize}
+    \item \textbf{Contexto:} Se desea comprobar si la información de otros depositantes afecta a las decisiones de retirar el dinero, dependiendo del tamaño del banco.
+    \item \textbf{Implementación del Piloto:} Se realizó un experimento piloto con 20 individuos, en un banco de tamaño mediano, identificando los tiempos de espera para obtener la información y cómo procesar las decisiones.
+    \item \textbf{Impacto:} Los ajustes realizados como resultado del piloto permitieron una gestión eficaz del experimento definitivo con 1500 individuos.
+\end{itemize}
+\end{frame}
+
+\section{Tipos de experimentos}
+\begin{frame}
+    \frametitle{Tipos de Experimentos}
+    \centering
+    \textbf{\Large Tipos de experimentos}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Experimentos Exploratorios vs. Confirmatorios}
+\textbf{Diferenciación clave en la investigación experimental}
+\begin{itemize}
+    \item \textbf{Experimentos exploratorios:}
+    \begin{itemize}
+        \item Investigaciones iniciales sobre relaciones o fenómenos poco conocidos.
+        \item Se busca generar ideas, hipótesis y direcciones futuras de investigación.
+        \item Comúnmente realizados en etapas tempranas de un proyecto.
+    \end{itemize}
+    \item \textbf{Experimentos confirmatorios:}
+    \begin{itemize}
+        \item Realizados para evaluar hipótesis específicas y teorías establecidas.
+        \item Buscan confirmar o refutar relaciones causales con evidencia sólida.
+        \item Se basan en conocimientos previos y una cuidadosa planificación del diseño.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Importancia de la distinción}
+\begin{itemize}
+    \item Determina el enfoque y las expectativas del experimento.
+    \item Impacta la interpretación de los resultados y las inferencias realizadas.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Introducción a los Tipos de experimentos}
+    \textbf{Clasificación Principal}
+    \begin{itemize}
+        \item Experimentos controlados.
+        \item Cuasiexperimentos.
+        \item Experimentos naturales.
+    \end{itemize}
+    Cada tipo se adapta a necesidades específicas de investigación, con métodos diseñados para entornos y objetivos particulares.
+\end{frame}
+
+\begin{frame}{Experimentos Controlados}
+    \textbf{La forma más rigurosa de investigación experimental}
+    \begin{itemize}
+        \item Manipulación de variables independientes para observar efectos en variables dependientes.
+        \item Control riguroso de variables extrañas para asegurar cambios observados debido a la manipulación intencionada.
+    \end{itemize}
+
+    \textbf{Características Clave}
+    \begin{itemize}
+        \item Manipulación y control de variables.
+        \item Asignación aleatoria para minimizar sesgos.
+    \end{itemize}
+
+    Realizados en laboratorios y entornos de campo, fundamentales en ciencias naturales y sociales.
+\end{frame}
+
+\begin{frame}{El estándar oro para establecer causalidad: Los Experimentos Controlados Aleatorizados}
+    \begin{itemize}
+        \item \textbf{Experimentos Controlados Aleatorizados (RCTs):} Considerados el estándar de oro para identificar relaciones causales.
+        \item \textbf{Principales características de los RCTs:}
+            \begin{itemize}
+                \item \textbf{Manipulación directa de variables:} Permite observar efectos específicos de la variable.
+                \item \textbf{Asignación aleatoria:} Minimiza sesgos y asegura que los grupos sean comparables.
+                \item \textbf{Control de condiciones:} Asegura que cualquier diferencia en los resultados se debe al tratamiento.
+            \end{itemize}
+        \item \textbf{Conclusión:} Los RCTs son el método más riguroso para obtener evidencia de causalidad, siendo por ello considerados el "estándar oro".
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Distinción entre diseños experimentales estándard}
+    \textbf{Diseños completamente aleatorizados (simple):}
+    \begin{itemize}
+        \item Las unidades experimentales (sujetos o elementos de estudio) se asignan aleatoriamente a diferentes tratamientos o condiciones. 
+        \item Cada unidad tiene la misma probabilidad de ser asignada a cualquier tratamiento, permitiendo inferencias causales más robustas.
+    \end{itemize}
+
+    \textbf{Diseños en bloques:}
+    \begin{itemize}
+        \item Antes de la asignación a tratamientos, las unidades experimentales se agrupan  por un factor que afecta la variable de respuesta.
+        \item Se reduce la variabilidad dentro de los tratamientos, mejorando la precisión de las estimaciones del efecto del tratamiento.
+    \end{itemize}
+
+    \textbf{Diseños factoriales:}
+    \begin{itemize}
+        \item Dos o más factores experimentales (variables independientes), examinando efectos principales de cada factor y sus interaccioness.
+        \item Evaluación más eficiente y completa de cómo diferentes factores y sus combinaciones afectan la variable de respuesta, optimizando recursos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipología de Experimentos Controlados - Asignación de sujetos y Tiempo de medición}
+    \textbf{Asignación de Sujetos:}
+    \begin{itemize}
+        \item \textbf{Grupos independientes ("between subjects"):} Asignación a un solo grupo de tratamiento o control. Requiere más participantes para validez estadística.
+        \item \textbf{Medidas repetidas ("within subjects"):} Participantes expuestos a todas las condiciones, reduce variaciones pero puede introducir efectos de orden.
+    \end{itemize}
+
+    \textbf{Tiempo de medición:}
+    \begin{itemize}
+        \item \textbf{Longitudinales:} Mediciones múltiples a lo largo del tiempo para observar cambios o tendencias.
+        \item \textbf{Transversales:} Mediciones en un único punto en el tiempo, más sencillo pero limitado en capturar dinámica de cambio.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cuasiexperimentos}
+    \textbf{Similares a Experimentos Controlados pero sin Asignación Aleatoria}
+    \begin{itemize}
+        \item Manipulación de una variable independiente para estudiar efectos en una dependiente.
+        \item Grupos formados por condiciones o características preexistentes.
+    \end{itemize}
+
+    \textbf{Limitaciones}
+    \begin{itemize}
+        \item Mayor riesgo de sesgo y variables confusas debido a la falta de asignación aleatoria.
+        \item Dificultad para afirmar causalidad con la misma confianza que en experimentos controlados.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Experimentos Naturales}
+    \textbf{Observación de efectos de variaciones naturales}
+    \begin{itemize}
+        \item El investigador no manipula directamente la variable independiente.
+        \item Aprovechamiento de eventos o políticas existentes para estudiar efectos sobre poblaciones.
+    \end{itemize}
+
+    \textbf{Desafíos}
+    \begin{itemize}
+        \item Control limitado sobre variables, dificultando la interpretación de resultados.
+        \item Percepciones valiosas en entornos reales pero con limitaciones para inferir causalidad.
+    \end{itemize}
+\end{frame}
+
+
+\section{Ejemplos de diseños experimentales}
+\begin{frame}
+    \frametitle{Ejemplos de Diseños}
+    \centering
+    \textbf{\Large Experimentos en Distintas Disciplinas}
+    \vspace{0.5cm}
+\end{frame}
+
+
+% Diapositiva 1: Título, Problema, Objetivos e Hipótesis
+\begin{frame}{Ejemplo en Biomedicina: Ensayo Clínico Controlado}
+  
+  \textbf{Problema de Investigación:}\\
+  ¿Es eficaz un nuevo fármaco en la reducción de la presión arterial en pacientes hipertensos?\\[3mm]
+  
+  \textbf{Objetivos:}
+  \begin{itemize}
+      \item Evaluar el efecto del nuevo fármaco en la disminución de la presión arterial.
+      \item Determinar si el fármaco presenta un perfil de seguridad adecuado en su uso.
+  \end{itemize}
+  
+  \textbf{Hipótesis:}\\
+  Los pacientes tratados con el nuevo fármaco mostrarán una reducción significativa en la presión arterial y presentarán menos efectos adversos, en comparación con aquellos que reciben placebo.
+\end{frame}
+
+% Diapositiva 2: Diseño Experimental
+\begin{frame}{Diseño Experimental: Ensayo clínico}
+  \begin{itemize}
+      \item \textbf{Tipo de Diseño:} Experimento controlado aleatorizado.
+      \item \textbf{Muestra:} 200 pacientes diagnosticados de hipertensión, seleccionados de clínicas especializadas.
+      \item \textbf{Asignación Aleatoria:} 100 pacientes en el grupo experimental (nuevo fármaco) y 100 en el grupo control (placebo).
+      \item \textbf{Control de Variables Extrañas:}
+      \begin{itemize}
+          \item Registro de variables basales como edad, sexo, peso, y hábitos de vida.
+          \item Estandarización del protocolo de tratamiento y seguimiento clínico.
+          \item Uso de criterios de inclusión y exclusión estrictos para homogeneizar la muestra.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Procedimiento, Consideraciones Éticas y Resultados Esperados
+\begin{frame}{Procedimiento: Ensayo Clínico}
+  \textbf{Procedimiento:}
+  \begin{enumerate}
+      \item \textbf{Evaluación Inicial:} Registro de la presión arterial y otros parámetros clínicos en una visita de pre-evaluación.
+      \item \textbf{Intervención:}
+      \begin{itemize}
+          \item \textbf{Grupo Experimental:} Administración del nuevo fármaco durante 12 semanas.
+          \item \textbf{Grupo Control:} Administración de un placebo idéntico en apariencia durante 12 semanas.
+      \end{itemize}
+      \item \textbf{Evaluación Final:} Medición de la presión arterial y evaluación de eventos adversos al finalizar el tratamiento.
+  \end{enumerate}
+  
+  \vspace{2mm}
+  \textbf{Consideraciones Éticas:}
+  \begin{itemize}
+      \item Obtención del consentimiento informado de todos los pacientes.
+      \item Aprobación del protocolo por un comité de ética en investigación.
+      \item Garantía de confidencialidad y derecho a abandonar el estudio sin consecuencias.
+  \end{itemize}
+  
+\end{frame}
+
+
+% Diapositiva 1: Título, Problema, Objetivos e Hipótesis
+\begin{frame}{Ejemplo en Economía: Intervención en Microfinanzas}
+  
+  \textbf{Problema de Investigación:}\\
+  ¿La educación financiera mejora el comportamiento de ahorro y la inversión en familias de zonas rurales?\\[3mm]
+  
+  \textbf{Objetivos:}
+  \begin{itemize}
+      \item Evaluar el impacto de la educación financiera en el comportamiento de ahorro y la inversión.
+      \item Determinar si la capacitación fomenta la creación de pequeños negocios y mejora la gestión financiera.
+  \end{itemize}
+  
+  \textbf{Hipótesis:}\\
+  Las familias que participan en programas de educación financiera mostrarán un incremento significativo en su nivel de ahorro, mayor inversión en pequeños negocios y una mejor gestión financiera.
+\end{frame}
+
+% Diapositiva 2: Diseño Experimental
+\begin{frame}{Diseño Experimental: Intervención en Microfinanzas}
+  \begin{itemize}
+      \item \textbf{Tipo de Diseño:} Experimento controlado aleatorizado.
+      \item \textbf{Muestra:} 120 familias de zonas rurales, seleccionadas de diferentes comunidades.
+      \item \textbf{Asignación Aleatoria:} 60 familias al grupo experimental (reciben educación financiera) y 60 al grupo control (sin intervención).
+      \item \textbf{Control de Variables Extrañas:}
+      \begin{itemize}
+          \item Registro de variables socioeconómicas y demográficas (ingresos, nivel educativo, tamaño familiar).
+          \item Evaluación del comportamiento financiero y nivel de ahorro inicial mediante un pre-test.
+          \item Estandarización del contenido y duración de la capacitación para el grupo experimental.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Procedimiento, Consideraciones Éticas y Resultados Esperados
+\begin{frame}{Procedimiento: Intervención en Microfinanzas}
+  \textbf{Procedimiento:}
+  \begin{enumerate}
+      \item \textbf{Pre-test:} Realización de una encuesta para medir el nivel de ahorro, inversión y comportamiento financiero de las familias antes de la intervención.
+      \item \textbf{Intervención:}
+      \begin{itemize}
+          \item \textbf{Grupo Experimental:} Participación en talleres y sesiones de capacitación en educación financiera durante 6 meses.
+          \item \textbf{Grupo Control:} No reciben intervención o información mínima estándar.
+      \end{itemize}
+      \item \textbf{Post-test:} Encuestas de seguimiento a los 6 y 12 meses para evaluar cambios en el comportamiento financiero y en los niveles de ahorro.
+      \item \textbf{Replicación:} Posibilidad de repetir el estudio en diferentes regiones para confirmar la consistencia de los resultados.
+  \end{enumerate}
+  
+  \vspace{2mm}
+  \textbf{Consideraciones Éticas:}
+  \begin{itemize}
+      \item Obtención de consentimiento informado de todas las familias.
+      \item Garantía de confidencialidad y anonimato en el manejo de datos.
+      \item Derecho a retirarse del estudio sin repercusiones.
+  \end{itemize}
+  
+\end{frame}
+
+
+% Diapositiva 1: Título, Problema, Objetivos e Hipótesis
+\begin{frame}{Ejemplo en Humanidades:  Estilo de Narración y Percepción Moral}
+  \textbf{Problema de Investigación:}\\
+  ¿Cómo afecta el estilo de narración (por ejemplo, narrativa en primera persona versus tercera persona) en la percepción de la moralidad de los personajes y eventos en cuentos populares?\\[3mm]
+  
+  \textbf{Objetivos:}
+  \begin{itemize}
+      \item Analizar el impacto del estilo narrativo en la interpretación moral de un cuento.
+      \item Determinar si ciertos estilos de narración potencian una mayor identificación y empatía con los valores morales presentados.
+  \end{itemize}
+  
+  \textbf{Hipótesis:}\\
+  Los oyentes expuestos a un estilo de narración en primera persona identificarán y valorarán de forma más intensa los elementos morales del cuento, en comparación con aquellos que escuchan una narración en tercera persona.
+\end{frame}
+
+% Diapositiva 2: Diseño Experimental
+\begin{frame}{Diseño Experimental: Estilo de Narración y Percepción Moral}
+  \begin{itemize}
+      \item \textbf{Tipo de Diseño:} Experimento controlado aleatorizado.
+      \item \textbf{Muestra:} 60 participantes adultos, reclutados de diversos contextos culturales.
+      \item \textbf{Asignación Aleatoria:} 30 participantes en el grupo experimental (narración en primera persona) y 30 en el grupo control (narración en tercera persona).
+      \item \textbf{Control de Variables Extrañas:}
+      \begin{itemize}
+          \item Uso de un mismo cuento popular con contenido moral homogéneo.
+          \item Estandarización en la duración y entonación de la narración, salvo el cambio en la perspectiva narrativa.
+          \item Pre-test para medir actitudes morales previas y homogeneizar la muestra.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Procedimiento, Consideraciones Éticas y Resultados Esperados
+\begin{frame}{Procedimiento: Estilo de Narración y Percepción Moral}
+  \textbf{Procedimiento:}
+  \begin{enumerate}
+      \item \textbf{Pre-test:} Aplicación de un cuestionario para evaluar las actitudes morales iniciales de los participantes.
+      \item \textbf{Intervención:}
+      \begin{itemize}
+          \item \textbf{Grupo Experimental:} Escucha de la narración del cuento en primera persona.
+          \item \textbf{Grupo Control:} Escucha de la misma historia narrada en tercera persona.
+      \end{itemize}
+      \item \textbf{Post-test:} Reaplicación del cuestionario para identificar cambios en la percepción de los elementos morales del cuento.
+      \item \textbf{Replicación:} Considerar la realización del experimento con distintos cuentos populares para confirmar la generalidad de los resultados.
+  \end{enumerate}
+  
+  \vspace{2mm}
+  \textbf{Consideraciones Éticas:}
+  \begin{itemize}
+      \item Obtención de consentimiento informado de todos los participantes.
+      \item Garantía de confidencialidad y anonimato en el manejo de los datos.
+      \item Posibilidad de retirarse del estudio en cualquier momento sin consecuencias.
+  \end{itemize}
+
+\end{frame}
+
+% Diapositiva 1: Título, Problema, Objetivos e Hipótesis
+\begin{frame}{Ejemplo en Ciencias Naturales: Conductividad Eléctrica en Soluciones Electrolíticas}
+  \textbf{Problema de Investigación:}\\
+  ¿Cómo influye la concentración de una solución electrolítica en su conductividad eléctrica, bajo condiciones controladas de temperatura?\\[3mm]
+  
+  \textbf{Objetivos:}
+  \begin{itemize}
+      \item Evaluar la relación entre la concentración de iones y la conductividad eléctrica de la solución.
+      \item Determinar si la relación presenta un comportamiento lineal en el rango estudiado.
+      \item Analizar el efecto de la temperatura en la medición de la conductividad.
+  \end{itemize}
+  
+  \textbf{Hipótesis:}\\
+  La conductividad eléctrica de una solución electrolítica aumenta de forma lineal con la concentración de iones, manteniéndose dentro de un rango determinado a temperatura constante.
+\end{frame}
+
+% Diapositiva 2: Diseño Experimental
+\begin{frame}{Diseño Experimental: Conductividad en Soluciones Electrolíticas}
+  \begin{itemize}
+      \item \textbf{Tipo de Diseño:} Experimento controlado.
+      \item \textbf{Muestra:} Soluciones preparadas con diferentes concentraciones (por ejemplo, 0.1 M, 0.2 M, 0.3 M, 0.4 M y 0.5 M) de un electrolito (como NaCl).
+      \item \textbf{Asignación:} Cada solución constituye un tratamiento; se realizarán tres réplicas por concentración.
+      \item \textbf{Control de Variables Extrañas:}
+      \begin{itemize}
+          \item Mantener la temperatura constante (por ejemplo, a 25°C) durante todas las mediciones.
+          \item Uso del mismo tipo de conductímetro y celdas de medición para todas las pruebas.
+          \item Preparación estandarizada de las soluciones para garantizar homogeneidad.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Procedimiento, Consideraciones y Resultados Esperados
+\begin{frame}{Procedimiento: Conductividad Eléctrica}
+  \textbf{Procedimiento:}
+  \begin{enumerate}
+      \item \textbf{Preparación:} Elaborar soluciones de NaCl con las concentraciones especificadas, asegurándose de que cada solución esté bien disuelta y homogeneizada.
+      \item \textbf{Medición:} Utilizar un conductímetro calibrado para medir la conductividad eléctrica de cada solución, realizando tres mediciones independientes por concentración.
+      \item \textbf{Control:} Realizar las mediciones en una cámara termostática para mantener la temperatura en 25°C.
+      \item \textbf{Análisis:} Registrar y promediar los resultados, y analizar la relación entre la concentración y la conductividad mediante gráficos y regresión lineal.
+  \end{enumerate}
+  
+  \vspace{2mm}
+  \textbf{Consideraciones Éticas:}
+  \begin{itemize}
+      \item Verificación de condiciones de seguridad durante la realización del experimento.
+  \end{itemize}
+  
+\end{frame}
+
+% Diapositiva 1: Título, Problema, Objetivos e Hipótesis
+\begin{frame}{Ejemplo en Ciencias Sociales: Evaluación de Métodos de Enseñanza}
+  
+  \textbf{Problema de Investigación:}\\
+  ¿El uso de tabletas interactivas en clases de matemáticas mejora el rendimiento académico?\\[3mm]
+  
+  \textbf{Objetivos:}
+  \begin{itemize}
+      \item Evaluar el efecto de la integración de tabletas interactivas en el aprendizaje.
+      \item Determinar si la tecnología digital favorece la asimilación de conceptos matemáticos.
+  \end{itemize}
+  
+  \textbf{Hipótesis:}\\
+  Los estudiantes que usan tabletas interactivas obtendrán puntuaciones significativamente superiores en exámenes y tareas frente a los que reciben enseñanza tradicional.
+\end{frame}
+
+% Diapositiva 2: Diseño Experimental (manteniendo el contenido de la diapositiva 5 original)
+\begin{frame}{Diseño Experimental: Evaluación de Métodos de Enseñanza}
+  \begin{itemize}
+      \item \textbf{Tipo de Diseño:} Cuasiexperimento.
+      \item \textbf{Muestra:} 100 estudiantes de secundaria, de cuatro clases equivalentes.
+      \item \textbf{Asignación Aleatoria:} 2 grupos al grupo experimental (uso de tabletas en casa) y 2 grupos al grupo control (método tradicional en casa).
+      \item \textbf{Control de Variables Extrañas:}
+      \begin{itemize}
+          \item Pre-test para medir el nivel inicial.
+          \item Control del ambiente del aula, duración de clases y contenido impartido.
+          \item Uso de bloqueo en caso de diferencias significativas en el pre-test.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Procedimiento, Análisis, Consideraciones Éticas y Resultados Esperados
+\begin{frame}{Procedimiento: Evaluación de Métodos de Enseñanza}
+  \textbf{Procedimiento:}
+  \begin{enumerate}
+      \item \textbf{Pre-test:} Evaluación diagnóstica inicial para establecer el nivel base.
+      \item \textbf{Intervención:}
+      \begin{itemize}
+          \item Grupo Experimental: Uso de tabletas con aplicaciones interactivas durante 8 semanas.
+          \item Grupo Control: Clases tradicionales (pizarra y ejercicios en papel) durante 8 semanas.
+      \end{itemize}
+      \item \textbf{Post-test:} Evaluación similar al pre-test para medir el aprendizaje.
+      \item \textbf{Replicación:} Repetición en diferentes aulas o cursos para confirmar los resultados.
+  \end{enumerate}
+  
+  \vspace{2mm}
+  \textbf{Consideraciones Éticas:}
+  \begin{itemize}
+      \item Consentimiento informado de estudiantes y padres/tutores.
+      \item Confidencialidad y anonimización de datos.
+      \item Derecho a retirarse sin repercusiones.
+  \end{itemize}
+ 
+\end{frame}
+
+
+
+
+\begin{frame}{Tarea: Creación de un diseño experimental básico}
+    \textbf{Objetivo:} Aplicar los principios básicos del diseño experimental para investigar un problema.\\[10pt]
+    
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \textbf{Instrucciones:}
+            \begin{enumerate}
+                \item Formar grupos de 4-5 estudiantes.
+                \item Identificar un problema simple para investigar que interese a todos.
+                \item Formular una hipótesis basada en observaciones o literatura previa.
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{enumerate}
+                \setcounter{enumi}{3}
+                \item Esbozar un diseño experimental incluyendo:
+                \begin{itemize}
+                    \item Variables independientes y dependientes.
+                    \item Métodos para controlar variables extrañas.
+                \end{itemize}
+                \item Discutir cómo recoger y analizar los datos.
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+    
+\end{frame}
+
+
+
+\begin{frame}{Limitaciones de los Experimentos y Métodos Alternativos}
+    \begin{itemize}
+        \item \textbf{Limitaciones de los experimentos:} En algunos casos, realizar un experimento no es posible debido a razones éticas o prácticas.
+        \item \textbf{Métodos alternativos para inferir causalidad:}
+            \begin{itemize}
+                \item Diseños observacionales.
+                \item Criterios de causalidad (como los de Bradford Hill) en estudios epidemiológicos.
+            \end{itemize}
+        \item \textbf{Ejemplo: Tabaquismo y Cáncer de Pulmón}
+            \begin{itemize}
+                \item Aunque un RCT no sería ético, se ha establecido causalidad a través de estudios observacionales y consistencia en datos.
+            \end{itemize}
+        \item \textbf{Conclusión:} Cuando los experimentos no son viables, otros métodos ofrecen alternativas valiosas para establecer causalidad, dependiendo de la disciplina y contexto.
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,336 @@
+﻿\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{00B0}{\textdegree}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{---}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+\DeclareUnicodeCharacter{2026}{\ldots{}}
+\usepackage[spanish,es-noshorthands]{babel}
+
+% Definición del color corporativo aproximado para Pantone Warm Red C
+\definecolor{UMWarmRed}{HTML}{F9423A}
+
+% Tema y esquema de colores
+\usetheme{Madrid}
+\usecolortheme{rose} % Usamos un esquema de color que pueda combinarse bien
+
+% Configuración de colores usando el color corporativo
+\setbeamercolor{title}{bg=UMWarmRed, fg=white}
+\setbeamercolor{frametitle}{bg=UMWarmRed, fg=white}
+\setbeamercolor{structure}{fg=UMWarmRed}
+\setbeamercolor{section number projected}{bg=UMWarmRed,fg=white}
+\setbeamercolor{itemize item}{fg=UMWarmRed}
+\setbeamercolor{itemize subitem}{fg=UMWarmRed}
+\setbeamercolor{enumerate item}{fg=UMWarmRed}
+
+\title[DISEÑO DE EXPERIMENTOS]{METODOLOGÍA Y DISEÑO DE EXPERIMENTOS: \\ PRINCIPIOS ÉTICOS}
+\author[Alfonso Rosa García]{Alfonso Rosa García }
+\institute[G9]{\textbf{Grupo de Universidades G-9}}
+
+\date{9 y 11 de marzo de 2026 \\ 10:00--13:00}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\AtBeginSection[] % Comando para hacer algo al inicio de cada sección
+{
+  \begin{frame}{Índice}
+    \tableofcontents[currentsection] % Muestra el índice, enfocando la sección actual
+  \end{frame}
+}
+
+\section{Consentimiento y privacidad}
+\begin{frame}
+    \frametitle{Consentimiento y privacidad}
+    \centering
+    \textbf{\Large Experimentando éticamente respecto a los participantes}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Introducción a Problemas Éticos en la Investigación}
+\textbf{La Importancia de la Ética en la Investigación}
+\begin{itemize}
+\item Los problemas éticos han marcado la historia de la investigación científica.
+\item Casos de falta de consentimiento informado, engaño y daño a los participantes.
+\end{itemize}
+\textbf{Consecuencias}
+\begin{itemize}
+    \item Han impulsado el desarrollo de regulaciones éticas en la investigación.
+    \item Buscan proteger a los sujetos de investigación y asegurar la integridad de los estudios.
+\end{itemize}
+\textbf{Tensiones y desafíos}
+\begin{itemize}
+    \item Encontrar un equilibrio entre la protección de los participantes y el avance del conocimiento científico.
+    \item Riesgos potenciales de limitar excesivamente la investigación vs poner en riesgo el bienestar de los sujetos.
+    \item Requiere un análisis cuidadoso de riesgos y beneficios en cada proyecto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estudios históricos notorios}
+    \textbf{Casos emblemáticos}
+    \begin{itemize}
+        \item \textbf{El estudio de Tuskegee sobre la Sífilis:} Negación deliberada de tratamiento eficaz (incluida la penicilina) a participantes afroamericanos.
+        \item \textbf{El Experimento de Milgram:} Medición de la disposición a obedecer autoridades a costa de infligir dolor.
+        \item \textbf{El Estudio de la Prisión de Stanford:} Simulación de prisión que llevó a comportamientos abusivos y estrés emocional.
+    \end{itemize}
+
+    \textbf{Impacto}
+    \begin{itemize}
+        \item Destacan la explotación, el racismo sistémico y el trauma psicológico en la investigación.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplos contemporáneos de dilemas éticos}
+\textbf{Manipulación de Información en Redes Sociales:} Un estudio de Facebook alteró los feeds de noticias de los usuarios sin su consentimiento para estudiar cambios en las emociones. Este experimento planteó preguntas sobre el consentimiento informado y el derecho a la privacidad en la investigación psicológica en plataformas digitales.
+
+\textbf{CRISPR y Edición genética:} La utilización de CRISPR-Cas9 para editar genéticamente embriones humanos ha levantado preocupaciones éticas profundas sobre la manipulación genética, las implicaciones a largo plazo para la especie humana y los dilemas morales asociados a la "creación" de seres humanos con características deseables.
+
+\textbf{Acceso y uso de datos personales:} La investigación que utiliza grandes bases de datos personales, como historiales médicos o preferencias de consumo, ha puesto en relieve la necesidad de proteger la privacidad de las personas y evitar el uso indebido de la información personal.
+
+\end{frame}
+
+
+\begin{frame}{Respuesta y regulaciones éticas}
+    \textbf{Desarrollo de normativas éticas}
+    \begin{itemize}
+        \item \textbf{Declaración de Helsinki:} Principios éticos para la investigación médica.
+        \item \textbf{Informe Belmont:} Establece respeto por las personas, beneficencia y justicia.
+    \end{itemize}
+
+    \textbf{Impacto en la investigación contemporánea}
+    \begin{itemize}
+        \item Obligación de obtener consentimiento informado.
+        \item Supervisión por Comités de Ética de Investigación (IRBs).
+        \item Promoción de transparencia y responsabilidad en la publicación de estudios.
+    \end{itemize}
+\end{frame}
+
+
+% Diapositiva 1: Introducción y Principios Generales
+\begin{frame}{Declaración de Helsinki: Introducción y Principios Generales}
+\begin{itemize}
+    \item \textbf{Origen:} Adoptada en 1964 por la Asociación Médica Mundial.
+    \item \textbf{Propósito:} Proteger la integridad, dignidad y derechos de los participantes en investigaciones médicas.
+    \item \textbf{Fundamentos éticos:} 
+    \begin{itemize}
+         \item Respeto a la autonomía y autodeterminación.
+         \item Principio de beneficencia y no maleficencia.
+         \item Prioridad del bienestar del sujeto sobre los intereses de la ciencia y la sociedad.
+    \end{itemize}
+    \item \textbf{Evolución:} Ha sido revisada en diversas ocasiones para adaptarse a los avances científicos y éticos.
+    \item \textbf{Versión actual:} \href{https://www.wma.net/es/policies-post/declaracion-de-helsinki-de-la-amm-principios-eticos-para-las-investigaciones-medicas-en-seres-humanos/}{Declaración de Helsinki de la AMM (2024)}
+
+\end{itemize}
+\end{frame}
+
+% Diapositiva 2: Consentimiento Informado y Protección de Participantes
+\begin{frame}{Declaración de Helsinki: Consentimiento Informado y Protección de Participantes}
+\begin{itemize}
+    \item \textbf{Consentimiento Informado:}
+    \begin{itemize}
+         \item Información clara sobre objetivos, métodos, riesgos y beneficios del estudio.
+         \item Obtención del consentimiento de forma libre y voluntaria, permitiendo la revocación en cualquier momento.
+    \end{itemize}
+    \item \textbf{Protección del Participante:}
+    \begin{itemize}
+         \item Salvaguarda de la privacidad y confidencialidad de los datos.
+         \item Garantizar que la participación no comprometa la integridad física ni mental del sujeto.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Diapositiva 3: Revisión Ética y Protección de Grupos Vulnerables
+\begin{frame}{Declaración de Helsinki: Revisión Ética y Protección de Grupos Vulnerables}
+\begin{itemize}
+    \item \textbf{Revisión Ética:}
+    \begin{itemize}
+         \item Todos los estudios deben someterse a la evaluación de un comité de ética independiente.
+         \item Supervisión continua del desarrollo del estudio para garantizar el cumplimiento ético.
+    \end{itemize}
+    \item \textbf{Protección de Grupos Vulnerables:}
+    \begin{itemize}
+         \item Implementar medidas adicionales para proteger a niños, ancianos, personas con discapacidad, entre otros.
+         \item Asegurar que la investigación en estos grupos solo se realice si es imprescindible y con salvaguardias específicas.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Diapositiva 4: Transparencia, Publicación y Responsabilidad del Investigador
+\begin{frame}{Declaración de Helsinki: Transparencia, Publicación y Responsabilidad del Investigador}
+\begin{itemize}
+    \item \textbf{Transparencia:}
+    \begin{itemize}
+         \item Registro público de los ensayos clínicos y divulgación de información relevante.
+         \item Revelación de conflictos de interés y fuentes de financiamiento.
+    \end{itemize}
+    \item \textbf{Publicación de Resultados:}
+    \begin{itemize}
+         \item Obligación de publicar resultados positivos, negativos e inconclusos.
+         \item Garantizar la integridad y veracidad de la información difundida.
+    \end{itemize}
+    \item \textbf{Responsabilidad del Investigador:}
+    \begin{itemize}
+         \item Compromiso ético en el seguimiento y reporte de los resultados.
+         \item Responsabilidad de proveer tratamiento y compensación en caso de daños derivados de la investigación.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Ética en la identificación y difusión de resultados}
+
+\begin{frame}
+    \frametitle{Ética en la identificación y difusión de resultados}
+    \centering
+    \textbf{\Large Reproducibilidad y comportamientos éticos}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{La Crisis de reproducibilidad en la ciencia}
+\textbf{¿Qué es la Crisis de reproducibilidad?}
+\begin{itemize}
+    \item Desde Ioannidis (2005), "Why Most Published Research Findings Are False", se ha encontrado que numerosos resultados de estudios científicos no son reproducibles.
+    \item Prinz et al (2011) mostraron que apenas 25\% de los estudios preclínicos publicados pudieron ser validados para continuar.
+    \item Begley et al (2012) indicaron que solo pudieron confirmar el 6\% de esos estudios.   
+    \item Open Science Collaboration (2015) replicó 100 artículos de 2008 de revistas de psicología de alto impacto y encontraron que solo el 47\% de los resultados originales estaban en el intervalo de confianza del 95\% del tamaño de efecto replicado.
+    \item Camerer et al (2016) encontraron que el 39\% de los resultados experimentales publicados en dos de las revistas top de economía no se replicaban.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tarea: Reflexión sobre las causas de la crisis de reproducibilidad}
+\textbf{Objetivo:} Identificar y analizar los factores que contribuyen a la crisis de reproducibilidad en la investigación científica.\\[10pt]
+\textbf{Instrucciones:}
+\begin{enumerate}
+    \item Formar grupos de 3-4 personas.
+    \item Reflexionar sobre los siguientes aspectos:
+    \begin{itemize}
+        \item ¿Qué factores del proceso de investigación podrían llevar a resultados irreproducibles?
+        \item ¿Cómo influyen la presión por publicar y las prácticas de análisis de datos (como el p-hacking) en la reproducibilidad?
+        \item ¿Qué papel juegan las revistas científicas y los revisores en este problema?
+    \end{itemize}
+    \item Discutir posibles soluciones que podrían implementarse en la comunidad científica para mejorar la reproducibilidad.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{La Crisis de reproducibilidad en la ciencia}
+\textbf{Causas Principales}
+\begin{itemize}
+    \item Prácticas de investigación cuestionables, como el p-hacking y la selección selectiva de resultados.
+    \item Presiones sobre los investigadores para publicar resultados positivos.
+    \item Falta de transparencia y disponibilidad de datos brutos para análisis independientes.
+\end{itemize}
+
+\textbf{Impacto en la Ciencia}
+\begin{itemize}
+    \item Erosión de la confianza pública en la ciencia.
+    \item Llamados a la reforma de prácticas de investigación y publicación.
+\end{itemize}
+
+\textbf{Respuestas a la Crisis}
+\begin{itemize}
+    \item Fomento de la ciencia abierta y el preregistro de estudios.
+    \item Mayor énfasis en la replicación y validación de resultados por parte de la comunidad científica.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Replicación y reproducibilidad en la Investigación experimental}
+\textbf{Pilares de la validez científica}
+\begin{itemize}
+    \item \textbf{Replicación:} Capacidad de obtener resultados al repetir un experimento con mismas condiciones y métodos.
+    \item \textbf{Reproducibilidad:} Capacidad de obtener hallazgos consistentes por diferentes investigadores al aplicar los mismos procedimientos.
+\end{itemize}
+
+\textbf{Importancia}
+\begin{itemize}
+    \item Verifica la fiabilidad y solidez de los resultados experimentales.
+    \item Esencial para la acumulación de conocimiento científico.
+    \item Identifica y corrige posibles errores o sesgos en los estudios originales.
+    \item Fomenta la transparencia y la integridad en la investigación.
+\end{itemize}
+
+\textbf{Estrategias para promover la replicación y reproducibilidad}
+\begin{itemize}
+    \item Descripción detallada de los métodos y materiales.
+    \item Compartir datos y código de análisis de manera abierta.
+    \item Preregistro para distinguir análisis confirmatorios y exploratorios.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multiple testing y control del FWER}
+    \textbf{El Desafío de las Pruebas Múltiples}
+    \begin{itemize}
+        \item Riesgo de falso positivo aumenta con cada prueba estadística adicional.
+        \item Importancia de controlar la tasa de error familiar (FWER).
+    \end{itemize}
+
+    \textbf{Métodos de Control}
+    \begin{itemize}
+        \item Procedimiento de Bonferroni y método de Holm para ajustar valores p.
+    \end{itemize}
+
+    \textbf{Impacto en la Investigación}
+    \begin{itemize}
+        \item Asegura que resultados significativos sean genuinos.
+        \item Fortalece la confianza en los hallazgos reportados.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cherry Picking y la Ciencia Abierta}
+    \textbf{Contra la selección sesgada de datos}
+    \begin{itemize}
+        \item Práctica de reportar solo resultados que apoyan hipótesis predeterminadas.
+        \item Compromete la reproducibilidad y validez de los estudios.
+    \end{itemize}
+
+    \textbf{Mitigando el cherry picking}
+    \begin{itemize}
+        \item Adopción de prácticas de ciencia abierta y transparencia investigativa.
+        \item Publicación de todos los resultados, apoyen o contradigan las hipótesis.
+    \end{itemize}
+
+    \textbf{Construyendo una base de conocimiento Sólida}
+    \begin{itemize}
+        \item Interrelación de pre-registro, control de multiple testing y ciencia abierta.
+        \item Promueve una interpretación objetiva de los datos y resultados genuinos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pre-registro de estudios científicos}
+    \textbf{Aumentando la transparencia}
+    \begin{itemize}
+        \item Registro público del plan de investigación antes de la recolección de datos.
+        \item Combate el p-hacking y el HARKing, fortaleciendo la validez de los resultados.
+    \end{itemize}
+
+    \textbf{Beneficios clave}
+    \begin{itemize}
+        \item Diferencia clara entre hipótesis exploratorias y confirmatorias.
+        \item Evita la sobreinterpretación de correlaciones fortuitas.
+    \end{itemize}
+
+    \textbf{Herramientas para el pre-registro}
+    \begin{itemize}
+        \item Plataformas como el Registro de Ensayos Clínicos de los NIH, OSF o AsPredicted.
+        \item \textbf{Ejemplos:} \url{https://osf.io/93aus/} o \url{https://aspredicted.org/2zzm-5r7q.pdf}
+    \end{itemize}
+\end{frame}
+
+\end{document}
+
+
+
+
+
+
+
+

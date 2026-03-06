@@ -1,0 +1,14 @@
+﻿build/
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.tmp
+*.temp
+~$*.docx

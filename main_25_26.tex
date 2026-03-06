@@ -1,0 +1,1399 @@
+﻿\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{00B0}{\textdegree}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{---}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+\DeclareUnicodeCharacter{2026}{\ldots{}}
+\usepackage[spanish,es-noshorthands]{babel}
+
+% Definición del color corporativo aproximado para Pantone Warm Red C
+\definecolor{UMWarmRed}{HTML}{F9423A}
+
+% Tema y esquema de colores
+\usetheme{Madrid}
+\usecolortheme{rose} % Usamos un esquema de color que pueda combinarse bien
+
+% Configuración de colores usando el color corporativo
+\setbeamercolor{title}{bg=UMWarmRed, fg=white}
+\setbeamercolor{frametitle}{bg=UMWarmRed, fg=white}
+\setbeamercolor{structure}{fg=UMWarmRed}
+\setbeamercolor{section number projected}{bg=UMWarmRed,fg=white}
+\setbeamercolor{itemize item}{fg=UMWarmRed}
+\setbeamercolor{itemize subitem}{fg=UMWarmRed}
+\setbeamercolor{enumerate item}{fg=UMWarmRed}
+
+\title[DISEÑO DE EXPERIMENTOS]{METODOLOGÍA Y DISEÑO DE EXPERIMENTOS: ASPECTOS BÁSICOS}
+\author[Alfonso Rosa García]{Alfonso Rosa García }
+\institute[G9]{\textbf{Grupo de Universidades G-9}}
+
+\date{9 y 11 de marzo de 2026 \\ 10:00--13:00}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Objetivos del Curso}
+\textbf{Objetivos generales}
+\begin{itemize}
+    \item Reflexionar sobre el proceso de generación de ideas y planificación de la investigación como fases previas al diseño experimental.
+    \item Introducir los conceptos básicos de diseño y metodología experimental.
+    \item Diferenciar correlación y causalidad con ejemplos prácticos.
+    \item Conocer los principios de los diseños experimentales y su aplicación en distintas disciplinas.
+    \item Destacar principios estadísticos clave y herramientas para el análisis de datos experimentales.
+    \item Fomentar prácticas éticas en la investigación experimental.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Programa del Curso}
+   \begin{block}{Contenidos (según la guía docente)}
+      \begin{enumerate}
+         \item Generación de ideas de investigación.
+         \item Planificación de la investigación.
+         \item Correlación y causalidad.
+         \item Tipos de experimentos.
+      \end{enumerate}
+   \end{block}
+   \vspace{0.3cm}
+   \textbf{Enfoque del curso:} Nos centraremos especialmente en los puntos 3 y 4, profundizando en el diseño, análisis estadístico y ética de los experimentos. Los puntos 1 y 2 se abordan de forma introductoria como fases previas que conectan con el diseño experimental.
+\end{frame}
+
+\begin{frame}{Índice}
+  \tableofcontents[hideallsubsections] % Muestra el índice sin subsecciones
+\end{frame}
+
+\AtBeginSection[] % Comando para hacer algo al inicio de cada sección
+{
+  \begin{frame}{Índice}
+    \tableofcontents[currentsection] % Muestra el índice, enfocando la sección actual
+  \end{frame}
+}
+
+\section{Introducción}
+
+\subsection{De la idea al experimento}
+
+\begin{frame}{De la idea al experimento}
+   \textbf{1. Generación de ideas de investigación}
+   \begin{itemize}
+      \item Las ideas de investigación surgen de la observación de fenómenos, la revisión de la literatura, lagunas en el conocimiento existente o necesidades prácticas.
+      \item Una buena pregunta de investigación es específica, relevante y abordable con los recursos disponibles.
+   \end{itemize}
+   \vspace{0.3cm}
+   \textbf{2. Planificación de la investigación}
+   \begin{itemize}
+      \item Implica formular hipótesis claras, identificar las variables clave (independientes, dependientes y de control) y seleccionar la metodología adecuada.
+      \item La planificación rigurosa es la base sobre la que se construye un buen diseño experimental, que será el foco de este curso.
+   \end{itemize}
+\end{frame}
+
+\begin{frame}{Conexión con el diseño experimental}
+   \centering
+   \textbf{El diseño experimental como herramienta para responder preguntas de investigación}
+   \vspace{0.4cm}
+
+   \begin{itemize}
+      \item Una vez que tenemos una \textbf{idea de investigación} y hemos \textbf{planificado} cómo abordarla, necesitamos herramientas para establecer relaciones causales.
+      \item Distinguir \textbf{correlación} de \textbf{causalidad} es fundamental para elegir el método adecuado.
+      \item El \textbf{diseño experimental} nos proporciona el marco para controlar variables y obtener evidencia causal.
+      \item En este curso veremos los principios, tipos de diseños, herramientas estadísticas y consideraciones éticas que hacen posible una investigación experimental rigurosa.
+   \end{itemize}
+\end{frame}
+
+\subsection{Correlación y Causalidad}
+
+\begin{frame}{Uso del nombre Sarah e interés en aprender español}
+  \begin{itemize}
+    \item  \textbf{The Sarah Flare: A Correlation Between the Name and Desire to
+Parle Español}. Harrison, Thomas y Tyler, 2024.
+    \item Hallazgo de una correlación inesperada en EEUU entre el nombre \textit{Sarah} y el interés en aprender español.
+    \item Datos utilizados de la Administración del Seguro Social de EE. UU. y Google Trends, abarcando los años 2004 a 2022.
+    \item Coeficiente de correlación 0.99 y valor p muy significativo (\textless{}0.01).
+    \item El estudio explora las implicaciones de esta correlación, discutiendo potenciales influencias de los nombres en los deseos lingüísticos.
+    \item Reflexiones sobre la naturaleza peculiar, pero estadísticamente significativa, de este descubrimiento y su contribución al discurso más amplio sobre nombres y comportamiento.
+    \item Para más detalles, \href{https://tylervigen.com/spurious/research-papers/4240_the-sarah-flare-a-correlation-between-the-name-and-desire-to-parle-espaol.pdf}{consulta el enlace al paper}.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Entendiendo la correlación}
+    \textbf{Definición y Significado}
+    \begin{itemize}
+        \item Dos variables están correlacionadas cuando hay una relación entre ellas, una asociación estadística.
+        \item La correlación puede ser positiva (las dos variables varían en el mismo sentido), negativa (en sentido contrario) o inexistente.
+        \item La forma más habitual de medirla, el coeficiente de Pearson, oscila entre -1 (correlación perfecta negativa) y +1 (correlación perfecta positiva), valiendo 0 cuando no hay correlación lineal.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Entendiendo la correlación}
+    \textbf{Limitaciones}
+    \begin{itemize}
+        \item La correlación no implica causalidad.
+        \item Posibles razones para una correlación sin causalidad:
+            \begin{itemize}
+                \item Influencia de terceras variables que afectan a ambas.
+                \item Causalidad inversa (la dirección de causa-efecto es la opuesta).
+                \item Coincidencia estadística (relación aparente pero sin conexión real).
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Estudio de Casos: Correlación sin causalidad}
+
+\begin{itemize}
+    \item \textbf{¿Provocan las picaduras de medusa que la gente suba más selfies a Instagram?:} Se observa una correlación positiva entre el número de selfies en Instagram y las picaduras de medusa declaradas. Sin embargo, es la mayor afluencia a las playas en verano (tercera variable común) lo que lo explica.
+
+    \item \textbf{¿Aumentan los estudios de formación profesional el nivel de desempleo?:}  
+    Se observa que las regiones con mayores tasas de estudiantes en formación profesional tienen mayores niveles de desempleo. Sin embargo, es el desempleo elevado el que impulsa la inscripción en formación profesional.
+
+    \item \textbf{¿El deseo de aprender español lleva a elegir el nombre de Sarah para las hijas?:}  
+   Se observa una correlación positiva entre las búsquedas anuales en Google sobre el estudio del español y el número de niñas a las que se llama Sarah. Pero es el resultado de comparar múltiples datos no relacionados (\href{https://tylervigen.com/spurious-correlations}{tylervigen.com}).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{La causalidad y cómo establecerla}
+\textbf{Más allá de la correlación}
+
+\begin{itemize}
+    \item \textbf{Establecimiento de causalidad:}
+    \begin{enumerate}
+        \item \textit{Precedencia temporal:} La causa debe preceder al efecto en el tiempo. \textit{Ejemplo:} En estudios sobre el tabaquismo y cáncer de pulmón, el inicio del hábito de fumar precede al desarrollo de la enfermedad.
+        \item \textit{Relación consistente:} Observaciones repetidas de la asociación entre causante y efecto bajo diferentes circunstancias. \textit{Ejemplo:} Se ha observado consistentemente que mayores niveles de educación están asociados con ingresos económicos más altos a lo largo de diversos contextos geográficos y temporales.
+        \item \textit{Descarte de otras explicaciones:} No deben existir factores confundentes plausibles que puedan explicar la relación observada. \textit{Ejemplo:} En la investigación sobre la efectividad de una vacuna, se controlan otros factores que podrían influir en los resultados, como la exposición a la enfermedad y condiciones de salud preexistentes.
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algunos enfoques sobre la causalidad}
+\begin{itemize}
+    \item \textbf{Criterios de Bradford Hill}: guía para inferir una relación causal en estudios observacionales, proceden de la epidemiología: consistencia, especificidad, fuerza, y secuencia temporal, entre otros.
+    \item \textbf{Postulados de Koch}: relación causal entre un microorganismo y una enfermedad. Que el organismo siempre esté presente en la enfermedad y pueda aislarse, y reproducir la enfermedad en un huésped nuevo.
+    \item \textbf{Causalidad de Granger}: determinación de si una serie temporal es predictiva de otra. Causas preceden a los efectos en el tiempo e información sobre la causa mejora la predicción del efecto.
+\end{itemize}
+
+\textbf{Similitudes y diferencias}
+\begin{itemize}
+    \item Los tres enfoques comparten la importancia de la precedencia temporal. Sin embargo, difieren en su aplicación y los criterios específicos para establecer causalidad, reflejando las particularidades de sus respectivos campos.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Marco de identificación causal: resultados potenciales y DAGs}
+\small
+\textbf{Resultados potenciales (Rubin/Neyman)}
+\begin{itemize}
+  \item Tratamiento $A\in\{0,1\}$; resultados potenciales $Y(1),Y(0)$.
+  \item Objetivo típico: \textbf{ATE} $=\mathbb{E}[Y(1)-Y(0)]$; también ITT, LATE, CATE.
+\end{itemize}
+
+\textbf{Supuestos clave}
+\begin{itemize}
+  \item \textbf{SUTVA}: sin interferencia entre unidades y sin “versiones” del tratamiento.
+  \item \textbf{Ignorabilidad} (no confusión condicional): $\{Y(1),Y(0)\}\perp\!\!\!\perp A \mid X$.
+  \item \textbf{Positividad}: $0<P(A=a\mid X)<1$ para todo $X$ relevante.
+\end{itemize}
+
+\textbf{DAGs (Pearl) y criterio de la puerta trasera}
+\begin{itemize}
+  \item Identifica \textbf{caminos de confusión} ($A \leftarrow C \rightarrow Y$) y bloquéalos condicionando en $C$.
+  \item \textbf{No} condicionar en \textit{colliders} ($A \rightarrow M \leftarrow U$) ni en descendientes de colliders.
+  \item \textit{Backdoor criterion}: conjunto $Z$ que bloquea toda puerta trasera $\Rightarrow$ identifica $P(Y\mid do(A))$.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Marco de identificación causal: Estrategias}
+\small
+
+\textbf{Estrategias de identificación (cuándo usarlas)}
+\begin{itemize}
+  \item \textbf{RCT}: ignorabilidad por diseño (aleatorización); reporta adherencia y \textit{spillovers}.
+  \item \textbf{IV/LATE}: instrumento $Z$ (relevante, exógeno, exclusión). Efecto local en \textit{compliers}.
+  \item \textbf{RDD}: discontinuidad en regla de corte; continuidad de contrafactuales; efecto \textbf{local}.
+  \item \textbf{DiD}: \textit{parallel trends} (y versiones robustas: \textit{event-study}, estimadores modernos con heterogeneidad).
+  \item \textbf{PSM/ajuste}: solo si ignorabilidad creíble; comprobar \textit{overlap} y balance (SMD).
+\end{itemize}
+
+\textbf{Checklist rápido}
+\begin{itemize}
+  \item ¿He definido el \textbf{estimando} (ATE/ATT/LATE) y la \textbf{población objetivo}? 
+  \item ¿Tengo un \textbf{DAG} explícito con confusores/colliders/mediadores?
+  \item ¿Qué \textbf{supuesto} es más débil/plausible aquí (aleatorización, exclusión, continuidad, tendencias paralelas)?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Tarea: Análisis de Correlación vs. Causalidad}
+    \textbf{Objetivo:} Diferenciar entre correlación y causalidad mediante ejemplos.\\[10pt]
+    \textbf{Instrucciones:}
+    \begin{enumerate}
+        \item Formar grupos de 4-5 personas.
+        \item Elegir dos variables relacionadas con la investigación que queremos hacer para nuestro doctorado, que consideremos que podrían estar correlacionadas sin estar una causada por la otra.
+        \item Explicar por qué podría existir dicha correlación pero no causalidad entre las variables.
+        \item Considerar posibles terceras variables que podrían influir en su relación.
+    \end{enumerate}
+\end{frame}
+
+\section{Diseño experimental}
+
+\subsection{De la observación a la experimentación}
+
+\begin{frame}
+    \frametitle{De la Observación a la Experimentación}
+    \centering
+    \textbf{\Large Una panorámica sobre el desarrollo de la metodología experimental}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Antigua Grecia: Los inicios del pensamiento empírico}
+    \textbf{Filosofía natural y empirismo}
+    \begin{itemize}
+        \item Búsqueda de explicaciones lógicas y racionales a fenómenos naturales, distanciándose de interpretaciones mitológicas.
+        \item Primeras especulaciones sobre el universo, sin experimentación.
+    \end{itemize}
+  
+    \textbf{Aristóteles (384-323 A.C.): Precursor del pensamiento científico}
+    \begin{itemize}
+        \item Enfoque empírico en biología y física a través de observación y clasificación.
+        \item Intentos por comprender la diversidad de la vida y los principios de los fenómenos naturales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{El mundo islámico medieval: Un puente hacia la modernidad}
+    \textbf{Alhazen (Ibn al-Haytham, 965-1040): padre de la óptica moderna}
+    \begin{itemize}
+        \item Métodos precursores del diseño experimental.
+        \item Investigaciones sobre la luz, incluyendo experimentos controlados que demostraban su propagación en líneas rectas y reflexión.
+        \item Énfasis en la importancia de la evidencia empírica y experimentación sobre la especulación.
+    \end{itemize}
+    \end{frame}
+
+\begin{frame}{El Renacimiento: Un cambio hacia el empirismo}
+    \textbf{Transición y transformación}
+    \begin{itemize}
+        \item Época marcada por el renacer en artes, cultura y ciencia.
+        \item Transición de enfoques dogmáticos hacia un enfoque más empírico y racional del conocimiento.
+        \item El conocimiento empieza a basarse en la observación y experiencia directa.
+        \item Influencia del redescubrimiento de textos antiguos y avances en navegación y tecnología.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Galileo y el método científico}
+    \textbf{Galileo Galilei (1564-1642)}
+    \begin{itemize}
+        \item Se le considera una figura clave en la consolidación del método científico experimental.
+        \item Proceso iterativo de observación, formulación de hipótesis, experimentación y análisis.
+        \item Experimentos con planos inclinados y uso del telescopio para observaciones celestes.
+        \item Fundamentos para el control riguroso de variables y la cuantificación sistemática de observaciones.
+        \item Avances tecnológicos permitieron observaciones detalladas y experimentación más precisa.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{James Lind y uno de los primeros ensayos clínicos controlados}
+    \textbf{1747: Experimento contra el Escorbuto}
+    \begin{itemize}
+        \item James Lind prueba seis tratamientos en 12 marineros enfermos a bordo del HMS Salisbury.
+        \item Tratamientos incluyen sidra, elixir vitriol (ácido sulfúrico diluido), vinagre, agua de mar, cítricos, y una mezcla de ajo, mostaza y rábano.
+    \end{itemize}
+    
+    \textbf{Hallazgos Clave}
+    \begin{itemize}
+        \item Solo los cítricos curaron efectivamente el escorbuto, demostrando la importancia de un diseño experimental controlado.
+    \end{itemize}
+
+    \textbf{Adopción Lenta por la Marina Británica}
+    \begin{itemize}
+        \item Resistencia al cambio y limitaciones en la difusión del conocimiento retrasaron la implementación de los hallazgos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{TAREA: El Experimento de James Lind}
+    \textbf{Contexto y Metodología}
+    En 1747, James Lind, un cirujano de la Marina Real Británica, llevó a cabo un experimento innovador para encontrar una cura para el escorbuto, una enfermedad común entre los marineros. Dividió a 12 marineros enfermos en grupos de dos y administró a cada grupo diferentes tratamientos supuestos para el escorbuto. Los tratamientos variaron desde sidra, ácido sulfúrico, vinagre, una mezcla de ajo, mostaza y rábano picante en agua, dos naranjas y un limón, hasta agua de mar.
+
+    \textbf{Resultados y Conclusiones}
+    El grupo que recibió las dos naranjas y un limón mostró una recuperación notable en comparación con los demás. Este resultado llevó a Lind a concluir que los cítricos eran efectivos contra el escorbuto. Sin embargo, a pesar de sus hallazgos, pasaron décadas antes de que la Marina Británica adoptara el uso de cítricos para prevenir el escorbuto entre sus marineros.
+\end{frame}
+
+\begin{frame}{Reflexiones sobre el Experimento de Lind}
+    \textbf{Preguntas para Reflexionar}
+    \begin{enumerate}
+        \item ¿De dónde salían las hipótesis de Lind para los tratamientos del escorbuto? ¿Qué le motivó a considerar específicamente los cítricos como un posible tratamiento?
+        \item ¿En base a qué evidencia aceptó o rechazó Lind los resultados de su experimento? ¿Qué criterios utilizó para determinar la eficacia de los cítricos?
+        \item Considerando la muestra de solo 12 marineros, divididos en grupos de dos para diferentes tratamientos, ¿era esta muestra lo suficientemente grande para obtener resultados concluyentes? ¿Por qué sí o por qué no?
+        \item Dada la dificultad de transportar limones, Lind aparte del uso de fruta fresca recomendó como alternativa hacer un condensado de limón diluyendo zumo en agua hirviendo durante horas. Esto resultó ineficaz para tratar el escorbuto. Reflexiona sobre por qué recomendó esto.
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Siglos XVIII y XIX}
+    \textbf{Era de la razón y el análisis crítico}
+    \begin{itemize}
+        \item Promoción del escepticismo sobre tradiciones y dogmas, favoreciendo la observación directa y la experimentación controlada.
+    \end{itemize}
+    
+    \textbf{Desarrollo de instrumentos científicos}
+    \begin{itemize}
+        \item Mejoras en microscopios, balanzas, termómetros y barómetros permitieron mediciones más precisas y detalladas.
+        \item Facilitación de experimentos más controlados y replicables, expandiendo los horizontes de la investigación experimental.
+    \end{itemize}
+    
+    \textbf{Institucionalización de la ciencia}
+    \begin{itemize}
+        \item Fundación de sociedades científicas y la publicación de resultados en revistas científicas promovieron el intercambio de conocimientos y establecieron normas para la validación de descubrimientos científicos.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{El desarrollo de la estadística}
+    \textbf{Desarrollo de la teoría de errores}
+    \begin{itemize}
+        \item Interés creciente en medir la precisión de observaciones y experimentos.
+        \item Gauss (1777-1855) y Legendre (1752-1833): Métodos para estimar errores y ajustar observaciones, conduciendo a la metodología de los mínimos cuadrados.
+    \end{itemize}
+    
+    \textbf{Innovaciones de Francis Galton (1822-1911)}
+    \begin{itemize}
+        \item Investigación sobre variabilidad y herencia en humanos, introduciendo conceptos como regresión y correlación.
+        \item Aportes clave a los conceptos de regresión y correlación, y a la aplicación estadística al estudio de la variabilidad biológica.
+    \end{itemize}
+    
+    \textbf{La Influencia de Karl Pearson (1857-1936)}
+    \begin{itemize}
+        \item Fundación del primer departamento universitario de estadística del mundo.
+        \item Desarrollo del coeficiente de correlación de Pearson y la distribución $\chi^2$ (chi-cuadrado).
+    \end{itemize}
+\end{frame}
+
+% Diapositiva condensada sobre el contexto del Instituto Rothamsted antes de Fisher
+\begin{frame}
+\frametitle{El diseño de experimentos moderno: Ronald Fisher}
+    \begin{itemize}
+        \item El Instituto Rothamsted, instituto de investigación británico pionero en investigaciones agrícolas fundado en 1843, se enfrentaba a la limitación de métodos estadísticos rudimentarios para analizar datos complejos de sus experimentos.
+        \item En 1919 Fisher fue incorporado por ser un experto en estadística, con el objetivo de mejorar la interpretación de los datos experimentales y las prácticas de investigación agrícola.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ronald A. Fisher: Innovaciones en el diseño experimental}
+    \textbf{Conceptos clave introducidos por Fisher:}
+    \begin{itemize}
+        \item \textbf{Aleatorización:} Fundamento para la validez interna, evita sesgos al asignar tratamientos al azar.
+        \item \textbf{Replicación:} Esencial para asegurar la reproducibilidad de los resultados. Fisher argumentó que múltiples observaciones bajo condiciones experimentales idénticas son cruciales para estimar la variabilidad natural y los errores experimentales.
+        \item \textbf{Diseño de bloques:} Permite controlar variaciones no aleatorias agrupando unidades experimentales similares. Este enfoque mejora la precisión al reducir el ruido de factores no controlados.
+    \end{itemize}
+
+\end{frame}
+
+% Diapositiva sobre el legado de Fisher
+\begin{frame}
+\frametitle{El Legado de Fisher en el Diseño Experimental}
+    \textbf{Análisis de varianza (ANOVA):}
+    \begin{itemize}
+        \item Fisher desarrolló el ANOVA para descomponer observaciones en componentes atribuibles a diferentes fuentes de variación.
+        \item Permitió comparaciones múltiples entre grupos y fue fundamental para interpretar experimentos complejos.
+    \end{itemize}
+    
+    Estos avances no solo optimizaron el análisis de experimentos agrícolas sino que también sentaron las bases metodológicas para la investigación en numerosas ciencias.
+\end{frame}
+
+\begin{frame}{Expansión y aplicaciones del diseño Experimental}
+    \textbf{Desarrollos subsiguientes}
+    \begin{itemize}
+        \item Diseños factoriales completos y fraccionarios por Frank Yates.
+         \item Avances en todos los ámbitos científicos, tanto de las ciencias naturales como de las ciencias sociales.
+    \end{itemize}
+    \textbf{Transformación por la tecnología computacional}
+    \begin{itemize}
+        \item Ampliación de las capacidades del diseño experimental.
+        \item Diseño de experimentos complejos y análisis de grandes volúmenes de datos.
+        \item Software estadístico sofisticado accesible a una audiencia más amplia.
+        \item Facilitación de técnicas avanzadas de diseño experimental.
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Diseño de experimentos}
+\begin{frame}
+    \frametitle{Diseño de Experimentos}
+    \centering
+    \textbf{\Large Fundamentos y Componentes Clave}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Principios Básicos del Diseño experimental}
+
+\textbf{Objetivo del diseño experimental}
+\begin{itemize}
+    \item El objetivo básico del diseño experimental es establecer relaciones causales claras y fiables entre variables.
+    \item Para ello, debe asegurarse de que cualquier cambio en la variable dependiente se deba exclusivamente a manipulaciones de la variable independiente, y no a factores externos o al azar.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Etapas en la realización de un experimento}
+\begin{enumerate}
+    \item \textbf{Definir el problema de investigación}
+    \begin{itemize}
+        \item Identificar la pregunta clave que se quiere responder.
+        \item Delimitar el alcance y los objetivos del estudio.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Realizar una revisión bibliográfica}
+    \begin{itemize}
+        \item Analizar estudios previos relacionados.
+        \item Identificar lagunas en el conocimiento existente.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Formular hipótesis y objetivos}
+    \begin{itemize}
+        \item Establecer predicciones basadas en la teoría.
+        \item Definir objetivos específicos y medibles.
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Etapas en la realización de un experimento}
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item \textbf{Seleccionar el diseño experimental adecuado}
+    \begin{itemize}
+        \item Decidir entre diseños experimentales, cuasi-experimentales, etc.
+        \item Considerar variables independientes y dependientes.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Planificar la recolección y análisis de datos}
+    \begin{itemize}
+        \item Elegir métodos de recolección de datos fiables.
+        \item Determinar técnicas estadísticas para el análisis.
+    \end{itemize}
+    \vspace{0.3cm}
+    \item \textbf{Consideraciones éticas y logísticas}
+    \begin{itemize}
+        \item Obtener aprobaciones éticas necesarias.
+        \item Planificar recursos y cronograma del experimento.
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Identificación de factores de tratamiento y factores molestos}
+\begin{itemize}
+    \item Factores de tratamiento: Variables intencionalmente manipuladas. Ejemplo: Tipo de máquina.
+    \item Factores molestos: Variables que pueden influir en la respuesta pero no son de interés. Ejemplo: Hora del día.
+    \item Estrategias para control: aleatorización y bloqueo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Componentes del Diseño experimental}
+\textbf{Componentes clave del Diseño experimental}
+
+\begin{itemize}
+    \item \textbf{Aleatorización:} Asignación aleatoria de sujetos a grupos de tratamiento para minimizar sesgos.
+    \item \textbf{Replicación:} Repetición del experimento o tratamiento en múltiples sujetos o grupos para asegurar la fiabilidad de los resultados.
+    \item \textbf{Bloqueo:} Agrupación de sujetos con características similares antes de la aleatorización para controlar variables confundentes.
+\end{itemize}
+
+\textbf{Importancia del Control de variables}
+\begin{itemize}
+    \item Controlar variables extrañas es crucial para asegurar la validez interna del experimento.
+    \item Permite aislar el efecto de la variable independiente sobre la variable dependiente.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Aleatorización}
+\textbf{Definición:} Proceso de asignar tratamientos a unidades experimentales de manera aleatoria. Crucial para reducir  sesgo y garantizar que los grupos son comparables en todos los aspectos.
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Equilibrio de grupos:} Asegura que diferencias observadas son resultado del tratamiento y no de diferencias preexistentes.
+    \item \textit{Control de variables confusas:} Equilibra variables y desconocidas.
+    \item \textit{Base para inferencias estadísticas:} Permite la aplicación legítima de pruebas estadísticas.
+\end{itemize}
+
+\textbf{Implementación:}
+\begin{itemize}
+    \item Generación de secuencias aleatorias.
+    \item Asignación ciega o doble ciega.
+\end{itemize}
+
+\textbf{Ejemplo:} En la eficacia de un nuevo medicamento, los participantes son asignados aleatoriamente a medicamento o placebo, así cualquier diferencia en los resultados se debe al medicamento y no a otras variables.
+\end{frame}
+
+\begin{frame}
+\frametitle{Replicación}
+\textbf{Definición:} Repetición de un experimento bajo las mismas condiciones para verificar resultados. Confirma la fiabilidad y validez de los hallazgos.
+
+\textbf{Tipos de Replicación:}
+\begin{itemize}
+    \item \textit{Replicación interna:} Con el mismo equipo de investigación.
+    \item \textit{Replicación externa:} Con diferentes equipos de investigación, ubicaciones o poblaciones.
+\end{itemize}
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Verificación de resultados:} Asegura que hallazgos no son por azar.
+    \item \textit{Generalización de los hallazgos:} Confirma que los resultados se aplican a diferentes  poblaciones.
+    \item \textit{Refuerzo del conocimiento científico:} La acumulación de evidencia es clave para  desarrollo de teorías sólidas.
+\end{itemize}
+
+\textbf{Desafíos:}
+\begin{itemize}
+    \item Difícil lograr condiciones exactamente idénticas.
+    \item La replicación externa puede ser costosa.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bloqueo}
+\textbf{Definición:} Técnica que agrupa unidades experimentales similares en características que se espera afecten la respuesta. La aleatorización se aplica dentro de estos bloques.
+
+\textbf{Importancia:}
+\begin{itemize}
+    \item \textit{Control de variabilidad:} Mejora la precisión de las estimaciones del efecto del tratamiento al controlar la variabilidad entre bloques.
+    \item \textit{Aumento de la eficiencia estadística:} Permite una comparación más efectiva entre tratamientos minimizando el ruido de fondo.
+\end{itemize}
+
+\textbf{Aplicación:}
+\begin{itemize}
+    \item Identificación de variables que puedan influir y agrupación basada en estas variables antes del tratamiento.
+    \item Por ejemplo, en la agricultura, los bloques pueden definirse por características del suelo.
+\end{itemize}
+
+\textbf{Consideraciones:}
+\begin{itemize}
+    \item Elección incorrecta de bloques puede aumentar la variabilidad.
+    \item Esencial definir los criterios antes de iniciar el experimento.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Amenazas a la validez interna y cómo mitigarlas en la práctica}
+\small
+\textbf{Amenazas frecuentes}
+\begin{itemize}
+  \item \textbf{No adherencia / cruce de brazos}: incumplimiento o contaminación entre grupos.
+  \item \textbf{Attrition} (pérdida de muestra): especialmente si es \textbf{diferencial}.
+  \item \textbf{Interferencia / spillovers}: efectos entre pares/redes; viola SUTVA.
+  \item \textbf{Sesgo de medición}: instrumentos no validados, \textit{observer/experimenter bias}.
+  \item \textbf{Sesgo de selección}: diferencias pre-tratamiento en grupos.
+  \item \textbf{Efectos de orden / aprendizaje} (diseños within-subject).
+\end{itemize}
+
+\textbf{Mitigaciones de diseño}
+\begin{itemize}
+  \item Aleatorización con \textbf{estratificación/bloques}; \textbf{cluster-RCT} si hay spillovers; \textbf{buffer zones}.
+  \item Cegamiento (simple/doble) cuando sea posible; protocolos estandarizados y pretest piloto.
+  \item \textbf{Pre-registro / PAP}: define outcomes primarios/secundarios y análisis.
+\end{itemize}
+
+\textbf{Mitigaciones de análisis}
+\begin{itemize}
+  \item \textbf{ITT} como estimando principal; \textbf{LATE} (2SLS) con asignación como IV si hay no adherencia.
+  \item Attrition: compara \textbf{balance post-attrition}; usa \textbf{IPW}, \textbf{bounds} (p. ej. de Lee) o sensibilidad.
+  \item Interferencia: modela redes o usa \textbf{diseños saturados de cluster} (tratamiento por proporciones).
+  \item Medición: \textbf{correcciones por error} o instrumentos alternativos; auditorías de datos.
+\end{itemize}
+
+\textbf{Documentación y transparencia}
+\begin{itemize}
+  \item Materiales, código y datos (cuando sea posible) en repositorios abiertos; \textbf{logs} de decisiones (\textit{lab book}).
+  \item Reportar \textbf{checks preespecificados} y separar análisis exploratorios (multiverso/especificación-curve).
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Distinción entre diseños experimentales estándar}
+    \textbf{Diseños completamente aleatorizados:}
+    \begin{itemize}
+        \item Las unidades experimentales (sujetos o elementos de estudio) se asignan aleatoriamente a diferentes tratamientos o condiciones. 
+        \item Cada unidad tiene la misma probabilidad de ser asignada a cualquier tratamiento, permitiendo inferencias causales más robustas.
+    \end{itemize}
+
+    \textbf{Diseños en bloques:}
+    \begin{itemize}
+        \item Antes de la asignación a tratamientos, las unidades experimentales se agrupan  por un factor que afecta la variable de respuesta.
+        \item Se reduce la variabilidad dentro de los tratamientos, mejorando la precisión de las estimaciones del efecto del tratamiento.
+    \end{itemize}
+
+    \textbf{Diseños factoriales:}
+    \begin{itemize}
+        \item Dos o más factores experimentales (variables independientes), examinando efectos principales de cada factor y sus interaccioness.
+        \item Evaluación más eficiente y completa de cómo diferentes factores y sus combinaciones afectan la variable de respuesta, optimizando recursos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Importancia del experimento piloto}
+\textbf{Definición y Propósito}
+
+\begin{itemize}
+    \item Un experimento piloto es un estudio preliminar diseñado para probar la viabilidad y metodología de un experimento principal.
+    \item Ayuda a identificar posibles problemas y ajustar el diseño antes de la implementación a gran escala.
+\end{itemize}
+
+\textbf{Ventajas clave}
+
+\begin{itemize}
+    \item \textbf{Identificación de problemas:} Revela desafíos inesperados en la recopilación de datos o en el diseño experimental.
+    \item \textbf{Ajuste de métodos:} Permite refinar procedimientos, herramientas de medición y técnicas de análisis de datos.
+    \item \textbf{Estimación del Error experimental:} Proporciona datos preliminares para estimar la variabilidad y el tamaño de muestra necesario.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo de un experimento piloto}
+\textbf{Ejemplo concreto: Estudio preliminar sobre pánicos bancarios en bancos experimentales grandes}
+\begin{itemize}
+    \item \textbf{Contexto:} Se desa comprobar si la información de otros depositantes afecta a las decisiones de retirar el dinero, dependiendo del tamaño del banco.
+    \item \textbf{Implementación del Piloto:} Se realizó un experimento piloto con 20 individuos, en un banco de tamaño mediano, identificando los tiempos de espera para obtener la información y cómo procesar las decisiones.
+    \item \textbf{Impacto:} Los ajustes realizados como resultado del piloto permitieron una gestión eficaz del experimento definitivo con 1500 individuos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tarea: Creación de un diseño experimental básico}
+    \textbf{Objetivo:} Aplicar los principios básicos del diseño experimental para investigar un problema.\\[10pt]
+    
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \textbf{Instrucciones:}
+            \begin{enumerate}
+                \item Formar grupos de 4-5 estudiantes.
+                \item Identificar un problema simple para investigar que interese a todos.
+                \item Formular una hipótesis basada en observaciones o literatura previa.
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{enumerate}
+                \setcounter{enumi}{3}
+                \item Esbozar un diseño experimental incluyendo:
+                \begin{itemize}
+                    \item Variables independientes y dependientes.
+                    \item Métodos para controlar variables extrañas.
+                \end{itemize}
+                \item Discutir cómo recoger y analizar los datos.
+            \end{enumerate}
+        \end{column}
+    \end{columns}
+    
+\end{frame}
+
+\subsection{Tipos de experimentos}
+\begin{frame}
+    \frametitle{Tipos de Experimentos}
+    \centering
+    \textbf{\Large Tipos de experimentos}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Experimentos Exploratorios vs. Confirmatorios}
+\textbf{Diferenciación clave en la investigación experimental}
+\begin{itemize}
+    \item \textbf{Experimentos exploratorios:}
+    \begin{itemize}
+        \item Investigaciones iniciales sobre relaciones o fenómenos poco conocidos.
+        \item Se busca generar ideas, hipótesis y direcciones futuras de investigación.
+        \item Comúnmente realizados en etapas tempranas de un proyecto.
+    \end{itemize}
+    \item \textbf{Experimentos confirmatorios:}
+    \begin{itemize}
+        \item Realizados para evaluar hipótesis específicas y teorías establecidas.
+        \item Buscan confirmar o refutar relaciones causales con evidencia sólida.
+        \item Se basan en conocimientos previos y una cuidadosa planificación del diseño.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Importancia de la distinción}
+\begin{itemize}
+    \item Determina el enfoque y las expectativas del experimento.
+    \item Impacta la interpretación de los resultados y las inferencias realizadas.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Introducción a los Tipos de experimentos}
+    \textbf{Clasificación Principal}
+    \begin{itemize}
+        \item Experimentos controlados.
+        \item Cuasiexperimentos.
+        \item Experimentos naturales.
+    \end{itemize}
+    Cada tipo se adapta a necesidades específicas de investigación, con métodos diseñados para entornos y objetivos particulares.
+\end{frame}
+
+\begin{frame}{Experimentos Controlados}
+    \textbf{La forma más rigurosa de investigación experimental}
+    \begin{itemize}
+        \item Manipulación de variables independientes para observar efectos en variables dependientes.
+        \item Control riguroso de variables extrañas para asegurar cambios observados debido a la manipulación intencionada.
+    \end{itemize}
+
+    \textbf{Características Clave}
+    \begin{itemize}
+        \item Manipulación y control de variables.
+        \item Asignación aleatoria para minimizar sesgos.
+    \end{itemize}
+
+    Realizados en laboratorios y entornos de campo, fundamentales en ciencias naturales y sociales.
+\end{frame}
+
+\begin{frame}{Cuasiexperimentos}
+    \textbf{Similares a Experimentos Controlados pero sin Asignación Aleatoria}
+    \begin{itemize}
+        \item Manipulación de una variable independiente para estudiar efectos en una dependiente.
+        \item Grupos formados por condiciones o características preexistentes.
+    \end{itemize}
+
+    \textbf{Limitaciones}
+    \begin{itemize}
+        \item Mayor riesgo de sesgo y variables confusas debido a la falta de asignación aleatoria.
+        \item Dificultad para afirmar causalidad con la misma confianza que en experimentos controlados.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Experimentos Naturales}
+    \textbf{Observación de efectos de variaciones naturales}
+    \begin{itemize}
+        \item El investigador no manipula directamente la variable independiente.
+        \item Aprovechamiento de eventos o políticas existentes para estudiar efectos sobre poblaciones.
+    \end{itemize}
+
+    \textbf{Desafíos}
+    \begin{itemize}
+        \item Control limitado sobre variables, dificultando la interpretación de resultados.
+        \item Percepciones valiosas en entornos reales pero con limitaciones para inferir causalidad.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipología de Experimentos Controlados - Asignación de sujetos y Tiempo de medición}
+    \textbf{Asignación de Sujetos:}
+    \begin{itemize}
+        \item \textbf{Grupos independientes ("between subjects"):} Asignación a un solo grupo de tratamiento o control. Requiere más participantes para validez estadística.
+        \item \textbf{Medidas repetidas ("within subjects"):} Participantes expuestos a todas las condiciones, reduce variaciones pero puede introducir efectos de orden.
+    \end{itemize}
+
+    \textbf{Tiempo de medición:}
+    \begin{itemize}
+        \item \textbf{Longitudinales:} Mediciones múltiples a lo largo del tiempo para observar cambios o tendencias.
+        \item \textbf{Transversales:} Mediciones en un único punto en el tiempo, más sencillo pero limitado en capturar dinámica de cambio.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{El Estándar de Oro para Establecer Causalidad: Los Experimentos}
+    \begin{itemize}
+        \item \textbf{Experimentos Controlados Aleatorizados (RCTs):} Considerados el estándar de oro para identificar relaciones causales.
+        \item \textbf{Principales características de los RCTs:}
+            \begin{itemize}
+                \item \textbf{Manipulación directa de variables:} Permite observar efectos específicos de la variable.
+                \item \textbf{Asignación aleatoria:} Minimiza sesgos y asegura que los grupos sean comparables.
+                \item \textbf{Control de condiciones:} Asegura que cualquier diferencia en los resultados se debe al tratamiento.
+            \end{itemize}
+        \item \textbf{Conclusión:} Los RCTs son el método más riguroso para obtener evidencia de causalidad, siendo por ello considerados el "estándar oro".
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Limitaciones de los Experimentos y Métodos Alternativos}
+    \begin{itemize}
+        \item \textbf{Limitaciones de los experimentos:} En algunos casos, realizar un experimento no es posible debido a razones éticas o prácticas.
+        \item \textbf{Métodos alternativos para inferir causalidad:}
+            \begin{itemize}
+                \item Diseños observacionales.
+                \item Criterios de causalidad (como los de Bradford Hill) en estudios epidemiológicos.
+            \end{itemize}
+        \item \textbf{Ejemplo: Tabaquismo y Cáncer de Pulmón}
+            \begin{itemize}
+                \item Aunque un RCT no sería ético, se ha establecido causalidad a través de estudios observacionales y consistencia en datos.
+            \end{itemize}
+        \item \textbf{Conclusión:} Cuando los experimentos no son viables, otros métodos ofrecen alternativas valiosas para establecer causalidad, dependiendo de la disciplina y contexto.
+    \end{itemize}
+\end{frame}
+
+\section{Análisis estadístico}
+
+\subsection{Estadística del diseño experimental}
+\begin{frame}
+    \frametitle{Estadística del Diseño Experimental}
+    \centering
+    \textbf{\Large Cómo analizar los resultados experimentales}
+    \vspace{0.5cm}
+\end{frame}
+
+
+\begin{frame}{Introducción a la Estadística en el Diseño Experimental}
+    \textbf{El Papel de la Estadística}
+    \begin{itemize}
+        \item Herramienta clave para planificar estudios, analizar datos y sacar conclusiones válidas.
+        \item Permite tratar con incertidumbre y generalizar hallazgos de muestras a poblaciones.
+    \end{itemize}
+
+    \textbf{Conceptos Básicos}
+    \begin{itemize}
+        \item \textbf{Población y Muestra:} Todos los sujetos posibles vs. un subconjunto seleccionado.
+        \item \textbf{Variable:} Característica que varía entre sujetos o en el tiempo.
+        \item \textbf{Distribución:} Cómo se dispersan los valores de las variables.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Significancia Estadística}
+    \textbf{Determinando la Influencia de Variables}
+    \begin{itemize}
+        \item Pruebas de hipótesis para evaluar si los resultados se deben a manipulaciones específicas.
+        \item \textbf{Hipótesis Nula ($H_0$):} No hay efecto o diferencia.
+        \item \textbf{Hipótesis Alternativa ($H_1$):} Existe un efecto o diferencia.
+    \end{itemize}
+
+    \textbf{Valor p y su Interpretación}
+    \begin{itemize}
+        \item Representa la probabilidad de obtener los resultados experimentales bajo $H_0$.
+        \item Un valor p bajo ($<0.05$) sugiere rechazar $H_0$, indicando resultados estadísticamente significativos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Potencia Estadística}
+\textbf{Capacidad de Detectar Efectos Significativos}
+\begin{itemize}
+    \item La potencia estadística es la probabilidad de rechazar correctamente la hipótesis nula cuando es falsa.
+    \item Una potencia baja implica un alto riesgo de cometer errores de tipo II (falsos negativos), es decir, no detectar un efecto significativo cuando realmente existe.
+    \item Depende del tamaño del efecto, el tamaño de la muestra y el nivel de significancia establecido.
+\end{itemize}
+
+\textbf{Importancia}
+\begin{itemize}
+    \item Asegura que el experimento tenga la capacidad de detectar efectos significativos si existen.
+    \item Evita resultados inconclusos o conclusiones erróneas debido a una potencia inadecuada.
+    \item Esencial para una investigación sólida y resultados confiables.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Cálculo del Tamaño de Muestra}
+\textbf{Determinando el número de participantes o unidades muestrales Necesario}
+\begin{itemize}
+    \item El tamaño de muestra adecuado depende de la potencia deseada, el tamaño del efecto esperado y el nivel de significancia.
+    \item Métodos comunes:
+    \begin{itemize}
+        \item Cálculos basados en tablas y fórmulas.
+        \item Simulaciones y software especializado.
+    \end{itemize}
+    \item Un tamaño de muestra insuficiente reduce la potencia y dificulta la detección de efectos.
+    \item Un tamaño de muestra excesivo puede ser costoso e ineficiente.
+\end{itemize}
+
+\textbf{Importancia}
+\begin{itemize}
+    \item Asegura la validez estadística y la capacidad de generalización de los resultados.
+    \item Optimiza el uso de recursos y minimiza el desperdicio.
+    \item Consideraciones éticas sobre el uso responsable de participantes.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Potencia con clústeres, MDE y control de multiplicidad}
+\small
+\textbf{Clustering e ICC}
+\begin{itemize}
+  \item Con clústeres (aulas, pueblos, hospitales), las unidades dentro del clúster son correlacionadas: \textbf{ICC} $\rho$.
+  \item \textbf{Design effect}: $DEFF = 1 + (m-1)\rho$; tamaño efectivo $n_{\text{efectivo}}=n/DEFF$.
+  \item Regla: con $\rho>0$, suele ser mejor aumentar \textbf{nº de clústeres} que el tamaño dentro de clúster.
+\end{itemize}
+
+\textbf{Tamaño muestral (aprox. diferencia de medias, clúster-RCT)}
+\[
+J_{\text{brazo}} \;\approx\; 
+\frac{(z_{1-\alpha/2}+z_{1-\beta})^2 \;\; 2\sigma^2 \; [1+(m-1)\rho]}{m\,\Delta^2}
+\]
+\begin{itemize}
+  \item $J$: clústeres por brazo; $m$: unidades/clus.; $\Delta$: \textbf{MDE} (efecto mínimo detectable); $\sigma^2$: varianza outcome.
+  \item \textbf{Reporte}: incluir ICC estimada y \textbf{MDE} alcanzado ex–ante; ICs con \textbf{errores estándar agrupados} por clúster.
+\end{itemize}
+
+\textbf{Multiplicidad de hipótesis}
+\begin{itemize}
+  \item \textbf{FWER} (familia de errores tipo I): Bonferroni (simple, conservador), Holm (más potente).
+  \item \textbf{FDR} (tasa de falsos descubrimientos): Benjamini--Hochberg; preferible cuando hay \textit{múltiples outcomes primarios}.
+  \item \textbf{Pre-registra} outcomes primarios/secundarios; considera \textbf{índices compuestos} para familias de outcomes.
+\end{itemize}
+
+\textbf{Checklist rápido}
+\begin{itemize}
+  \item ¿He calculado \textbf{MDE} realista con $\rho$ plausible y $m$ esperado?
+  \item ¿Mi plan de análisis ajusta SEs por clúster y declara \textbf{corrección por múltiples tests}?
+  \item ¿Qué sacrifico: potencia, granularidad de outcomes, o acepto mayor FDR con control explícito?
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{TAREA: Tamaño de muestra en el experimento de Lind}
+    \textbf{Contexto:}
+    James Lind, en uno de los primeros ensayos controlados, trató a 12 marineros con escorbuto utilizando diferentes tratamientos para encontrar uno efectivo.
+
+    \textbf{Objetivo de la Actividad:}
+    Determinar primero el tamaño de muestra necesario para resultados estadísticamente significativos a un nivel de significancia del 5\%, con una potencia del 80\%. Asuma que los cítricos son efectivos el 90\% de las veces, contra una tasa de curación natural del escorbuto del 10\%. En segundo lugar, calcule la potencia del test con los valores que usó Lind: 2 individuos con cítricos y 10 individuos con otros métodos inocuos asuma 10 individuos de control, y efectividad del 90\% y del 10\%. Finalmente, busque con qué valores de efectividad dicho experimento tiene una potencia razonable. Reflexione sobre el valor de la potencia. 
+
+    \textbf{Instrucciones:}
+    Utilice el test de Fisher para el cálculo. Use una calculador de tamaño muestral, como ésta:
+    \url{https://homepage.univie.ac.at/robin.ristl/samplesize.php?test=fishertest}
+\end{frame}
+
+\begin{frame}{El Test de la t para comparar medias}
+    \textbf{Fundamentos del Test de la t}
+    \begin{itemize}
+        \item Herramienta estadística para determinar si existe una diferencia significativa entre las medias de dos grupos.
+        \item Aplicable a muestras independientes o relacionadas (pares).
+    \end{itemize}
+
+    \textbf{Cuándo Usar el Test de la \(t\)}
+    \begin{itemize}
+        \item Comparar dos grupos experimentales (p.ej., control vs. tratamiento).
+        \item Evaluar diferencias antes y después de intervención en un grupo.
+    \end{itemize}
+
+    \textbf{Requisitos}
+    \begin{itemize}
+        \item Datos deben seguir aproximadamente una distribución normal.
+        \item Varianzas de los grupos deben ser similares.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{El Test de la t para comparar medias}
+    \textbf{Interpretación de Resultados}
+    \begin{itemize}
+        \item Se basa en el valor \(p\): un valor \(p < 0.05\) sugiere una diferencia significativa entre los grupos.
+        \item La magnitud de la diferencia se evalúa mediante la diferencia de medias y el tamaño del efecto.
+    \end{itemize}
+    \textbf{Ejemplo de experimento a testar con la t}
+    \begin{itemize}
+        \item \textbf{¿La música mejora la concentración en tareas cognitivas?} Dos grupos de participantes realizan una tarea de memoria a corto plazo. Un grupo trabaja con música instrumental de fondo y otro en silencio absoluto. Se mide el número de palabras recordadas correctamente.
+        \item Se comparan las medias del rendimiento entre los dos grupos con una prueba t de Student para muestras independientes.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Análisis de Varianza (ANOVA)}
+    \textbf{Comparando Medias de Tres o Más Grupos}
+    \begin{itemize}
+        \item Descompone la variabilidad observada en componentes atribuibles a diferentes fuentes.
+        \item \textbf{ANOVA de un Factor:} Efecto de una variable independiente.
+        \item \textbf{ANOVA de Dos Factores:} Efecto de dos variables independientes, incluyendo interacciones.
+    \end{itemize}
+
+    \textbf{Valor F y su Significado}
+    \begin{itemize}
+        \item Compara la varianza entre grupos con la varianza dentro de los grupos.
+        \item Un valor F grande indica diferencias significativas entre las medias.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Análisis de Varianza (ANOVA)}
+    \textbf{Ejemplo de experimento con ANOVA de un factor}
+    \begin{itemize}
+        \item Eficacia de tres tipos de terapias para el dolor crónico.
+        \item Pacientes con dolor crónico son asignados aleatoriamente a uno de tres tratamientos: terapia cognitivo-conductual, fisioterapia o un tratamiento farmacológico estándar. Después de un mes, se evalúa la percepción del dolor con una escala de 0 a 10.
+        \item Se utiliza un ANOVA de una vía para comparar las puntuaciones promedio del dolor entre los tres grupos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Análisis de Varianza (ANOVA)}
+    \textbf{Ejemplo de experimento con ANOVA de dos factores}
+    \begin{itemize}
+        \item ¿Cómo afecta el tipo de enseñanza (tradicional vs. basada en proyectos) y la hora del día (mañana vs. tarde) al rendimiento de los estudiantes?
+        \item Grupo 1: Tradicional + Mañana. Grupo 2: Tradicional + Tarde. Grupo 3: Basada en proyectos + Mañana. Grupo 4: Basada en proyectos + Tarde  
+        \item ANOVA de dos factores: Factor A, método de enseñanza, y factor B, hora del día. Se analizan los efectos principales de ambos factores y su interacción.   
+        \item Variable dependiente: Puntuación media de un test de comprensión administrado tras una semana de clases.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Regresión}
+    \textbf{Modelando Relaciones entre Variables}
+    \begin{itemize}
+        \item \textbf{Regresión Lineal Simple:} Relación entre dos variables ($y = bx + a$).
+        \item \textbf{Regresión Lineal Múltiple:} Extiende a múltiples variables independientes.
+    \end{itemize}
+
+    \textbf{Evaluación de Significancia}
+    \begin{itemize}
+        \item \textbf{Estadístico t:} Evalúa significancia de coeficientes individuales.
+        \item \textbf{Estadístico F:} Determina si las variables independientes afectan significativamente a la variable dependiente.
+    \end{itemize}
+
+    Predice valores de una variable dependiente basándose en variables independientes, permitiendo análisis complejos.
+\end{frame}
+
+\begin{frame}{Aplicación de la Regresión Lineal Múltiple}
+\textbf{Ejemplo Práctico:} Investigación sobre el impacto de la dieta y el ejercicio en la pérdida de peso.
+\begin{itemize}
+    \item \textit{Variables independientes:} Calorías consumidas diariamente (X1), minutos de ejercicio diario (X2).
+    \item \textit{Variable dependiente:} Kilogramos perdidos (Y).
+    \item \textit{Modelo:} $Y = b_0 + b_1X_1 + b_2X_2 + e$.
+\end{itemize}
+\textbf{Interpretación:}
+\begin{itemize}
+    \item $b_1$ y $b_2$ representan el cambio esperado en la pérdida de peso por cada unidad de cambio en las calorías consumidas y los minutos de ejercicio, respectivamente.
+    \item Análisis de significatividad para $b_1$ y $b_2$ indica cómo de influyentes son esas variables en la pérdida de peso.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Manejo de Datos Faltantes}
+\textbf{Impacto en la Investigación:}
+\begin{itemize}
+    \item Los datos faltantes pueden sesgar resultados y conclusiones si no se manejan adecuadamente.
+    \item Métodos de manejo incluyen imputación, eliminación de listas, y análisis de sensibilidad.
+\end{itemize}
+\textbf{Estrategias de Imputación:}
+\begin{itemize}
+    \item \textit{Imputación media:} Sustituir valores faltantes con la media de la variable.
+    \item \textit{Imputación múltiple:} Crear múltiples conjuntos completos de datos, analizar cada uno y combinar los resultados.
+\end{itemize}
+\textbf{Consideraciones:} La elección del método depende de la naturaleza de los datos y el patrón de datos faltantes.
+\end{frame}
+
+\begin{frame}{Herramientas y Software para Análisis de Datos}
+\textbf{Herramientas Populares:}
+\begin{itemize}
+    \item \textit{R:} Lenguaje de programación especializado en estadística.
+    \item \textit{Python:} Versátil, con librerías como Pandas y Scikit-learn.
+    \item \textit{SPSS:} Software para análisis estadístico en ciencias sociales.
+    \item \textit{Stata:} Utilizado en economía, sociología y ciencia política.
+\end{itemize}
+\textbf{Selección basada en:}
+\begin{itemize}
+    \item Necesidades del proyecto.
+    \item Conocimientos previos del equipo de investigación.
+    \item Disponibilidad de recursos y soporte comunitario.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Técnicas de Visualización de Datos}
+\textbf{Importancia:} Facilita la comprensión y comunicación de resultados complejos.
+
+\textbf{Tipos de Visualizaciones:}
+\begin{itemize}
+    \item Histogramas, diagramas de caja, gráficos de dispersión para análisis exploratorio.
+    \item Mapas de calor, gráficos de líneas para tendencias temporales.
+    \item Infografías para presentaciones y reportes a un público general.
+\end{itemize}
+\textbf{Herramientas Comunes:}
+\begin{itemize}
+    \item \textit{Tableau:} Potente para crear visualizaciones interactivas.
+    \item \textit{Matplotlib y Seaborn en Python:} Para gráficos estadísticos.
+    \item \textit{GGplot2 en R:} Para creación de gráficos avanzados.
+\end{itemize}
+\end{frame}
+
+\subsection{Validez y Fiabilidad}
+\begin{frame}
+    \frametitle{Validez y Fiabilidad}
+    \centering
+    \textbf{\Large Qué implican los resultados de un experimento}
+    \vspace{0.5cm}
+\end{frame}
+
+
+\begin{frame}{Introducción a Validez y Fiabilidad}
+    \textbf{Conceptos fundamentales en la investigación experimental}
+    \begin{itemize}
+        \item Validez: Cómo de bien un experimento mide lo que pretende medir.
+        \item Fiabilidad: Consistencia de las mediciones en un estudio.
+    \end{itemize}
+
+    \textbf{Importancia}
+    \begin{itemize}
+        \item Aseguran la calidad e integridad de los resultados.
+        \item Cruciales para producir conocimiento significativo y aplicable.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de Validez}
+    \textbf{Diferentes Aspectos de la Medición}
+    \begin{itemize}
+        \item \textbf{Validez Interna:} Precisión de resultados dentro del estudio.
+        \item \textbf{Validez Externa:} Generalización de hallazgos a otros contextos.
+    \end{itemize}
+
+    \textbf{Estrategias para maximizar}
+    \begin{itemize}
+        \item Control de variables confundentes, selección de muestras representativas, revisión exhaustiva de la literatura.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Maximizando la Fiabilidad}
+    \textbf{Estrategias clave}
+    \begin{itemize}
+        \item \textbf{Consistencia interna:} Coherencia en las respuestas (Alfa de Cronbach).
+        \item \textbf{Test-retest:} Aplicar el mismo test a los mismos sujetos en diferentes momentos.
+        \item \textbf{Formas Paralelas:} Dos versiones equivalentes de un instrumento.
+        \item \textbf{Consistencia entre Observadores:} Capacitación y guías detalladas para evaluaciones cualitativas.
+    \end{itemize}
+\end{frame}
+
+
+\section{Principios éticos para la experimentación}
+
+\subsection{Consentimiento y privacidad}
+\begin{frame}
+    \frametitle{Consentimiento y privacidad}
+    \centering
+    \textbf{\Large Experimentando éticamente respecto a los participantes}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Introducción a Problemas Éticos en la Investigación}
+\textbf{La Importancia de la Ética en la Investigación}
+\begin{itemize}
+\item Los problemas éticos han marcado la historia de la investigación científica.
+\item Casos de falta de consentimiento informado, engaño y daño a los participantes.
+\end{itemize}
+\textbf{Consecuencias}
+\begin{itemize}
+    \item Han impulsado el desarrollo de regulaciones éticas en la investigación.
+    \item Buscan proteger a los sujetos de investigación y asegurar la integridad de los estudios.
+\end{itemize}
+\textbf{Tensiones y desafíos}
+\begin{itemize}
+    \item Encontrar un equilibrio entre la protección de los participantes y el avance del conocimiento científico.
+    \item Riesgos potenciales de limitar excesivamente la investigación vs poner en riesgo el bienestar de los sujetos.
+    \item Requiere un análisis cuidadoso de riesgos y beneficios en cada proyecto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estudios históricos notorios}
+    \textbf{Casos emblemáticos}
+    \begin{itemize}
+        \item \textbf{El estudio de Tuskegee sobre la Sífilis:} Negación deliberada de tratamiento eficaz (incluida la penicilina) a participantes afroamericanos.
+        \item \textbf{El Experimento de Milgram:} Medición de la disposición a obedecer autoridades a costa de infligir dolor.
+        \item \textbf{El Estudio de la Prisión de Stanford:} Simulación de prisión que llevó a comportamientos abusivos y estrés emocional.
+    \end{itemize}
+
+    \textbf{Impacto}
+    \begin{itemize}
+        \item Destacan la explotación, el racismo sistémico y el trauma psicológico en la investigación.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplos contemporáneos de dilemas éticos}
+\textbf{Manipulación de Información en Redes Sociales:} Un estudio de Facebook alteró los feeds de noticias de los usuarios sin su consentimiento para estudiar cambios en las emociones. Este experimento planteó preguntas sobre el consentimiento informado y el derecho a la privacidad en la investigación psicológica en plataformas digitales.
+
+\textbf{CRISPR y Edición genética:} La utilización de CRISPR-Cas9 para editar genéticamente embriones humanos ha levantado preocupaciones éticas profundas sobre la manipulación genética, las implicaciones a largo plazo para la especie humana y los dilemas morales asociados a la "creación" de seres humanos con características deseables.
+
+\textbf{Acceso y uso de datos personales:} La investigación que utiliza grandes bases de datos personales, como historiales médicos o preferencias de consumo, ha puesto en relieve la necesidad de proteger la privacidad de las personas y evitar el uso indebido de la información personal.
+
+\end{frame}
+
+
+\begin{frame}{Respuesta y regulaciones éticas}
+    \textbf{Desarrollo de normativas éticas}
+    \begin{itemize}
+        \item \textbf{Declaración de Helsinki:} Principios éticos para la investigación médica.
+        \item \textbf{Informe Belmont:} Establece respeto por las personas, beneficencia y justicia.
+    \end{itemize}
+
+    \textbf{Impacto en la investigación contemporánea}
+    \begin{itemize}
+        \item Obligación de obtener consentimiento informado.
+        \item Supervisión por Comités de Ética de Investigación (IRBs).
+        \item Promoción de transparencia y responsabilidad en la publicación de estudios.
+    \end{itemize}
+\end{frame}
+
+\subsection{Ética en la identificación y difusión de resultados}
+\begin{frame}
+    \frametitle{Ética en la identificación y difusión de resultados}
+    \centering
+    \textbf{\Large Reproducibilidad y comportamientos éticos}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{La Crisis de reproducibilidad en la ciencia}
+\textbf{¿Qué es la Crisis de reproducibilidad?}
+\begin{itemize}
+    \item Desde Ioannidis (2005), "Why Most Published Research Findings Are False", se ha encontrado que numerosos resultados de estudios científicos no son reproducibles.
+    \item Prinz et al (2011) mostraron que apenas 25\% de los estudios preclínicos publicados pudieron ser validados para continuar.
+    \item Begley et al (2012) indicaron que solo pudieron confirmar el 6\% de esos estudios.   
+    \item Open Science Collaboration (2015) replicó 100 artículos de 2008 de revistas de psicología de alto impacto y encontraron que solo el 47\% de los resultados originales estaban en el intervalo de confianza del 95\% del tamaño de efecto replicado.
+    \item Camerer et al (2016) encontraron que el 39\% de los resultados experimentales publicados en dos de las revistas top de economía no se replicaban.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tarea: Reflexión sobre las causas de la crisis de reproducibilidad}
+\textbf{Objetivo:} Identificar y analizar los factores que contribuyen a la crisis de reproducibilidad en la investigación científica.\\[10pt]
+\textbf{Instrucciones:}
+\begin{enumerate}
+    \item Formar grupos de 3-4 personas.
+    \item Reflexionar sobre los siguientes aspectos:
+    \begin{itemize}
+        \item ¿Qué factores del proceso de investigación podrían llevar a resultados irreproducibles?
+        \item ¿Cómo influyen la presión por publicar y las prácticas de análisis de datos (como el p-hacking) en la reproducibilidad?
+        \item ¿Qué papel juegan las revistas científicas y los revisores en este problema?
+    \end{itemize}
+    \item Discutir posibles soluciones que podrían implementarse en la comunidad científica para mejorar la reproducibilidad.
+    \item Preparar un breve resumen (2-3 puntos clave) para compartir con el resto de la clase.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{La Crisis de reproducibilidad en la ciencia}
+\textbf{Causas Principales}
+\begin{itemize}
+    \item Prácticas de investigación cuestionables, como el p-hacking y la selección selectiva de resultados.
+    \item Presiones sobre los investigadores para publicar resultados positivos.
+    \item Falta de transparencia y disponibilidad de datos brutos para análisis independientes.
+\end{itemize}
+
+\textbf{Impacto en la Ciencia}
+\begin{itemize}
+    \item Erosión de la confianza pública en la ciencia.
+    \item Llamados a la reforma de prácticas de investigación y publicación.
+\end{itemize}
+
+\textbf{Respuestas a la Crisis}
+\begin{itemize}
+    \item Fomento de la ciencia abierta y el preregistro de estudios.
+    \item Mayor énfasis en la replicación y validación de resultados por parte de la comunidad científica.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Replicación y reproducibilidad en la Investigación experimental}
+\textbf{Pilares de la validez científica}
+\begin{itemize}
+    \item \textbf{Replicación:} Capacidad de obtener resultados al repetir un experimento con mismas condiciones y métodos.
+    \item \textbf{Reproducibilidad:} Capacidad de obtener hallazgos consistentes por diferentes investigadores al aplicar los mismos procedimientos.
+\end{itemize}
+
+\textbf{Importancia}
+\begin{itemize}
+    \item Verifica la fiabilidad y solidez de los resultados experimentales.
+    \item Esencial para la acumulación de conocimiento científico.
+    \item Identifica y corrige posibles errores o sesgos en los estudios originales.
+    \item Fomenta la transparencia y la integridad en la investigación.
+\end{itemize}
+
+\textbf{Estrategias para promover la replicación y reproducibilidad}
+\begin{itemize}
+    \item Descripción detallada de los métodos y materiales.
+    \item Compartir datos y código de análisis de manera abierta.
+    \item Preregistro para distinguir análisis confirmatorios y exploratorios.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multiple testing y control del FWER}
+    \textbf{El Desafío de las Pruebas Múltiples}
+    \begin{itemize}
+        \item Riesgo de falso positivo aumenta con cada prueba estadística adicional.
+        \item Importancia de controlar la tasa de error familiar (FWER).
+    \end{itemize}
+
+    \textbf{Métodos de Control}
+    \begin{itemize}
+        \item Procedimiento de Bonferroni y método de Holm para ajustar valores p.
+    \end{itemize}
+
+    \textbf{Impacto en la Investigación}
+    \begin{itemize}
+        \item Asegura que resultados significativos sean genuinos.
+        \item Fortalece la confianza en los hallazgos reportados.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cherry Picking y la Ciencia Abierta}
+    \textbf{Contra la selección sesgada de datos}
+    \begin{itemize}
+        \item Práctica de reportar solo resultados que apoyan hipótesis predeterminadas.
+        \item Compromete la reproducibilidad y validez de los estudios.
+    \end{itemize}
+
+    \textbf{Mitigando el cherry picking}
+    \begin{itemize}
+        \item Adopción de prácticas de ciencia abierta y transparencia investigativa.
+        \item Publicación de todos los resultados, apoyen o contradigan las hipótesis.
+    \end{itemize}
+
+    \textbf{Construyendo una base de conocimiento Sólida}
+    \begin{itemize}
+        \item Interrelación de pre-registro, control de multiple testing y ciencia abierta.
+        \item Promueve una interpretación objetiva de los datos y resultados genuinos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pre-registro de estudios científicos}
+    \textbf{Aumentando la transparencia}
+    \begin{itemize}
+        \item Registro público del plan de investigación antes de la recolección de datos.
+        \item Combate el p-hacking y el HARKing, fortaleciendo la validez de los resultados.
+    \end{itemize}
+
+    \textbf{Beneficios clave}
+    \begin{itemize}
+        \item Diferencia clara entre hipótesis exploratorias y confirmatorias.
+        \item Evita la sobreinterpretación de correlaciones fortuitas.
+    \end{itemize}
+
+    \textbf{Herramientas para el pre-registro}
+    \begin{itemize}
+        \item Plataformas como el Registro de Ensayos Clínicos de los NIH, OSF o AsPredicted.
+        \item \textbf{Ejemplos:} \url{https://osf.io/93aus/} o \url{https://aspredicted.org/2zzm-5r7q.pdf}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bibliografía}
+    \textbf{Material Fundamental para el Curso}
+    \begin{itemize}
+        \item Montgomery, D.C. (2019): "Design and Analysis of Experiments", 10th Edition. Wiley.
+    \end{itemize}
+    
+    \textbf{Metodología del Diseño Experimental}
+    \begin{itemize}
+        \item Kirk, R. E. (2009). "Experimental design", Sage handbook of quantitative methods in psychology, 23-45.        
+        \item Tanco-Raínusso, M. (2008). "Metodología para la aplicación del diseño de experimentos (DOE) en la industria." San Sebastián: Universidad de Navarra.
+        \item Ruiz de Maya, S. y López-López, I. (2013): “Metodología del diseño experimental”, en Francisco J. Sarabia Sánchez (ed.) Métodos de Investigación Social y de la Empresa (483-499). Madrid: Pirámide.
+        \item Ato, Manuel, Juan J. López-García, and Ana Benavente. "Un sistema de clasificación de los diseños de investigación en psicología." Anales de Psicología/Annals of Psychology 29.3 (2013): 1038-1059.        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Referencias}
+   \begin{itemize}
+        \item Begley, C., Ellis, L. Raise standards for preclinical cancer research. Nature 483, 531–533 (2012). https://doi.org/10.1038/483531a
+        \item Camerer CF, Dreber A, Forsell E, Ho TH, Huber J, Johannesson M, et al. (March 2016). "Evaluating replicability of laboratory experiments in economics". Science. 351 (6280): 1433–1436.     
+        \item Evans, A. S. (1978). "Causation and disease: a chronological journey: the Thomas Parran lecture". American Journal of Epidemiology, 108(4), 249-258.
+        \item Granger, C. W. J., \& Newbold, P. (2014). "Forecasting economic time series". Academic press.
+        \item Hill, Bradford. (1965). "The environment and disease: association or causation?". Proceedings of the Royal Society of Medicine, 58, 295-300.    
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Referencias}
+
+   \begin{itemize}
+        \item Ioannidis, John P. A. (2005). "Why Most Published Research Findings Are False". PLOS Medicine. 2 (8): e124.
+        \item Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716.
+        \item Prinz, F., Schlange, T., \& Asadullah, K. (2011). Believe it or not: how much can we rely on published data on potential drug targets?. Nature reviews Drug discovery, 10(9), 712-712.
+        \item Tröhler, U. (2005). "Lind and scurvy: 1747 to 1795. Journal of the Royal Society of Medicine, 98(11), 519-522.  
+   \end{itemize}
+   
+\end{frame}
+
+\end{document}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,250 @@
+﻿\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{00B0}{\textdegree}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{---}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+\DeclareUnicodeCharacter{2026}{\ldots{}}
+\usepackage[spanish,es-noshorthands]{babel}
+% Definición del color corporativo aproximado para Pantone Warm Red C
+\definecolor{UMWarmRed}{HTML}{F9423A}
+
+% Tema y esquema de colores
+\usetheme{Madrid}
+\usecolortheme{rose} % Usamos un esquema de color que pueda combinarse bien
+
+% Configuración de colores usando el color corporativo
+\setbeamercolor{title}{bg=UMWarmRed, fg=white}
+\setbeamercolor{frametitle}{bg=UMWarmRed, fg=white}
+\setbeamercolor{structure}{fg=UMWarmRed}
+\setbeamercolor{section number projected}{bg=UMWarmRed,fg=white}
+\setbeamercolor{itemize item}{fg=UMWarmRed}
+\setbeamercolor{itemize subitem}{fg=UMWarmRed}
+\setbeamercolor{enumerate item}{fg=UMWarmRed}
+
+\title[DISEÑO DE EXPERIMENTOS]{METODOLOGÍA Y DISEÑO DE EXPERIMENTOS: \\ CORRELACIÓN Y CAUSALIDAD}
+\author[Alfonso Rosa García]{Alfonso Rosa García }
+\institute[G9]{\textbf{Grupo de Universidades G-9}}
+
+\date{9 y 11 de marzo de 2026 \\ 10:00--13:00}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[] % Comando para hacer algo al inicio de cada sección
+{
+  \begin{frame}{Índice}
+    \tableofcontents[currentsection] % Muestra el índice, enfocando la sección actual
+  \end{frame}
+}
+
+\section{Correlación y Causalidad}
+
+\begin{frame}{Uso del nombre Sarah e interés en aprender español}
+  \begin{itemize}
+    \item  \textbf{The Sarah Flare: A Correlation Between the Name and Desire to
+Parle Español}. Harrison, Thomas y Tyler, 2024.
+    \item Hallazgo de una correlación inesperada en EEUU entre el nombre \textit{Sarah} y el interés en aprender español.
+    \item Datos utilizados de la Administración del Seguro Social de EE. UU. y Google Trends, abarcando los años 2004 a 2022.
+    \item Coeficiente de correlación 0.99 y valor p muy significativo (\textless{}0.01).
+    \item El estudio explora las implicaciones de esta correlación, discutiendo potenciales influencias de los nombres en los deseos lingüísticos.
+    \item Reflexiones sobre la naturaleza peculiar, pero estadísticamente significativa, de este descubrimiento y su contribución al discurso más amplio sobre nombres y comportamiento.
+    \item Para más detalles, \href{https://tylervigen.com/spurious/research-papers/4240_the-sarah-flare-a-correlation-between-the-name-and-desire-to-parle-espaol.pdf}{consulta el enlace al paper}.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Entendiendo la correlación}
+    \textbf{Definición y Significado}
+    \begin{itemize}
+        \item Dos variables están correlacionadas cuando hay una relación entre ellas, una asociación estadística.
+        \item La correlación puede ser positiva (las dos variables varían en el mismo sentido), negativa (en sentido contrario) o inexistente.
+        \item La forma más habitual de medirla, el coeficiente de Pearson, oscila entre -1 (correlación perfecta negativa) y +1 (correlación perfecta positiva), valiendo 0 cuando no hay correlación lineal.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Entendiendo la correlación}
+    \textbf{Limitaciones}
+    \begin{itemize}
+        \item La correlación no implica causalidad.
+        \item Posibles razones para una correlación sin causalidad:
+            \begin{itemize}
+                \item Influencia de terceras variables que afectan a ambas.
+                \item Causalidad inversa (la dirección de causa-efecto es la opuesta).
+                \item Coincidencia estadística (relación aparente pero sin conexión real).
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Estudio de Casos: Correlación sin causalidad}
+
+\begin{itemize}
+    \item \textbf{¿Provocan las picaduras de medusa que la gente suba más selfies a Instagram?:} Se observa una correlación positiva entre el número de selfies en Instagram y las picaduras de medusa declaradas. Sin embargo, es la mayor afluencia a las playas en verano (tercera variable común) lo que lo explica.
+
+    \item \textbf{¿Aumentan los estudios de formación profesional el nivel de desempleo?:}  
+    Se observa que las regiones con mayores tasas de estudiantes en formación profesional tienen mayores niveles de desempleo. Sin embargo, es el desempleo elevado el que impulsa la inscripción en formación profesional.
+
+    \item \textbf{¿El deseo de aprender español lleva a elegir el nombre de Sarah para las hijas?:}  
+   Se observa una correlación positiva entre las búsquedas anuales en Google sobre el estudio del español y el número de niñas a las que se llama Sarah. Pero es el resultado de comparar múltiples datos no relacionados (\href{https://tylervigen.com/spurious-correlations}{tylervigen.com}).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{¿Por qué no basta con la correlación?}
+\textbf{El problema fundamental:}  
+Las correlaciones nos dicen \emph{qué variables se mueven juntas},  
+pero no nos dicen \textbf{qué ocurre si cambiamos algo}.
+
+\vspace{0.4cm}
+
+\begin{itemize}
+    \item Las correlaciones pueden surgir por coincidencia, por terceras variables o por causalidad inversa.
+    \item Los datos observacionales, por sí solos, no nos dan el \textit{mundo contrafactual}: qué habría pasado bajo una alternativa diferente.
+    \item Para tomar decisiones —políticas públicas, intervenciones médicas, estrategias educativas, gestión empresarial— necesitamos saber qué variable causa qué.
+\end{itemize}
+
+\vspace{0.4cm}
+
+\textbf{Y aquí es donde entran los experimentos:}  
+nos permiten establecer causalidad creando condiciones controladas y comparables.
+\end{frame}
+
+
+
+\begin{frame}{La causalidad y cómo establecerla}
+\textbf{Más allá de la correlación}
+
+\begin{itemize}
+    \item \textbf{Establecimiento de causalidad:}
+    \begin{enumerate}
+        \item \textit{Precedencia temporal:} La causa debe preceder al efecto en el tiempo. \textit{Ejemplo:} En estudios sobre el tabaquismo y cáncer de pulmón, el inicio del hábito de fumar precede al desarrollo de la enfermedad.
+        \item \textit{Relación consistente:} Observaciones repetidas de la asociación entre causante y efecto bajo diferentes circunstancias. \textit{Ejemplo:} Se ha observado consistentemente que mayores niveles de educación están asociados con ingresos económicos más altos a lo largo de diversos contextos geográficos y temporales.
+        \item \textit{Descarte de otras explicaciones:} No deben existir factores confundentes plausibles que puedan explicar la relación observada. \textit{Ejemplo:} En la investigación sobre la efectividad de una vacuna, se controlan otros factores que podrían influir en los resultados, como la exposición a la enfermedad y condiciones de salud preexistentes.
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algunos enfoques sobre la causalidad}
+\begin{itemize}
+    \item \textbf{Criterios de Bradford Hill}: guía para inferir una relación causal en estudios observacionales, proceden de la epidemiología: consistencia, especificidad, fuerza, y secuencia temporal, entre otros.
+    \item \textbf{Postulados de Koch}: relación causal entre un microorganismo y una enfermedad. Que el organismo siempre esté presente en la enfermedad y pueda aislarse, y reproducir la enfermedad en un huésped nuevo.
+    \item \textbf{Causalidad de Granger}: determinación de si una serie temporal es predictiva de otra. Causas preceden a los efectos en el tiempo e información sobre la causa mejora la predicción del efecto.
+\end{itemize}
+
+\textbf{Similitudes y diferencias}
+\begin{itemize}
+    \item Los tres enfoques comparten la importancia de la precedencia temporal. Sin embargo, difieren en su aplicación y los criterios específicos para establecer causalidad, reflejando las particularidades de sus respectivos campos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tarea: Análisis de Correlación vs. Causalidad}
+    \textbf{Objetivo:} Diferenciar entre correlación y causalidad mediante ejemplos.\\[10pt]
+    \textbf{Instrucciones:}
+    \begin{enumerate}
+        \item Formar grupos de 4-5 personas.
+        \item Elegir dos variables relacionadas con la investigación que queremos hacer para nuestro doctorado, que consideremos que podrían estar correlacionadas sin estar una causada por la otra.
+        \item Explicar por qué podría existir dicha correlación pero no causalidad entre las variables.
+        \item Considerar posibles terceras variables que podrían influir en su relación.
+    \end{enumerate}
+\end{frame}
+
+\section{Modelos Predictivos vs. Causales}
+% Estas diapositivas se insertan justo después de la sección "Introducción: Correlación y Causalidad" 
+% y antes de la sección "Diseño experimental".
+
+\begin{frame}{Modelos Predictivos vs. Causales}
+    \begin{itemize}
+        \item \textbf{Modelos Predictivos:} Se centran en predecir resultados futuros a partir de datos históricos. Su objetivo principal es maximizar la precisión de la predicción, sin necesariamente identificar las relaciones causales subyacentes.
+        \item \textbf{Modelos Causales:} Buscan comprender y validar las relaciones causales entre variables. Se utilizan para explicar los mecanismos que generan los fenómenos observados y fundamentar teorías.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Comparación: Modelos predictivos vs. causales}
+    \begin{block}{Características}
+    \begin{tabular}{p{5.5cm} p{5.5cm}}
+      \textbf{Modelos predictivos} & \textbf{Modelos causales} \\[4mm]
+      \textbf{Objetivo:} Predecir resultados futuros. & \textbf{Objetivo:} Entender relaciones causales. \\[2mm]
+      Variables seleccionadas por su contribución a la precisión predictiva. & Variables seleccionadas en base a fundamentos teóricos y causalidad. \\[2mm]
+      Validación mediante métricas de predicción (\(R^2\), predicción fuera de muestra). & Validación mediante pruebas de hipótesis y experimentos controlados. \\[2mm]
+      Aplicación: Pronosticar eventos, toma de decisiones operativas. & Aplicación: Explicar mecanismos, formular teorías y optimizar intervenciones. \\
+    \end{tabular}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Ejemplo: beca de transporte y asistencia a clase}
+    La universidad quiere aumentar la asistencia a clase en primero de grado
+    y se plantea una \textbf{beca de transporte de 50 \euro{} al mes}.\\[2pt]
+
+    \textbf{Enfoque predictivo (sin experimento)}\\[-2pt]
+    \begin{itemize}
+        \item Usamos datos históricos para predecir quién faltará más:
+        renta familiar, distancia a la facultad, notas previas, etc.
+        \item El modelo nos dice: ``estos estudiantes \emph{tienen pinta} de faltar más''.
+        \item Pero no sabemos si darles 50 \euro{} \textbf{cambia} realmente su asistencia.
+    \end{itemize}
+
+    \textbf{Enfoque causal (con experimento)}\\[-2pt]
+    \begin{itemize}
+        \item Asignación aleatoria:
+        \begin{itemize}
+            \item Grupo tratamiento: recibe la beca de 50 \euro{}.
+            \item Grupo control: no la recibe.
+        \end{itemize}
+        \item Comparamos asistencia media:
+        \begin{itemize}
+            \item Control: 65\% de las clases.
+            \item Tratamiento: 75\% de las clases.
+        \end{itemize}
+        \item Diferencia: \textbf{efecto causal de la beca}
+        sobre la asistencia.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tarea breve: ¿Predicción o causalidad?}
+    \textbf{Objetivo:} Aplicar la distinción modelos predictivos vs. causales 
+    a vuestras propias tesis.\\[8pt]
+
+    \textbf{Instrucciones}\\[-2pt]
+    \begin{enumerate}
+        \item En grupos de 3--4 personas:
+        \begin{itemize}
+            \item Cada uno explica en 1 minuto, muy brevemente,
+            la \textbf{pregunta central} de su tesis.
+        \end{itemize}
+        \item Para cada pregunta, responded:
+        \begin{itemize}
+            \item[a)] ¿Me interesa sobre todo \textbf{predecir} qué va a pasar?
+            \item[b)] ¿O me interesa saber \textbf{qué pasaría si} aplico
+            una intervención/política concreta?
+        \end{itemize}
+        \item Clasificad la pregunta como:
+        \begin{itemize}
+            \item \textbf{Principalmente predictiva}
+            \item \textbf{Principalmente causal}
+            \item \textbf{Mixta}
+        \end{itemize}
+        \item Preparad una frase resumen para compartirlo en común.
+    \end{enumerate}
+\end{frame}
+
+\end{document}
+
+
+
+
+
+
+
+
+

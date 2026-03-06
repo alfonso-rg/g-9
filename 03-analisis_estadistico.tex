@@ -1,0 +1,765 @@
+﻿\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{eurosym}
+\DeclareUnicodeCharacter{00B0}{\textdegree}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\DeclareUnicodeCharacter{2013}{--}
+\DeclareUnicodeCharacter{2014}{---}
+\DeclareUnicodeCharacter{2018}{`}
+\DeclareUnicodeCharacter{2019}{'}
+\DeclareUnicodeCharacter{201C}{``}
+\DeclareUnicodeCharacter{201D}{''}
+\DeclareUnicodeCharacter{2026}{\ldots{}}
+\usepackage[spanish,es-noshorthands]{babel}
+
+% Definición del color corporativo aproximado para Pantone Warm Red C
+\definecolor{UMWarmRed}{HTML}{F9423A}
+\usepackage{booktabs}
+
+% Tema y esquema de colores
+\usetheme{Madrid}
+\usecolortheme{rose} % Usamos un esquema de color que pueda combinarse bien
+
+% Configuración de colores usando el color corporativo
+\setbeamercolor{title}{bg=UMWarmRed, fg=white}
+\setbeamercolor{frametitle}{bg=UMWarmRed, fg=white}
+\setbeamercolor{structure}{fg=UMWarmRed}
+\setbeamercolor{section number projected}{bg=UMWarmRed,fg=white}
+\setbeamercolor{itemize item}{fg=UMWarmRed}
+\setbeamercolor{itemize subitem}{fg=UMWarmRed}
+\setbeamercolor{enumerate item}{fg=UMWarmRed}
+
+\title[DISEÑO DE EXPERIMENTOS]{METODOLOGÍA Y DISEÑO DE EXPERIMENTOS: \\  ANÁLISIS ESTADÍSTICO}
+\author[Alfonso Rosa García]{Alfonso Rosa García }
+\institute[G9]{\textbf{Grupo de Universidades G-9}}
+
+\date{9 y 11 de marzo de 2026 \\ 10:00--13:00}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[] % Comando para hacer algo al inicio de cada sección
+{
+  \begin{frame}{Índice}
+    \tableofcontents[currentsection] % Muestra el índice, enfocando la sección actual
+  \end{frame}
+}
+
+\section{Estadística del diseño experimental: conceptos básicos}
+\begin{frame}
+    \frametitle{Estadística del Diseño Experimental: conceptos básicos}
+    \centering
+    \textbf{\Large Significatividad, potencia y tamaño muestral}
+    \vspace{0.5cm}
+\end{frame}
+
+
+\begin{frame}{Introducción a la Estadística en el Diseño Experimental}
+    \textbf{El Papel de la Estadística}
+    \begin{itemize}
+        \item Herramienta clave para analizar datos y sacar conclusiones válidas.
+        \item Permite evaluar la robustez de los resultados y la validez de las inferencias.
+    \end{itemize}
+
+    \textbf{Conceptos básicos}
+    \begin{itemize}
+        \item \textbf{Tamaño de muestra:} Cantidad de observaciones que se realizan.
+        \item \textbf{Significatividad estadística:} Probabilidad de que un efecto observado no sea producto del azar.
+        \item \textbf{Potencia estadística:} Capacidad del experimento para detectar un efecto real cuando existe.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Significatividad estadística}
+    \textbf{Determinando la influencia de variables}
+    \begin{itemize}
+        \item Pruebas de hipótesis para evaluar si los resultados se deben a manipulaciones específicas.
+        \item \textbf{Hipótesis Nula ($H_0$):} No hay efecto o diferencia.
+        \item \textbf{Hipótesis Alternativa ($H_1$):} Existe un efecto o diferencia.
+    \end{itemize}
+
+    \textbf{Valor p y su Interpretación}
+    \begin{itemize}
+        \item Definición: El p-valor es la probabilidad de observar el resultado del experimento, u otro aún más alejado de la $H_0$, suponiendo que la $H_0$ es correcta.
+        \item Un valor p bajo ($<0.05$) sugiere rechazar $H_0$, indicando resultados estadísticamente significativos.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ejemplo simple de la significatividad estadística (I)}
+\textbf{Escenario: Una enfermedad incurable que se cura de forma natural con probabilidad 10\%, suministramos a 3 individuos una cura cuya efectividad se dice que es del 95\%. Queremos testarlo.}
+\begin{itemize}
+    \item \textbf{Hipótesis Nula (H$_0$):} La cura no tiene efecto, cada individuo se curará con probabilidad 0.1.
+    \item \textbf{Hipótesis Alternativa (H$_1$):} La cura es válida, cada individuo se curará con probabilidad 0.95.
+    \item Asumimos que cada individuo tiene un desenlace independiente (se cura o no).
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ejemplo simple de la significatividad estadística (II)}
+\begin{itemize}
+    \item \textbf{(H$_0$):} Cura 0.1.
+    \item \textbf{(H$_1$):} Cura 0.95.
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Probabilidades bajo la H$_0$ (p = 0.1) para 3 individuos (n = 3):}
+\[
+P(X = k) = \binom{n}{k} (p)^k (1 - p)^{n-k},\quad k = 0,1,2.
+\]
+\begin{itemize}
+    \item $P(\text{0 curados}) = (0.9)^3 = 0.729$ (72.9\%)
+    \item $P(\text{1 curado}) = 3\times0.1\times0.9^2 = 0.243$ (24.3\%)
+    \item $P(\text{2 curados}) = 3\times0.1^2\times0.9 = 0.027$ (2.7\%)
+    \item $P(\text{3 curados}) = (0.1)^3 = 0.001$ (0.1\%)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo simple de la significatividad estadística (III)}
+\textbf{Interpretación del p-valor en este escenario}
+\begin{itemize}
+    \item Imaginemos que observamos que \textbf{2 individuos se han curado}.
+    \item El p-valor se calcula como la probabilidad de observar un resultado tan extremo o más que el observado bajo la $H_0$.
+    \item  Como $P(2\text{ ó 3 curados}|H_0) = 0.028 (0.027+0.001)$, el p-valor es 0.028.
+\end{itemize}
+\textbf{En conclusión:}
+\begin{itemize}
+    \item Un p-valor tan pequeño indica que es muy improbable observar 2 o más curados sobre 3 sujetos con una probabilidad de cura $p = 0.1$ (solo pasaría el $2.8\%$).
+    \item Si $p<\alpha$ (por ejemplo, 0.05), rechazamos la hipótesis nula 
+    \begin{itemize}
+        \item Como si la cura no es efectiva que se curen 2 ó 3 solo pasa un 2.8\% de las veces, rechazamos que no sea efectiva.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo simple de la significatividad estadística (IV)}
+\textbf{Reflexiones finales}
+\begin{itemize}
+    \item El p-valor no es la probabilidad de que $H_0$ sea cierta, sino la probabilidad de observar datos al menos tan extremos como los nuestros asumiendo que $H_0$ es verdadera.
+    \item A menor p-valor, mayor evidencia contra la hipótesis nula.
+    \item Es importante \textbf{tener en cuenta el tamaño de muestra y la potencia estadística} al interpretar p-valores.
+    \item En casos con muy pocos sujetos (como n=3) cualquier generalización debe hacerse con mucha cautela.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Ejemplo simple del concepto de potencia estadística (I)}
+\textbf{Definición:}
+\begin{itemize}
+    \item La \textbf{potencia estadística} es la probabilidad de rechazar la hipótesis nula ($H_0$) cuando la hipótesis alternativa ($H_1$) es verdadera.
+    \item Representa la capacidad del test para detectar un efecto real en el experimento.
+    \item Depende de varios factores:
+    \begin{itemize}
+        \item Tamaño de la muestra.
+        \item Nivel de significancia ($\alpha$).
+        \item Tamaño del efecto (diferencia entre $H_0$ y $H_1$).
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo simple del concepto de potencia estadística (II)}
+\textbf{Escenario bajo $H_1$:} Cada individuo se cura con probabilidad 0.95.
+
+\vspace{0.3cm}
+\textbf{Regla de decisión:} Rechazamos $H_0$ si se observan \textbf{2 o más curados}.
+
+\vspace{0.3cm}
+\textbf{Cálculo:} Sea $X \sim \text{Bin}(n=3, p=0.95)$, entonces:
+\[
+P(X \geq 2) = P(X=2) + P(X=3)
+\]
+\begin{itemize}
+    \item $P(X=2)= 3\times (0.95)^2 \times (0.05) \approx 0.1354$
+    \item $P(X=3)= (0.95)^3 \approx 0.8574$
+\end{itemize}
+\[
+\text{Potencia} \approx 0.1354 + 0.8574 = 0.9928 \quad (99.3\%)
+\]
+\end{frame}
+
+\begin{frame}{Ejemplo simple del concepto de potencia estadística (III)}
+\textbf{Nuevo escenario bajo $H_1$:} Cada individuo se cura con probabilidad 0.4.
+
+\vspace{0.3cm}
+\textbf{Regla de decisión:} Rechazamos $H_0$ si se observan \textbf{2 o más curados}.
+
+\vspace{0.3cm}
+Sea $X \sim \text{Bin}(n=3, p=0.4)$:
+\[
+P(X \geq 2) = P(X=2) + P(X=3)
+\]
+\begin{itemize}
+    \item $P(X=2)= 3\times (0.4)^2 \times (0.6)= 3\times 0.16 \times 0.6 = 0.288$
+    \item $P(X=3)= (0.4)^3 = 0.064$
+\end{itemize}
+\[
+\text{Potencia} = 0.288 + 0.064 = 0.352 \quad (35.2\%)
+\]
+\textbf{Interpretación:} Con una efectividad del 40\% en el tratamiento, la prueba tiene una probabilidad del 35.2\% de detectar el efecto real, lo que implica una potencia baja.
+\end{frame}
+
+
+
+\begin{frame}{Ejemplo simple del concepto de potencia estadística (IV)}
+\textbf{Interpretación en el ejemplo:}
+\begin{itemize}
+    \item Una potencia de \textbf{99.3\%} indica que, si la cura es realmente efectiva (p=0.95), hay una probabilidad muy alta de detectar este efecto con la prueba.
+    \item Aunque el tamaño muestral es muy pequeño (n=3), la gran diferencia entre $H_0$ y $H_1$ facilita la detección.
+    \item En estudios reales, es crucial evaluar la potencia para evitar errores Tipo II (no detectar un efecto real).
+    \item Se recomienda ajustar el tamaño muestral y otros parámetros para obtener una potencia adecuada, especialmente en situaciones con diferencias más sutiles.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Errores Tipo I y Tipo II en nuestro ejemplo}
+\textbf{Error Tipo I ($\alpha$):}
+\begin{itemize}
+    \item Ocurre al rechazar la hipótesis nula ($H_0$: cura con 10\%) cuando en realidad es cierta.
+    \item En nuestro ejemplo, si observamos 2 o más curados y rechazamos $H_0$, cometemos un error Tipo I si la verdadera tasa es 0.1.
+    \item El nivel de significancia (por ejemplo, 5\%) fija la probabilidad máxima de este error.
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Error Tipo II ($\beta$):}
+\begin{itemize}
+    \item Sucede al no rechazar $H_0$ cuando la alternativa ($H_1$: cura con 40\% o 95\%) es verdadera.
+    \item En nuestro ejemplo, si observamos 0 o 1 curado y no rechazamos $H_0$, se incurre en un error Tipo II cuando la cura realmente tiene mayor efectividad.
+    \item La potencia del test es $1-\beta$, que indica la probabilidad de detectar el efecto real.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Introducción al Tamaño Muestral}
+En el diseño de estudios, es esencial decidir cuántos sujetos incluir para detectar una diferencia real de la variable tratamiento respecto del control. La cantidad de sujetos dependerá de cuán grande sea esa diferencia y del nivel de confianza que queramos tener en nuestros resultados.
+\end{frame}
+
+\begin{frame}{Factores Intuitivos para Determinar el Tamaño de la Muestra}
+Para escoger el número de sujetos, consideramos:
+\begin{itemize}
+    \item \textbf{Diferencia en efectividad:} Cuanto mayor sea la diferencia de efecto de la variable explicativa experimental respecto de la nula (ningún efecto), menor cantidad de sujetos se necesita.
+    \item \textbf{Confianza en el resultado:} Se busca minimizar los errores al rechazar o no rechazar la hipótesis nula, lo que se traduce en usar un nivel de significancia y una potencia deseada.
+    \item \textbf{Variabilidad inherente:} Cuanto menos variabilidad haya, más fácil será detectar la diferencia con pocos sujetos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo Moderado: p$_0$=0.1 vs. p$_1$=0.4}
+Considerando un tratamiento que mejora la efectividad de un 10\% a un 40\%:
+\begin{itemize}
+    \item La diferencia es moderada.
+    \item Para alcanzar una potencia adecuada (alrededor del 80\%), los cálculos indican que se requieren aproximadamente 10 sujetos.
+    \item Con estos 10 sujetos, la prueba tiene buena probabilidad de detectar que la efectividad mejora del 10\% al 40\%.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo Marcado: p$_0$=0.1 vs. p$_1$=0.95}
+En el caso de un tratamiento que mejora la efectividad de 10\% a 95\%:
+\begin{itemize}
+    \item La diferencia es muy grande.
+    \item Intuitivamente, incluso un solo sujeto podría mostrar una mejora tan drástica.
+    \item Este ejemplo ilustra que a mayor diferencia entre $p_0$ y $p_1$, se requiere un tamaño muestral menor para detectar el efecto.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tamaño muestral, significatividad y potencia}
+\begin{center}
+\begin{tabular}{cccccc}
+\toprule
+Caso & $p_0$ & $p_1$ & $\alpha$ & Potencia & $n$ \\
+\midrule
+1 & 0.10 & 0.40 & 0.05 & 80\% & 10 \\
+2 & 0.10 & 0.95 & 0.05 & 99\% & 1 \\
+3 & 0.10 & 0.40 & 0.01 & 80\% & 14 \\
+4 & 0.10 & 0.40 & 0.05 & 90\% & 14 \\
+5 & 0.10 & 0.95 & 0.01 & 80\% & 2 \\
+6 & 0.20 & 0.40 & 0.05 & 80\% & 29 \\
+7 & 0.10 & 0.40 & 0.05 & 92\% & 20 \\
+8 & 0.10 & 0.60 & 0.05 & 80\% & 4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{0.3cm}
+\footnotesize
+Caso 1: Ejemplo moderado con diferencia de 0.30, $\alpha=5\%$; \\
+Caso 2: Ejemplo marcado con diferencia de 0.85, $\alpha=5\%$. \\
+Casos 3 y 5: Al reducir $\alpha$ a 1\%, se requiere mayor tamaño muestral. \\
+Caso 4: Aumentar la potencia a 90\% también incrementa $n$. \\
+Caso 6: Con un efecto más sutil (diferencia de 0.20) se necesita una muestra mayor. \\
+Caso 7: Incrementar $n$ (con misma diferencia y $\alpha$) eleva la potencia. \\
+Caso 8: Un efecto intermedio (diferencia de 0.50) permite un $n$ reducido.
+\end{frame}
+
+% Diapositiva 1: Introducción y Ejemplo
+\begin{frame}{Ejemplo: Lanzamientos de una Moneda}
+    \begin{itemize}
+        \item Se lanza una moneda 6 veces.
+        \item Hipótesis nula (\(H_0\)): la moneda es perfecta (\(p=0.5\)).
+        \item Variable aleatoria: número de caras \(X\) con distribución 
+        \[
+        X \sim \text{Binomial}(6,0.5)
+        \]
+        \item Regla de decisión: rechazar \(H_0\) si se obtienen 0 o 6 caras.
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 2: Significatividad Estadística
+\begin{frame}{Significatividad Estadística}
+    \begin{itemize}
+        \item Nivel de significación (\(\alpha\)) = 5\%.
+        \item Bajo \(H_0\), en 6 lanzamientos:
+        \[
+        P(X=0 caras)=P(X=6 caras)=0.5^6=\frac{1}{64}\approx0.015625.
+        \]
+        \item Probabilidad conjunta de los resultados extremos:
+        \[
+        P(X=0 \text{ o } 6)=\frac{2}{64}\approx0.03125.
+        \]
+        \item Dado que \(0.03125 < 0.05\), se rechaza \(H_0\) solo si se obtienen 0 o 6 caras.
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Potencia del Test
+\begin{frame}{Potencia del Test}
+    \begin{itemize}
+        \item La potencia es la probabilidad de rechazar \(H_0\) cuando la verdadera probabilidad es \(p \neq 0.5\).
+        \item Función de potencia para este test:
+        \[
+        \pi(p)=p^6+(1-p)^6.
+        \]
+        \item Ejemplos:
+        \begin{itemize}
+            \item \(p=0.8:\quad \pi(0.8)\approx26.22\%\). 
+             \begin{itemize}
+                \item¿Por qué? Porque si la moneda es tal que sale cara con p=0.8, entonces saldrán 6 caras ó 6 cruces con probabilidad 26.22\%.
+            \end{itemize}
+            \item \(p=0.9:\quad \pi(0.9)\approx53.14\%\).
+            \item \(p=0.95:\quad \pi(0.95)\approx73.51\%\).
+            \item \(p=0.99:\quad \pi(0.99)\approx94.15\%\).
+             \begin{itemize}
+                \item Si la moneda es tal que sale cara con p=0.99, entonces saldrán 6 caras ó 6 cruces con probabilidad 94.15\%.
+            \end{itemize}
+        \end{itemize}
+        \item La potencia aumenta a medida que \(p\) se aleja de 0.5.
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 4: Cálculo del Tamaño de Muestra
+\begin{frame}{Cálculo del Tamaño de Muestra (Explicación Cualitativa)}
+    \begin{itemize}
+        \item Se parte de la hipótesis nula \(p_0=0.5\) y se define una hipótesis alternativa \(p_a\) (por ejemplo, \(p_a=0.7\), \(0.8\), \(0.9\) o \(0.95\)).
+        \item Se elige un nivel de significación (\(\alpha=0.05\)) y se fija la potencia deseada (por ejemplo, 80\%).
+        \item Se utiliza la aproximación normal para la distribución binomial, lo que permite determinar los valores críticos que definen la región de rechazo para \(H_0\).
+        \item A partir de estos valores críticos y de la variabilidad esperada bajo \(H_0\) y \(H_a\), se estima el número mínimo de lanzamientos \(n\) necesario para detectar la diferencia entre \(p_0\) y \(p_a\) con la potencia deseada.
+    \end{itemize}
+\end{frame}
+
+
+% Diapositiva 5: Tamaño de Muestra Requerido (Potencia ≥ 80%)
+\begin{frame}{Tamaño de Muestra Requerido (Potencia $\geq 80\%$)}
+    \begin{itemize}
+        \item Para \(p_a=0.7\):
+        \[
+        n \approx 47 \text{ lanzamientos.}
+        \]
+        \item Para \(p_a=0.8\):
+        \[
+        n \approx 20 \text{ lanzamientos.}
+        \]
+        \item Para \(p_a=0.9\):
+        \[
+        n \approx 10 \text{ lanzamientos.}
+        \]
+        \item Para \(p_a=0.95\):
+        \[
+        n \approx 7 \text{ lanzamientos.}
+        \]
+    \end{itemize}
+    \vspace{0.3cm}
+    \footnotesize{*Estos cálculos usan la aproximación normal y ofrecen estimaciones aproximadas del tamaño muestral.}
+\end{frame}
+
+
+\begin{frame}{Tamaño de Muestra y Regla de Rechazo (Potencia $\geq 80\%$)}
+    \begin{itemize}
+        \item Para \(n=47\), la potencia es del 80\% si \(p=0.7\). Se rechaza \(H_0\) de moneda perfecta si salen menos de 16 caras o menos de 16 cruces.
+        \item Para \(n=20\), la potencia es del 80\% si \(p=0.8\). Se rechaza \(H_0\) de moneda perfecta si salen menos de 6 caras o menos de 6 cruces.
+        \item Para \(n=10\), la potencia es del 80\% si \(p=0.9\). Se rechaza \(H_0\) de moneda perfecta si salen menos de 2 caras o menos de 2 cruces.
+        \item Para \(n=7\), la potencia es del 80\% si \(p=0.95\). Se rechaza \(H_0\) de moneda perfecta si salen menos de 2 caras o menos de 2 cruces.
+    \end{itemize}
+\end{frame}
+
+
+
+% Diapositiva: Error Tipo I
+\begin{frame}{Error Tipo I}
+    \begin{itemize}
+        \item \textbf{Definición:} Rechazar la hipótesis nula \(H_0\) cuando en realidad es cierta.
+        \item En nuestro ejemplo:
+        \begin{itemize}
+            \item \(H_0\): La moneda es perfecta (\(p=0.5\)).
+            \item Regla de decisión: Rechazar \(H_0\) si se obtienen 0 o 6 caras.
+            \item Bajo \(H_0\), la probabilidad de obtener 0 o 6 caras es:
+            \[
+            P(\text{error Tipo I}) = \frac{1}{64} + \frac{1}{64} \approx 0.03125 \quad (3.125\%)
+            \]
+        \end{itemize}
+        \item Este valor representa la tasa de falsos positivos.
+    \end{itemize}
+\end{frame}
+
+% Diapositiva: Error Tipo II
+\begin{frame}{Error Tipo II}
+    \begin{itemize}
+        \item \textbf{Definición:} No rechazar la hipótesis nula \(H_0\) cuando en realidad es falsa.
+        \item En nuestro ejemplo, consideramos la alternativa \(p=0.9\):
+        \begin{itemize}
+            \item \(H_0\): \(p=0.5\) (moneda perfecta).
+            \item \(H_a\): \(p=0.9\) (moneda sesgada).
+            \item Con la regla de rechazo (observar 0 o 6 caras), la potencia del test para \(p=0.9\) es:
+            \[
+            \pi(0.9)=0.9^6 + (0.1)^6 \approx 0.531441 \quad (53.14\%)
+            \]
+            \item Entonces, la probabilidad de cometer un Error Tipo II es:
+            \[
+            \beta = 1 - \pi(0.9) \approx 1 - 0.531441 \approx 0.46856 \quad (46.86\%)
+            \]
+        \end{itemize}
+        \item Este error refleja la tasa de falsos negativos, es decir, la probabilidad de no detectar la desviación cuando la moneda realmente está sesgada.
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{TAREA: Tamaño de muestra en el experimento de Lind}
+    \textbf{Contexto:}
+    James Lind, en uno de los primeros ensayos controlados, trató a 12 marineros con escorbuto utilizando diferentes tratamientos para encontrar uno efectivo.
+
+    \textbf{Objetivo de la Actividad:}
+    Determinar primero el tamaño de muestra necesario para tener resultados estadísticamente significativos a un nivel de significatividad del 5\% (unilateral, one-sided), con una potencia del 80\%. Asuma que los cítricos son efectivos el 80\% de las veces, contra una tasa de curación natural del escorbuto del 10\%. En segundo lugar, calcule la potencia del test con los valores que usó Lind: 2 individuos con cítricos y 10 individuos con otros métodos inocuos. Asuma 10 individuos de control, y efectividad del 80\% y del 10\%. Finalmente, busque con qué valores de efectividad (qué probabilidad de curación si se toman cítricos) dicho experimento con 2 sujetos tomando cítricos y 10 de control tendría una potencia razonable. Reflexione sobre el valor de la potencia. 
+
+    \textbf{Instrucciones:}
+    Utilice el test de Fisher para el cálculo. Use una calculadora de tamaño muestral, como ésta:
+    \url{https://homepage.univie.ac.at/robin.ristl/samplesize.php?test=fishertest}
+\end{frame}
+
+
+\section{Tests básicos para experimentos}
+\begin{frame}
+    \frametitle{Tests básicos para experimentos}
+    \centering
+    \textbf{\Large Tests frecuentes en experimentos}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}{Tests habituales}
+    \begin{itemize}
+        \item En un experimento aleatorizado simple, querremos saber si el tratamiento ha afectado al grupo tratado por encima del efecto del grupo de control.
+        \item Dependiendo de los datos y del modelo que se quiere testar experimentalmente, habrá que considerar un tipo de test u otro. 
+        \item En general, los tests buscarán identificar si en el experimento hay un efecto distinto del 0 o distinto al que ocurre en el grupo de control.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{1. Prueba t de Student para muestras independientes}
+\begin{itemize}
+    \item \textbf{Objetivo:} Comparar la media de dos grupos independientes.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Normalidad en cada grupo.
+         \item Homogeneidad de varianzas.
+         \item Independencia entre observaciones.
+    \end{itemize}
+    \item \textbf{Fórmula:} 
+    \[
+    t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}
+    \]
+    \item \textbf{Interpretación:} Un valor t elevado sugiere diferencias significativas entre los grupos.
+    \item \textbf{Aplicación:} Experimentos con dos condiciones o tratamientos.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 3: Prueba t para muestras relacionadas (pareadas)
+\begin{frame}{2. Prueba t para muestras relacionadas (pareadas)}
+\begin{itemize}
+    \item \textbf{Objetivo:} Comparar la media de dos condiciones en la misma muestra.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Las diferencias entre pares deben aproximarse a una distribución normal.
+         \item Existencia de dependencia entre las observaciones emparejadas.
+    \end{itemize}
+    \item \textbf{Fórmula:}
+    \[
+    t = \frac{\bar{d}}{s_d/\sqrt{n}}
+    \]
+    donde $\bar{d}$ es la media de las diferencias y $s_d$ la desviación estándar de las mismas.
+    \item \textbf{Aplicación:} Estudios pre-post o diseños donde se evalúa el efecto de una intervención en la misma unidad.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 4: ANOVA de un factor
+\begin{frame}{3. ANOVA de un factor}
+\begin{itemize}
+    \item \textbf{Objetivo:} Comparar las medias de tres o más grupos independientes.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Normalidad en cada grupo.
+         \item Homogeneidad de varianzas.
+         \item Independencia de las observaciones.
+    \end{itemize}
+    \item \textbf{Modelo:} 
+    \[
+    y_{ij} = \mu + \tau_i + \epsilon_{ij}
+    \]
+    \item \textbf{Interpretación:} Se evalúa si al menos un grupo difiere significativamente de los demás.
+    \item \textbf{Aplicación:} Experimentos que incluyen más de dos niveles de un factor.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 5: ANOVA de dos factores (Factorial)
+\begin{frame}{4. ANOVA de dos factores (Factorial)}
+\begin{itemize}
+    \item \textbf{Objetivo:} Analizar el efecto de dos factores y la posible interacción entre ellos.
+    \item \textbf{Supuestos:} Similares al ANOVA de un factor (normalidad, homogeneidad, independencia).
+    \item \textbf{Modelo:}
+    \[
+    y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}
+    \]
+    \item \textbf{Interpretación:} Permite identificar efectos principales de cada factor y su interacción.
+    \item \textbf{Aplicación:} Diseños experimentales multifactoriales.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 6: Prueba de Chi-cuadrado de independencia
+\begin{frame}{5. Prueba de Chi-cuadrado de independencia}
+\begin{itemize}
+    \item \textbf{Objetivo:} Evaluar si existe asociación entre dos variables categóricas.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Tamaño de muestra suficientemente grande.
+    \end{itemize}
+    \item \textbf{Fórmula:}
+    \[
+    \chi^2 = \sum \frac{(O - E)^2}{E}
+    \]
+    \item \textbf{Interpretación:} Un valor significativo indica una asociación entre las variables.
+    \item \textbf{Aplicación:} Análisis de tablas de contingencia en estudios de clasificación.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 7: Prueba de Mann-Whitney U
+\begin{frame}{6. Prueba de Mann-Whitney U}
+\begin{itemize}
+    \item \textbf{Objetivo:} Comparar dos grupos independientes sin asumir normalidad.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Las distribuciones de ambos grupos deben tener una forma similar.
+    \end{itemize}
+    \item \textbf{Procedimiento:} Se rankean los datos de ambos grupos y se comparan las sumas de rangos.
+    \item \textbf{Interpretación:} Indica diferencias en las medianas entre los grupos.
+    \item \textbf{Aplicación:} Datos ordinales o continuos no normales.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 8: Prueba de Wilcoxon para muestras pareadas
+\begin{frame}{7. Prueba de Wilcoxon para muestras pareadas}
+\begin{itemize}
+    \item \textbf{Objetivo:} Evaluar diferencias entre dos condiciones en muestras relacionadas sin asumir normalidad.
+    \item \textbf{Supuestos:} Las diferencias entre pares deben ser simétricas.
+    \item \textbf{Procedimiento:} Se ordenan las diferencias absolutas, se asignan rangos y se analiza la suma de rangos positivos y negativos.
+    \item \textbf{Interpretación:} Un estadístico significativo indica cambios entre las condiciones.
+    \item \textbf{Aplicación:} Estudios pre-post con muestras pequeñas o cuando no se cumple la normalidad.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 9: Prueba de Kruskal-Wallis
+\begin{frame}{8. Prueba de Kruskal-Wallis}
+\begin{itemize}
+    \item \textbf{Objetivo:} Comparar tres o más grupos independientes sin asumir normalidad.
+    \item \textbf{Supuestos:} Las distribuciones deben tener formas similares.
+    \item \textbf{Procedimiento:} Basado en el análisis de rangos totales en cada grupo.
+    \item \textbf{Interpretación:} Un valor significativo indica diferencias en las medianas entre al menos dos grupos.
+    \item \textbf{Aplicación:} Análisis de datos ordinales o continuos no normales.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 10: Prueba post-hoc de Tukey para comparaciones múltiples
+\begin{frame}{9. Prueba post-hoc de Tukey para comparaciones múltiples}
+\begin{itemize}
+    \item \textbf{Objetivo:} Identificar qué pares de grupos difieren significativamente tras obtener un ANOVA significativo.
+    \item \textbf{Supuestos:} Los mismos que para el ANOVA (normalidad, homogeneidad de varianzas).
+    \item \textbf{Procedimiento:} Realiza comparaciones por pares ajustando el error global para múltiples contrastes.
+    \item \textbf{Interpretación:} Permite detectar diferencias específicas entre niveles de un factor.
+    \item \textbf{Aplicación:} Experimentos con varios niveles de tratamiento, donde se requiere identificar diferencias puntuales.
+\end{itemize}
+\end{frame}
+
+% Diapositiva 11: Regresión lineal simple y correlación de Pearson
+\begin{frame}{10. Regresión lineal simple y correlación de Pearson}
+\begin{itemize}
+    \item \textbf{Objetivo:} Evaluar y predecir la relación lineal entre dos variables cuantitativas.
+    \item \textbf{Supuestos:}
+    \begin{itemize}
+         \item Linealidad.
+         \item Homocedasticidad (varianza constante de los errores).
+         \item Independencia y normalidad de los errores.
+    \end{itemize}
+    \item \textbf{Modelo de regresión:}
+    \[
+    y = \beta_0 + \beta_1 x + \epsilon
+    \]
+    \item \textbf{Correlación de Pearson:} Mide la fuerza y dirección de la relación lineal.
+    \item \textbf{Aplicación:} Análisis de relaciones causales y predicción en estudios experimentales.
+\end{itemize}
+\end{frame}
+
+\section{Validez y Fiabilidad}
+\begin{frame}
+    \frametitle{Validez y Fiabilidad}
+    \centering
+    \textbf{\Large Qué implican realmente los resultados de un experimento}
+    \vspace{0.5cm}
+
+    \begin{itemize}
+        \item \textbf{Validez:} ¿Estamos midiendo y concluyendo lo que creemos estar midiendo y concluyendo?
+        \item \textbf{Fiabilidad:} ¿Obtendríamos resultados similares si repitiésemos el experimento o la medida?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mapa general: qué puede “fallar” en un estudio}
+    \textbf{Tres niveles de calidad:}
+    \begin{itemize}
+        \item \textbf{Validez de conclusión estadística} \\
+        ¿El análisis estadístico está bien hecho para los datos y el diseño?
+        \item \textbf{Validez interna} \\
+        ¿El efecto que vemos se debe al tratamiento y no a factores de confusión?
+        \item \textbf{Validez externa} \\
+        ¿Podemos generalizar los resultados a otros sujetos, contextos o momentos?
+    \end{itemize}
+    \vspace{0.3cm}
+    \textbf{Más abajo: calidad de las medidas}
+    \begin{itemize}
+        \item \textbf{Validez de la medida (constructo)} y \textbf{fiabilidad}: ¿nuestros instrumentos miden bien y de forma consistente?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Validez interna y externa en experimentos}
+    \textbf{Validez interna}
+    \begin{itemize}
+        \item Un experimento tiene alta validez interna si las diferencias entre grupos se deben al tratamiento.
+        \item Amenazas típicas:
+        \begin{itemize}
+            \item Sesgo de selección (grupos no comparables).
+            \item Historia/maduración (algo cambia en el tiempo fuera del tratamiento).
+            \item Abandono selectivo (attrition).
+            \item Cambios en la instrumentación o en las instrucciones.
+        \end{itemize}
+    \end{itemize}
+
+    \vspace{0.2cm}
+    \textbf{Validez externa}
+    \begin{itemize}
+        \item Se refiere a la \textbf{generalización}:
+        \begin{itemize}
+            \item ¿Otros contextos, países, momentos del tiempo?
+            \item ¿Otras poblaciones (no solo estudiantes de grado, por ejemplo)?
+        \end{itemize}
+        \item Tensión habitual: maximizar control (\textbf{validez interna}) vs realismo y diversidad (\textbf{validez externa}).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Validez de la medida (constructo)}
+    \textbf{Ejemplo:} queremos medir “actitud hacia la IA” o “aversión al riesgo”.
+    \begin{itemize}
+        \item \textbf{Validez de contenido:} \\
+        Los ítems cubren razonablemente todas las dimensiones relevantes del constructo.
+        \item \textbf{Validez de constructo:} \\
+        Las relaciones empíricas entre ítems y con otras variables encajan con la teoría
+        (ej.: quienes puntúan alto en “actitud positiva hacia la IA” usan más herramientas de IA).
+        \item \textbf{Validez de criterio:} \\
+        El instrumento se relaciona con algún criterio externo relevante
+        (por ejemplo, rendimiento, decisiones en tareas incentivadas, etc.).
+    \end{itemize}
+    \vspace{0.2cm}
+    Sin una buena validez de medida, incluso un experimento perfectamente diseñado puede llevar a conclusiones engañosas.
+\end{frame}
+
+\begin{frame}{Fiabilidad: sin consistencia, no hay validez}
+    \begin{itemize}
+        \item \textbf{Fiabilidad} = grado en que un instrumento produce resultados \textbf{consistentes}.
+        \item Un termómetro que da una medida distinta cada minuto, aunque esté “centrado”, es poco útil.
+        \item En encuestas y escalas:
+        \begin{itemize}
+            \item Queremos que respuestas similares reflejen estabilidad del constructo, no ruido.
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.2cm}
+    \textbf{Relación fiabilidad–validez}
+    \begin{itemize}
+        \item Un instrumento \textbf{puede ser fiable pero no válido} (mide otra cosa, pero la mide siempre igual).
+        \item Sin embargo, \textbf{no puede ser válido si no es fiable}: sin consistencia, no es posible medir bien el constructo.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Métodos de Evaluación: Validez}
+\begin{itemize}
+    \item \textbf{Revisión de expertos (validez de contenido):}
+    \begin{itemize}
+         \item Especialistas revisan ítems y procedimientos para ver si representan bien el constructo.
+    \end{itemize}
+    \item \textbf{Estudios correlacionales (validez de criterio y de constructo):}
+    \begin{itemize}
+         \item Correlacionar la escala con otras medidas ya validadas.
+         \item Ver si las relaciones con otras variables siguen las predicciones teóricas.
+    \end{itemize}
+    \item \textbf{Análisis factorial (validez de constructo):}
+    \begin{itemize}
+         \item Explorar si los ítems se agrupan en factores coherentes con la teoría.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Métodos de Evaluación: Fiabilidad}
+\begin{itemize}
+    \item \textbf{Consistencia interna (ej.: alfa de Cronbach):}
+    \begin{itemize}
+         \item ¿Los ítems que pretenden medir lo mismo están altamente correlacionados entre sí?
+    \end{itemize}
+    \item \textbf{Prueba–reprueba:}
+    \begin{itemize}
+         \item Aplicar el mismo instrumento 2 veces al mismo grupo y ver la estabilidad de las puntuaciones.
+    \end{itemize}
+    \item \textbf{Fiabilidad inter-evaluador (coeficiente de correlación intraclase):}
+    \begin{itemize}
+         \item ¿Llegan a conclusiones similares distintos evaluadores observando la misma conducta o resultado?
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Checklist práctico para vuestro experimento}
+    Antes de lanzar o interpretar un experimento, pregúntate:
+    \begin{itemize}
+        \item \textbf{Validez interna:} ¿Puede haber alguna otra explicación razonable para el efecto, aparte del tratamiento?
+        \item \textbf{Validez externa:} ¿En qué poblaciones/contextos \emph{no} sería prudente generalizar estos resultados?
+        \item \textbf{Validez de la medida:} ¿Mis indicadores representan bien el constructo que digo estar midiendo?
+        \item \textbf{Fiabilidad:} ¿Cómo sé que, si repito el estudio o la medida, obtendré algo parecido?
+        \item \textbf{Conclusión estadística:} ¿El análisis y el tamaño muestral justifican la fuerza de las conclusiones?
+    \end{itemize}
+\end{frame}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
