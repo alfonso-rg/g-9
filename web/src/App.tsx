@@ -4,20 +4,16 @@ import './App.css'
 type CoinMode = 'null' | 'alternative' | 'custom'
 
 type TrialResult = {
-  actualP: number
   flips: boolean[]
   heads: number
-  label: string
   pValue: number
   reject: boolean
   signature: string
 }
 
 type BatchResult = {
-  actualP: number
   averageHeads: number
   experiments: number
-  label: string
   rate: number
   rejections: number
   signature: string
@@ -38,7 +34,7 @@ const presets: Preset[] = [
   {
     id: 'subtle',
     label: 'Efecto sutil',
-    description: 'La moneda alternativa apenas se separa de H0. Hace falta mas muestra para ganar potencia.',
+    description: 'H1 esta muy cerca de H0. La potencia cuesta mas.',
     p0: 0.5,
     p1: 0.58,
     n: 44,
@@ -48,7 +44,7 @@ const presets: Preset[] = [
   {
     id: 'moderate',
     label: 'Efecto moderado',
-    description: 'Escenario equilibrado para ver la tension entre alpha, beta y tamano muestral.',
+    description: 'Buen caso para entender la tension entre alpha, beta y n.',
     p0: 0.5,
     p1: 0.68,
     n: 24,
@@ -58,7 +54,7 @@ const presets: Preset[] = [
   {
     id: 'strong',
     label: 'Efecto claro',
-    description: 'Con una moneda muy sesgada la potencia sube rapido aunque la muestra sea moderada.',
+    description: 'El sesgo es visible y la potencia sube rapido.',
     p0: 0.5,
     p1: 0.82,
     n: 14,
@@ -115,13 +111,8 @@ function buildBinomialDistribution(n: number, p: number) {
 }
 
 function upperTailProbability(distribution: number[], start: number) {
-  if (start <= 0) {
-    return 1
-  }
-
-  if (start >= distribution.length) {
-    return 0
-  }
+  if (start <= 0) return 1
+  if (start >= distribution.length) return 0
 
   let sum = 0
   for (let index = start; index < distribution.length; index += 1) {
@@ -175,17 +166,14 @@ function runSingleExperiment(
   actualP: number,
   nullDistribution: number[],
   criticalValue: number,
-  label: string,
   signature: string,
 ): TrialResult {
   const flips = Array.from({ length: n }, () => Math.random() < actualP)
   const heads = flips.reduce((total, isHead) => total + (isHead ? 1 : 0), 0)
 
   return {
-    actualP,
     flips,
     heads,
-    label,
     pValue: upperTailProbability(nullDistribution, heads),
     reject: heads >= criticalValue,
     signature,
@@ -198,29 +186,31 @@ function runBatchExperiments(
   nullDistribution: number[],
   criticalValue: number,
   runs: number,
-  label: string,
   signature: string,
 ): BatchResult {
   let rejections = 0
   let totalHeads = 0
 
   for (let experiment = 0; experiment < runs; experiment += 1) {
-    const result = runSingleExperiment(n, actualP, nullDistribution, criticalValue, label, signature)
+    const result = runSingleExperiment(n, actualP, nullDistribution, criticalValue, signature)
     totalHeads += result.heads
-    if (result.reject) {
-      rejections += 1
-    }
+    if (result.reject) rejections += 1
   }
 
   return {
-    actualP,
     averageHeads: totalHeads / runs,
     experiments: runs,
-    label,
     rate: rejections / runs,
     rejections,
     signature,
   }
+}
+
+function getScenarioReading(effectGap: number, power: number) {
+  if (effectGap < 0.1) return 'Sesgo pequeno: la distribucion alternativa se parece mucho a H0.'
+  if (power < 0.7) return 'El sesgo existe, pero el experimento aun tiene poca sensibilidad.'
+  if (power < 0.9) return 'Buen equilibrio: ya se ve separacion entre H0 y H1.'
+  return 'Escenario muy claro: el test distingue bien entre H0 y H1.'
 }
 
 function App() {
@@ -237,8 +227,7 @@ function App() {
   const [batchResult, setBatchResult] = useState<BatchResult | null>(null)
 
   const actualP = coinMode === 'null' ? p0 : coinMode === 'alternative' ? p1 : customP
-  const currentModeLabel =
-    coinMode === 'null' ? 'Moneda bajo H0' : coinMode === 'alternative' ? 'Moneda bajo H1' : 'Moneda personalizada'
+  const actualCoinLabel = coinMode === 'null' ? 'H0' : coinMode === 'alternative' ? 'H1' : 'Personalizada'
   const experimentSignature = [p0, p1, n, alpha, coinMode, customP].join('|')
   const batchSignature = [experimentSignature, batchRuns].join('|')
 
@@ -253,7 +242,7 @@ function App() {
   const powerCurve = buildPowerCurve(p0, p1, alpha, curveStart, curveEnd)
   const chartPeak = Math.max(...nullDistribution, ...alternativeDistribution)
   const tickStep = getTickStep(n)
-  const recommendedPreset = presets.find((preset) => preset.id === 'moderate')
+  const effectGap = p1 - p0
   const visibleTrialResult = trialResult?.signature === experimentSignature ? trialResult : null
   const visibleBatchResult = batchResult?.signature === batchSignature ? batchResult : null
 
@@ -274,320 +263,330 @@ function App() {
   }
 
   function handleP1Change(value: number) {
-    const nextP1 = clampProbability(Math.max(value, p0 + 0.02))
-    setP1(nextP1)
-  }
-
-  function handleCustomChange(value: number) {
-    setCustomP(clampProbability(value))
+    setP1(clampProbability(Math.max(value, p0 + 0.02)))
   }
 
   function launchSingleExperiment() {
-    setTrialResult(runSingleExperiment(n, actualP, nullDistribution, criticalValue, currentModeLabel, experimentSignature))
+    setTrialResult(runSingleExperiment(n, actualP, nullDistribution, criticalValue, experimentSignature))
   }
 
   function launchBatchExperiment() {
-    setBatchResult(runBatchExperiments(n, actualP, nullDistribution, criticalValue, batchRuns, currentModeLabel, batchSignature))
+    setBatchResult(runBatchExperiments(n, actualP, nullDistribution, criticalValue, batchRuns, batchSignature))
   }
 
-  const currentPowerMessage =
-    power >= targetPower
-      ? 'La potencia esta por encima del objetivo docente fijado.'
-      : 'La potencia aun es baja: el experimento corre riesgo de no detectar un sesgo real.'
-
-  const alphaMessage =
-    actualAlpha < alpha * 0.8
-      ? 'El test es discreto: el alpha real queda por debajo del nominal.'
-      : 'El alpha real esta cerca del valor nominal elegido.'
-
-  const sampleSizeMessage =
-    minimumN === null
-      ? 'Con estos parametros no se alcanza la potencia objetivo antes de n = 240.'
-      : `Para esta diferencia entre H0 y H1, el primer n que alcanza la potencia objetivo es ${minimumN}.`
-
-  const explainerCards = [
-    {
-      title: 'Significatividad',
-      body: 'Es la probabilidad de entrar en la zona critica cuando H0 es cierta. En una moneda justa, eso controla el error tipo I.',
-      value: formatPercent(actualAlpha),
-    },
-    {
-      title: 'Potencia',
-      body: 'Es la probabilidad de detectar el sesgo cuando la moneda alternativa es la real. Potencia alta implica beta baja.',
-      value: formatPercent(power),
-    },
-    {
-      title: 'Error tipo II',
-      body: 'Si H1 es cierta pero la muestra cae fuera de la region critica, no detectas el sesgo. Eso es beta.',
-      value: formatPercent(beta),
-    },
-    {
-      title: 'Tamano muestral',
-      body: 'Con alpha fijo y efecto pequeno, aumentar n suele ser la forma mas directa de ganar potencia.',
-      value: minimumN === null ? '>240' : String(minimumN),
-    },
-  ]
+  const scenarioReading = getScenarioReading(effectGap, power)
+  const actualAlphaText = actualAlpha < alpha * 0.8 ? 'Alpha real mas conservador que el nominal.' : 'Alpha real muy cercano al nominal.'
+  const sampleSizeText = minimumN === null ? 'No llega al objetivo antes de n = 240.' : `Objetivo de potencia alcanzable desde n = ${minimumN}.`
+  const decisionText = criticalValue > n ? 'No hay region de rechazo util.' : `Rechaza H0 con ${criticalValue} o mas caras.`
 
   return (
     <div className="app-shell">
-      <header className="hero panel">
+      <header className="hero">
         <div className="hero-copy">
           <div className="brand-row">
             <img className="brand-logo" src="/umu-logo.png" alt="Universidad de Murcia" />
             <div>
-              <p className="eyebrow">Diseno de experimentos · Laboratorio interactivo</p>
-              <h1>Monedas trucadas para entender significatividad y potencia</h1>
+              <p className="eyebrow">G-9 · Diseno de experimentos</p>
+              <h1>Monedas trucadas, pero una interfaz mas clara</h1>
             </div>
           </div>
           <p className="hero-text">
-            Ajusta la hipotesis nula, la hipotesis alternativa, el tamano muestral y el nivel alpha. Luego observa como
-            cambian la region critica, el error tipo I, el error tipo II y la potencia del contraste.
+            La pregunta es simple: con este tamano muestral, este alpha y esta diferencia entre H0 y H1, <strong>cuando detectas el sesgo</strong> y <strong>cuando se te escapa</strong>.
           </p>
-          <div className="preset-row">
-            {presets.map((preset) => (
-              <button key={preset.id} className="ghost-button" onClick={() => applyPreset(preset)} type="button">
-                <strong>{preset.label}</strong>
-                <span>{preset.description}</span>
-              </button>
-            ))}
+          <div className="preset-strip">
+            {presets.map((preset) => {
+              const active = preset.p0 === p0 && preset.p1 === p1 && preset.n === n && preset.alpha === alpha
+              return (
+                <button key={preset.id} className={active ? 'preset-card active' : 'preset-card'} onClick={() => applyPreset(preset)} type="button">
+                  <span>{preset.label}</span>
+                  <strong>{preset.description}</strong>
+                </button>
+              )
+            })}
           </div>
         </div>
-        <div className="hero-aside">
-          <div className="hero-stat">
-            <span>Regla critica</span>
-            <strong>{criticalValue > n ? 'No hay rechazo util' : `Rechaza H0 si caras >= ${criticalValue}`}</strong>
-          </div>
-          <div className="hero-stat">
-            <span>Lectura rapida</span>
-            <strong>{currentPowerMessage}</strong>
-          </div>
-          <div className="hero-stat muted">
-            <span>Escenario base</span>
-            <strong>{recommendedPreset?.label}</strong>
+
+        <div className="hero-focus">
+          <div className="focus-label">Lectura del escenario</div>
+          <div className="focus-value">{scenarioReading}</div>
+          <div className="focus-band">
+            <div>
+              <span>Brecha H1 - H0</span>
+              <strong>{formatPercent(effectGap, 0)}</strong>
+            </div>
+            <div>
+              <span>Regla critica</span>
+              <strong>{criticalValue > n ? 'Sin rechazo' : `${criticalValue}+ caras`}</strong>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="workspace">
-        <section className="panel controls-panel">
-          <div className="section-heading">
-            <p className="section-kicker">1 · Configura el experimento</p>
-            <h2>Hipotesis, alpha y tamano de muestra</h2>
+      <main className="main-grid">
+        <aside className="control-rail panel">
+          <div className="rail-section">
+            <p className="section-tag">Paso 1</p>
+            <h2>Configura el experimento</h2>
           </div>
-          <div className="controls-grid">
-            <label className="control">
-              <span>Probabilidad bajo H0</span>
+
+          <div className="slider-stack">
+            <label className="slider-card">
+              <div className="slider-head">
+                <span>Probabilidad bajo H0</span>
+                <strong>{formatProbability(p0)}</strong>
+              </div>
               <input max="0.95" min="0.05" step="0.01" type="range" value={p0} onChange={(event) => handleP0Change(Number(event.target.value))} />
-              <strong>{formatProbability(p0)}</strong>
             </label>
-            <label className="control">
-              <span>Probabilidad bajo H1</span>
+
+            <label className="slider-card">
+              <div className="slider-head">
+                <span>Probabilidad bajo H1</span>
+                <strong>{formatProbability(p1)}</strong>
+              </div>
               <input max="0.99" min={Math.min(0.99, p0 + 0.02)} step="0.01" type="range" value={p1} onChange={(event) => handleP1Change(Number(event.target.value))} />
-              <strong>{formatProbability(p1)}</strong>
             </label>
-            <label className="control">
-              <span>Tamano muestral n</span>
+
+            <label className="slider-card">
+              <div className="slider-head">
+                <span>Tamano muestral n</span>
+                <strong>{n}</strong>
+              </div>
               <input max="80" min="4" step="1" type="range" value={n} onChange={(event) => setN(Number(event.target.value))} />
-              <strong>{n}</strong>
             </label>
-            <label className="control">
-              <span>Nivel alpha</span>
+
+            <label className="slider-card">
+              <div className="slider-head">
+                <span>Alpha nominal</span>
+                <strong>{formatProbability(alpha)}</strong>
+              </div>
               <input max="0.2" min="0.01" step="0.005" type="range" value={alpha} onChange={(event) => setAlpha(Number(event.target.value))} />
-              <strong>{formatProbability(alpha)}</strong>
             </label>
-            <label className="control">
-              <span>Potencia objetivo</span>
+
+            <label className="slider-card">
+              <div className="slider-head">
+                <span>Potencia objetivo</span>
+                <strong>{formatPercent(targetPower, 0)}</strong>
+              </div>
               <input max="0.99" min="0.5" step="0.01" type="range" value={targetPower} onChange={(event) => setTargetPower(Number(event.target.value))} />
-              <strong>{formatPercent(targetPower, 0)}</strong>
-            </label>
-            <label className="control">
-              <span>Experimentos simulados</span>
-              <input max="1200" min="50" step="50" type="range" value={batchRuns} onChange={(event) => setBatchRuns(Number(event.target.value))} />
-              <strong>{batchRuns}</strong>
             </label>
           </div>
-        </section>
 
-        <section className="metrics-grid">
-          {explainerCards.map((card) => (
-            <article key={card.title} className="panel metric-card">
-              <span>{card.title}</span>
-              <strong>{card.value}</strong>
-              <p>{card.body}</p>
-            </article>
-          ))}
-        </section>
+          <div className="rail-note">
+            <span>Resumen rapido</span>
+            <strong>{sampleSizeText}</strong>
+            <p>{actualAlphaText}</p>
+          </div>
+        </aside>
 
-        <section className="panel simulation-panel">
-          <div className="section-heading">
-            <p className="section-kicker">2 · Elige la moneda real</p>
-            <h2>Una muestra concreta frente a muchos experimentos</h2>
-          </div>
-          <div className="mode-switch">
-            <button className={coinMode === 'null' ? 'mode-button active' : 'mode-button'} onClick={() => setCoinMode('null')} type="button">
-              Moneda de H0
-            </button>
-            <button className={coinMode === 'alternative' ? 'mode-button active' : 'mode-button'} onClick={() => setCoinMode('alternative')} type="button">
-              Moneda de H1
-            </button>
-            <button className={coinMode === 'custom' ? 'mode-button active' : 'mode-button'} onClick={() => setCoinMode('custom')} type="button">
-              Moneda personalizada
-            </button>
-            {coinMode === 'custom' ? (
-              <label className="inline-control">
-                <span>p real</span>
-                <input max="0.99" min="0.01" step="0.01" type="number" value={customP} onChange={(event) => handleCustomChange(Number(event.target.value))} />
-              </label>
-            ) : null}
-          </div>
-          <div className="simulation-actions">
-            <button className="primary-button" onClick={launchSingleExperiment} type="button">
-              Simular un experimento
-            </button>
-            <button className="secondary-button" onClick={launchBatchExperiment} type="button">
-              Simular muchos experimentos
-            </button>
-            <div className="context-pill">
-              <span>Moneda real</span>
-              <strong>
-                {currentModeLabel} · p = {formatProbability(actualP)}
-              </strong>
+        <section className="stage">
+          <section className="metrics-board panel">
+            <div className="section-line">
+              <p className="section-tag">Paso 2</p>
+              <h2>Lee el contraste antes de simular</h2>
             </div>
-          </div>
 
-          <div className="simulation-grid">
-            <article className="result-card">
-              <h3>Experimento individual</h3>
-              {visibleTrialResult ? (
-                <>
-                  <p>
-                    Se han observado <strong>{visibleTrialResult.heads}</strong> caras de <strong>{n}</strong> lanzamientos. El
-                    p-valor unilateral es <strong>{visibleTrialResult.pValue.toFixed(4)}</strong>, por lo que{' '}
-                    <strong>{visibleTrialResult.reject ? 'se rechaza H0' : 'no se rechaza H0'}</strong>.
-                  </p>
-                  <div className="flip-grid">
-                    {visibleTrialResult.flips.map((isHead, index) => (
-                      <span key={`${visibleTrialResult.heads}-${index}`} className={isHead ? 'flip-chip head' : 'flip-chip tail'}>
-                        {isHead ? 'C' : 'X'}
-                      </span>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <p className="placeholder">Lanza una muestra para ver como una realizacion concreta puede o no caer en la zona critica.</p>
-              )}
+            <div className="metric-row">
+              <article className="metric-tile accent">
+                <span>Error tipo I</span>
+                <strong>{formatPercent(actualAlpha)}</strong>
+                <p>Probabilidad de rechazar H0 siendo cierta.</p>
+              </article>
+              <article className="metric-tile dark">
+                <span>Potencia</span>
+                <strong>{formatPercent(power)}</strong>
+                <p>Probabilidad de detectar el sesgo si H1 es real.</p>
+              </article>
+              <article className="metric-tile pale">
+                <span>Error tipo II</span>
+                <strong>{formatPercent(beta)}</strong>
+                <p>Lo que se escapa cuando H1 existe pero no la detectas.</p>
+              </article>
+              <article className="metric-tile rule">
+                <span>Decision</span>
+                <strong>{decisionText}</strong>
+                <p>Este corte define la zona critica del test.</p>
+              </article>
+            </div>
+          </section>
+
+          <section className="visual-grid">
+            <article className="panel chart-card">
+              <div className="section-line compact">
+                <p className="section-tag">Paso 3</p>
+                <h2>Donde se separan H0 y H1</h2>
+              </div>
+              <p className="chart-lead">Coral: probabilidades bajo H0. Negro: probabilidades bajo H1. Fondo coral: region de rechazo.</p>
+              <div className="distribution-chart" style={{ ['--bars' as string]: String(n + 1) }}>
+                {nullDistribution.map((nullValue, heads) => {
+                  const alternativeValue = alternativeDistribution[heads]
+                  const nullHeight = `${(nullValue / chartPeak) * 100}%`
+                  const alternativeHeight = `${(alternativeValue / chartPeak) * 100}%`
+                  const isCritical = heads >= criticalValue
+
+                  return (
+                    <div key={heads} className={isCritical ? 'distribution-bin critical' : 'distribution-bin'}>
+                      <div className="bar-stack">
+                        <span className="bar h1-bar" style={{ height: alternativeHeight }} />
+                        <span className="bar h0-bar" style={{ height: nullHeight }} />
+                      </div>
+                      {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">·</span>}
+                    </div>
+                  )
+                })}
+              </div>
+              <div className="legend-row">
+                <span><i className="legend-swatch h0" />H0</span>
+                <span><i className="legend-swatch h1" />H1</span>
+                <span><i className="legend-swatch critical" />Rechazo</span>
+              </div>
             </article>
 
-            <article className="result-card emphasis">
-              <h3>Experimentos repetidos</h3>
-              {visibleBatchResult ? (
-                <>
-                  <p>
-                    En <strong>{visibleBatchResult.experiments}</strong> estudios simulados, el contraste rechazo H0 en{' '}
-                    <strong>{visibleBatchResult.rejections}</strong> ocasiones. La tasa observada es{' '}
-                    <strong>{formatPercent(visibleBatchResult.rate)}</strong>.
-                  </p>
-                  <dl className="mini-stats">
-                    <div>
-                      <dt>Media de caras</dt>
-                      <dd>{visibleBatchResult.averageHeads.toFixed(2)}</dd>
-                    </div>
-                    <div>
-                      <dt>Referencia teorica</dt>
-                      <dd>{coinMode === 'null' ? 'Debe acercarse a alpha' : coinMode === 'alternative' ? 'Debe acercarse a la potencia' : 'Lectura libre'}</dd>
-                    </div>
-                  </dl>
-                </>
-              ) : (
-                <p className="placeholder">Repite el estudio muchas veces para ver empiricamente que el error tipo I y la potencia son probabilidades a largo plazo.</p>
-              )}
-            </article>
-          </div>
-        </section>
-
-        <section className="panel chart-panel">
-          <div className="section-heading compact">
-            <p className="section-kicker">3 · Distribuciones y zona critica</p>
-            <h2>Donde se separan H0 y H1</h2>
-          </div>
-          <p className="chart-copy">
-            Cada columna representa un numero posible de caras. Las barras coral son probabilidades bajo H0; las barras oscuras, bajo H1.
-            La zona sombreada marca la region en la que el test rechaza H0.
-          </p>
-          <div className="distribution-chart" style={{ ['--bars' as string]: String(n + 1) }}>
-            {nullDistribution.map((nullValue, heads) => {
-              const alternativeValue = alternativeDistribution[heads]
-              const nullHeight = `${(nullValue / chartPeak) * 100}%`
-              const alternativeHeight = `${(alternativeValue / chartPeak) * 100}%`
-              const isCritical = heads >= criticalValue
-
-              return (
-                <div key={heads} className={isCritical ? 'distribution-bin critical' : 'distribution-bin'}>
-                  <div className="bar-stack">
-                    <span className="bar h1-bar" style={{ height: alternativeHeight }} />
-                    <span className="bar h0-bar" style={{ height: nullHeight }} />
-                  </div>
-                  {heads % tickStep === 0 || heads === n ? <span className="bin-label">{heads}</span> : <span className="bin-label faint">·</span>}
+            <article className="panel concept-card">
+              <div className="section-line compact">
+                <p className="section-tag">Paso 4</p>
+                <h2>Que cambia al mover cada control</h2>
+              </div>
+              <div className="concept-list">
+                <div className="concept-item">
+                  <span>Si H1 se acerca a H0</span>
+                  <strong>sube beta</strong>
+                  <p>Las dos distribuciones se pisan mas y el test distingue peor.</p>
                 </div>
-              )
-            })}
-          </div>
-          <div className="legend-row">
-            <span>
-              <i className="legend-swatch h0" />H0
-            </span>
-            <span>
-              <i className="legend-swatch h1" />H1
-            </span>
-            <span>
-              <i className="legend-swatch critical" />Zona critica
-            </span>
-          </div>
-        </section>
+                <div className="concept-item">
+                  <span>Si subes alpha</span>
+                  <strong>sube potencia</strong>
+                  <p>La zona critica se ensancha, pero tambien crece el error tipo I.</p>
+                </div>
+                <div className="concept-item">
+                  <span>Si subes n</span>
+                  <strong>baja la ambiguedad</strong>
+                  <p>Las curvas se separan mejor y la decision se vuelve mas estable.</p>
+                </div>
+              </div>
 
-        <section className="insight-grid">
-          <article className="panel insight-card">
-            <div className="section-heading compact">
-              <p className="section-kicker">4 · Curva de potencia</p>
-              <h2>Como cambia al mover n</h2>
-            </div>
-            <svg className="power-curve" viewBox="0 0 360 220" role="img" aria-label="Curva de potencia segun n">
-              <line className="guide-line" x1="20" x2="340" y1="180" y2="180" />
-              <line className="guide-line target" x1="20" x2="340" y1={180 - targetPower * 140} y2={180 - targetPower * 140} />
-              <polyline
-                className="curve-line"
-                fill="none"
-                points={powerCurve
-                  .map((point, index) => {
-                    const x = 20 + (index / Math.max(powerCurve.length - 1, 1)) * 320
-                    const y = 180 - point.power * 140
-                    return `${x},${y}`
-                  })
-                  .join(' ')}
-              />
-              {powerCurve.map((point, index) => {
-                const x = 20 + (index / Math.max(powerCurve.length - 1, 1)) * 320
-                const y = 180 - point.power * 140
-                const highlighted = point.n === n
-                return <circle key={point.n} className={highlighted ? 'curve-point active' : 'curve-point'} cx={x} cy={y} r={highlighted ? 5 : 2.6} />
-              })}
-            </svg>
-            <p>{sampleSizeMessage}</p>
-          </article>
+              <div className="power-box">
+                <div className="power-head">
+                  <span>Curva de potencia</span>
+                  <strong>Objetivo {formatPercent(targetPower, 0)}</strong>
+                </div>
+                <svg className="power-curve" viewBox="0 0 360 210" role="img" aria-label="Curva de potencia segun n">
+                  <line className="guide-line" x1="18" x2="342" y1="176" y2="176" />
+                  <line className="guide-line target" x1="18" x2="342" y1={176 - targetPower * 136} y2={176 - targetPower * 136} />
+                  <polyline
+                    className="curve-line"
+                    fill="none"
+                    points={powerCurve
+                      .map((point, index) => {
+                        const x = 18 + (index / Math.max(powerCurve.length - 1, 1)) * 324
+                        const y = 176 - point.power * 136
+                        return `${x},${y}`
+                      })
+                      .join(' ')}
+                  />
+                  {powerCurve.map((point, index) => {
+                    const x = 18 + (index / Math.max(powerCurve.length - 1, 1)) * 324
+                    const y = 176 - point.power * 136
+                    const active = point.n === n
+                    return <circle key={point.n} className={active ? 'curve-point active' : 'curve-point'} cx={x} cy={y} r={active ? 5 : 2.5} />
+                  })}
+                </svg>
+                <p>{sampleSizeText}</p>
+              </div>
+            </article>
+          </section>
 
-          <article className="panel insight-card">
-            <div className="section-heading compact">
-              <p className="section-kicker">5 · Lectura docente</p>
-              <h2>Que esta pasando aqui</h2>
+          <section className="panel lab-card">
+            <div className="lab-top">
+              <div className="section-line compact">
+                <p className="section-tag">Paso 5</p>
+                <h2>Compruebalo con simulacion</h2>
+              </div>
+              <div className="mode-row">
+                <button className={coinMode === 'null' ? 'mode-chip active' : 'mode-chip'} onClick={() => setCoinMode('null')} type="button">Moneda H0</button>
+                <button className={coinMode === 'alternative' ? 'mode-chip active' : 'mode-chip'} onClick={() => setCoinMode('alternative')} type="button">Moneda H1</button>
+                <button className={coinMode === 'custom' ? 'mode-chip active' : 'mode-chip'} onClick={() => setCoinMode('custom')} type="button">Personalizada</button>
+                {coinMode === 'custom' ? (
+                  <label className="custom-field">
+                    <span>p real</span>
+                    <input max="0.99" min="0.01" step="0.01" type="number" value={customP} onChange={(event) => setCustomP(clampProbability(Number(event.target.value)))} />
+                  </label>
+                ) : null}
+              </div>
             </div>
-            <ul className="explanation-list">
-              <li>{alphaMessage}</li>
-              <li>{currentPowerMessage}</li>
-              <li>Si acercas H1 a H0, la superposicion entre distribuciones crece y beta aumenta.</li>
-              <li>Si subes alpha, la region critica se ensancha: ganas potencia, pero sube el riesgo de error tipo I.</li>
-              <li>Si subes n, H0 y H1 se separan mejor y la decision se vuelve mas informativa.</li>
-            </ul>
-          </article>
+
+            <div className="lab-banner">
+              <div>
+                <span>Moneda real</span>
+                <strong>{actualCoinLabel} · p = {formatProbability(actualP)}</strong>
+              </div>
+              <div>
+                <span>Experimentos repetidos</span>
+                <strong>{batchRuns}</strong>
+              </div>
+              <label className="batch-slider">
+                <span>Ajustar repeticiones</span>
+                <input max="1200" min="50" step="50" type="range" value={batchRuns} onChange={(event) => setBatchRuns(Number(event.target.value))} />
+              </label>
+            </div>
+
+            <div className="action-row">
+              <button className="action-button primary" onClick={launchSingleExperiment} type="button">Un experimento</button>
+              <button className="action-button secondary" onClick={launchBatchExperiment} type="button">Muchos experimentos</button>
+            </div>
+
+            <div className="lab-results">
+              <article className="result-panel single">
+                <span className="result-tag">Muestra concreta</span>
+                {visibleTrialResult ? (
+                  <>
+                    <h3>{visibleTrialResult.reject ? 'La muestra cae en rechazo' : 'La muestra no llega a rechazo'}</h3>
+                    <p>
+                      Han salido <strong>{visibleTrialResult.heads}</strong> caras de <strong>{n}</strong>. El p-valor unilateral es <strong>{visibleTrialResult.pValue.toFixed(4)}</strong>.
+                    </p>
+                    <div className="flip-grid">
+                      {visibleTrialResult.flips.map((isHead, index) => (
+                        <span key={`${visibleTrialResult.heads}-${index}`} className={isHead ? 'flip-chip head' : 'flip-chip tail'}>
+                          {isHead ? 'C' : 'X'}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h3>Una sola muestra puede enganarte</h3>
+                    <p>Ejecuta un experimento y mira si, por azar, cae dentro o fuera de la region critica.</p>
+                  </>
+                )}
+              </article>
+
+              <article className="result-panel batch">
+                <span className="result-tag">Frecuencia a largo plazo</span>
+                {visibleBatchResult ? (
+                  <>
+                    <h3>{formatPercent(visibleBatchResult.rate)} de rechazos observados</h3>
+                    <p>
+                      En <strong>{visibleBatchResult.experiments}</strong> simulaciones se rechazo H0 en <strong>{visibleBatchResult.rejections}</strong> ocasiones. Asi se ve empiricamente el error tipo I o la potencia.
+                    </p>
+                    <div className="batch-stats">
+                      <div>
+                        <span>Media de caras</span>
+                        <strong>{visibleBatchResult.averageHeads.toFixed(2)}</strong>
+                      </div>
+                      <div>
+                        <span>Valor teorico esperado</span>
+                        <strong>{coinMode === 'null' ? formatPercent(actualAlpha) : coinMode === 'alternative' ? formatPercent(power) : 'depende de p real'}</strong>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h3>La teoria se entiende mejor al repetir</h3>
+                    <p>Al repetir muchas veces ves que alpha y potencia no describen una muestra, sino una frecuencia de decisiones.</p>
+                  </>
+                )}
+              </article>
+            </div>
+          </section>
         </section>
       </main>
     </div>
