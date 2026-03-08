@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 type CoinMode = 'null' | 'alternative' | 'custom'
@@ -34,7 +34,7 @@ const presets: Preset[] = [
   {
     id: 'subtle',
     label: 'Efecto sutil',
-    description: 'H1 esta muy cerca de H0. La potencia cuesta mas.',
+    description: 'H1 está muy cerca de H0. La potencia cuesta más.',
     p0: 0.5,
     p1: 0.58,
     n: 44,
@@ -44,7 +44,7 @@ const presets: Preset[] = [
   {
     id: 'moderate',
     label: 'Efecto moderado',
-    description: 'Buen caso para entender la tension entre alpha, beta y n.',
+    description: 'Buen caso para entender la tensión entre alpha, beta y n.',
     p0: 0.5,
     p1: 0.68,
     n: 24,
@@ -54,7 +54,7 @@ const presets: Preset[] = [
   {
     id: 'strong',
     label: 'Efecto claro',
-    description: 'El sesgo es visible y la potencia sube rapido.',
+    description: 'El sesgo es visible y la potencia sube rápido.',
     p0: 0.5,
     p1: 0.82,
     n: 14,
@@ -270,9 +270,9 @@ function App() {
     setBatchResult(runBatchExperiments(n, actualP, nullDistribution, criticalValue, batchRuns, batchSignature))
   }
 
-  const actualAlphaText = actualAlpha < alpha * 0.8 ? 'Alpha real mas conservador que el nominal.' : 'Alpha real muy cercano al nominal.'
+  const actualAlphaText = actualAlpha < alpha * 0.8 ? 'Alpha real más conservador que el nominal.' : 'Alpha real muy cercano al nominal.'
   const sampleSizeText = minimumN === null ? 'No llega al objetivo antes de n = 240.' : `Objetivo de potencia alcanzable desde n = ${minimumN}.`
-  const decisionText = criticalValue > n ? 'No hay region de rechazo util.' : `Rechaza H0 con ${criticalValue} o mas caras.`
+  const decisionText = criticalValue > n ? 'No hay región de rechazo útil.' : `Rechaza H0 con ${criticalValue} o más caras.`
 
   return (
     <div className="app-shell">
@@ -282,11 +282,11 @@ function App() {
             <img className="brand-logo" src="/umu-logo.png" alt="Universidad de Murcia" />
             <div>
               <p className="eyebrow">Universidad de Murcia - G-9</p>
-              <h1>Monedas trucadas para entender un contraste de hipotesis</h1>
+              <h1>Monedas trucadas para entender un contraste de hipótesis</h1>
             </div>
           </div>
           <p className="hero-text">
-            En esta practica vas a lanzar una moneda muchas veces, comparar una <strong>moneda de referencia</strong> con una <strong>moneda sesgada</strong> y ver como se conectan significatividad, potencia, error tipo I, error tipo II y tamano muestral.
+            En esta práctica vas a lanzar una moneda muchas veces, comparar una <strong>moneda de referencia</strong> con una <strong>moneda sesgada</strong> y ver cómo se conectan significatividad, potencia, error tipo I, error tipo II y tamaño muestral.
           </p>
           <div className="preset-strip">
             {presets.map((preset) => {
@@ -325,7 +325,7 @@ function App() {
             <article className="hypothesis-card alt">
               <span>H1</span>
               <strong>Moneda trucada</strong>
-              <p>Representa el mundo en el que la moneda favorece caras. Aqui la alternativa usa p = {formatProbability(p1)}.</p>
+              <p>Representa el mundo en el que la moneda favorece caras. Aquí la alternativa usa p = {formatProbability(p1)}.</p>
             </article>
           </div>
         </div>
@@ -334,32 +334,32 @@ function App() {
       <section className="experiment-brief panel">
         <div className="brief-intro">
           <p className="section-tag">Antes de empezar</p>
-          <h2>Que vamos a hacer y que significan H0 y H1</h2>
+          <h2>Qué vamos a hacer y qué significan H0 y H1</h2>
           <p>
-            El experimento consiste en elegir una moneda, lanzarla <strong>n</strong> veces y contar cuantas caras aparecen. Con ese recuento decidimos si los datos son compatibles con la moneda de referencia o si hay evidencia para pensar que la moneda esta sesgada.
+            El experimento consiste en elegir una moneda, lanzarla <strong>n</strong> veces y contar cuántas caras aparecen. Con ese recuento decidimos si los datos son compatibles con la moneda de referencia o si hay evidencia para pensar que la moneda está sesgada.
           </p>
         </div>
 
         <div className="brief-grid">
           <article className="brief-card">
-            <span>La situacion</span>
+            <span>La situación</span>
             <strong>Lanzamos una moneda repetidas veces</strong>
-            <p>La variable observada es el numero de caras. Un resultado extremo hace sospechar que la moneda no se comporta como la de referencia.</p>
+            <p>La variable observada es el número de caras. Un resultado extremo hace sospechar que la moneda no se comporta como la de referencia.</p>
           </article>
           <article className="brief-card">
             <span>H0</span>
-            <strong>Hipotesis nula</strong>
+            <strong>Hipótesis nula</strong>
             <p>Asume que usamos la moneda base. En este momento esa moneda tiene probabilidad de cara {formatProbability(p0)}. Si rechazamos H0 por error, cometemos un error tipo I.</p>
           </article>
           <article className="brief-card">
             <span>H1</span>
-            <strong>Hipotesis alternativa</strong>
-            <p>Asume que la moneda esta trucada y favorece caras con probabilidad {formatProbability(p1)}. Si H1 es cierta y no la detectamos, cometemos un error tipo II.</p>
+            <strong>Hipótesis alternativa</strong>
+            <p>Asume que la moneda está trucada y favorece caras con probabilidad {formatProbability(p1)}. Si H1 es cierta y no la detectamos, cometemos un error tipo II.</p>
           </article>
           <article className="brief-card accent">
-            <span>La decision</span>
+            <span>La decisión</span>
             <strong>{decisionText}</strong>
-            <p>La region critica depende de alpha. Cuanto mas la abras, mas facil es detectar el sesgo, pero mayor es el riesgo de falso positivo.</p>
+            <p>La región crítica depende de alpha. Cuanto más la abras, más fácil es detectar el sesgo, pero mayor es el riesgo de falso positivo.</p>
           </article>
         </div>
       </section>
@@ -393,7 +393,7 @@ function App() {
           </article>
           <article className="runway-card">
             <div className="runway-head">
-              <span>pista de decision</span>
+              <span>pista de decisión</span>
               <strong>{decisionText}</strong>
             </div>
             <div className="runway">
@@ -445,7 +445,7 @@ function App() {
 
             <label className="slider-card">
               <div className="slider-head">
-                <span>Tamano muestral n</span>
+                <span>Tamaño muestral n</span>
                 <strong>{n}</strong>
               </div>
               <input max="80" min="4" step="1" type="range" value={n} onChange={(event) => setN(Number(event.target.value))} />
@@ -469,7 +469,7 @@ function App() {
           </div>
 
           <div className="rail-note">
-            <span>Resumen rapido</span>
+            <span>Resumen rápido</span>
             <strong>{sampleSizeText}</strong>
             <p>{actualAlphaText}</p>
           </div>
@@ -499,9 +499,9 @@ function App() {
                 <p>Lo que se escapa cuando H1 existe pero no la detectas.</p>
               </article>
               <article className="metric-tile rule">
-                <span>Decision</span>
+                <span>Decisión</span>
                 <strong>{decisionText}</strong>
-                <p>Este corte define la zona critica del test.</p>
+                <p>Este corte define la zona crítica del test.</p>
               </article>
             </div>
           </section>
@@ -510,9 +510,9 @@ function App() {
             <article className="panel chart-card">
               <div className="section-line compact">
                 <p className="section-tag">Paso 3</p>
-                <h2>Donde se separan H0 y H1</h2>
+                <h2>Dónde se separan H0 y H1</h2>
               </div>
-              <p className="chart-lead">Coral: probabilidades bajo H0. Negro: probabilidades bajo H1. Fondo coral: region de rechazo.</p>
+              <p className="chart-lead">Coral: probabilidades bajo H0. Negro: probabilidades bajo H1. Fondo coral: región de rechazo.</p>
               <div className="distribution-chart" style={{ ['--bars' as string]: String(n + 1) }}>
                 {nullDistribution.map((nullValue, heads) => {
                   const alternativeValue = alternativeDistribution[heads]
@@ -541,23 +541,23 @@ function App() {
             <article className="panel concept-card">
               <div className="section-line compact">
                 <p className="section-tag">Paso 4</p>
-                <h2>Que cambia al mover cada control</h2>
+                <h2>Qué cambia al mover cada control</h2>
               </div>
               <div className="concept-list">
                 <div className="concept-item">
                   <span>Si H1 se acerca a H0</span>
                   <strong>sube beta</strong>
-                  <p>Las dos distribuciones se pisan mas y el test distingue peor.</p>
+                  <p>Las dos distribuciones se pisan más y el test distingue peor.</p>
                 </div>
                 <div className="concept-item">
                   <span>Si subes alpha</span>
                   <strong>sube potencia</strong>
-                  <p>La zona critica se ensancha, pero tambien crece el error tipo I.</p>
+                  <p>La zona crítica se ensancha, pero también crece el error tipo I.</p>
                 </div>
                 <div className="concept-item">
                   <span>Si subes n</span>
-                  <strong>baja la ambiguedad</strong>
-                  <p>Las curvas se separan mejor y la decision se vuelve mas estable.</p>
+                  <strong>baja la ambigüedad</strong>
+                  <p>Las curvas se separan mejor y la decisión se vuelve más estable.</p>
                 </div>
               </div>
 
@@ -566,7 +566,7 @@ function App() {
                   <span>Curva de potencia</span>
                   <strong>Objetivo {formatPercent(targetPower, 0)}</strong>
                 </div>
-                <svg className="power-curve" viewBox="0 0 360 210" role="img" aria-label="Curva de potencia segun n">
+                <svg className="power-curve" viewBox="0 0 360 210" role="img" aria-label="Curva de potencia según n">
                   <line className="guide-line" x1="18" x2="342" y1="176" y2="176" />
                   <line className="guide-line target" x1="18" x2="342" y1={176 - targetPower * 136} y2={176 - targetPower * 136} />
                   <polyline
@@ -596,7 +596,7 @@ function App() {
             <div className="lab-top">
               <div className="section-line compact">
                 <p className="section-tag">Paso 5</p>
-                <h2>Compruebalo con simulacion</h2>
+                <h2>Compruébalo con simulación</h2>
               </div>
               <div className="mode-row">
                 <button className={coinMode === 'null' ? 'mode-chip active' : 'mode-chip'} onClick={() => setCoinMode('null')} type="button">Moneda H0</button>
@@ -650,8 +650,8 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <h3>Una sola muestra puede enganarte</h3>
-                    <p>Ejecuta un experimento y observa si, por azar, entra o no en la region critica.</p>
+                    <h3>Una sola muestra puede engañarte</h3>
+                    <p>Ejecuta un experimento y observa si, por azar, entra o no en la región crítica.</p>
                   </>
                 )}
               </article>
@@ -662,7 +662,7 @@ function App() {
                   <>
                     <h3>{formatPercent(visibleBatchResult.rate)} de rechazos observados</h3>
                     <p>
-                      En <strong>{visibleBatchResult.experiments}</strong> simulaciones se rechazo H0 en <strong>{visibleBatchResult.rejections}</strong> ocasiones. Asi se ve empiricamente el error tipo I o la potencia.
+                      En <strong>{visibleBatchResult.experiments}</strong> simulaciones se rechazó H0 en <strong>{visibleBatchResult.rejections}</strong> ocasiones. Así se ve empíricamente el error tipo I o la potencia.
                     </p>
                     <div className="batch-stats">
                       <div>
@@ -670,7 +670,7 @@ function App() {
                         <strong>{visibleBatchResult.averageHeads.toFixed(2)}</strong>
                       </div>
                       <div>
-                        <span>Valor teorico esperado</span>
+                        <span>Valor teórico esperado</span>
                         <strong>{coinMode === 'null' ? formatPercent(actualAlpha) : coinMode === 'alternative' ? formatPercent(power) : 'depende de p real'}</strong>
                       </div>
                     </div>
@@ -678,7 +678,7 @@ function App() {
                 ) : (
                   <>
                     <h3>Alpha y potencia son frecuencias, no una muestra</h3>
-                    <p>Al repetir muchas veces ves que la teoria describe proporciones de decisiones a largo plazo.</p>
+                    <p>Al repetir muchas veces ves que la teoría describe proporciones de decisiones a largo plazo.</p>
                   </>
                 )}
               </article>
