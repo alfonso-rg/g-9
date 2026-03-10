@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introducci&oacute;n al Dise&ntilde;o de Experimentos — G-9 de Universidades</title>
+<link rel="icon" href="/umu-logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #f9423a;
+  --accent-deep: #a2201d;
+  --accent-soft: #ffd8d1;
+  --ink: #1a1a2e;
+  --ink-light: #3d3d56;
+  --ink-faint: #6b6b85;
+  --sand: #faf8f5;
+  --sand-dark: #f0ece6;
+  --white: #ffffff;
+  --radius: 20px;
+  --shadow: 0 4px 24px rgba(26,26,46,0.08);
+  --shadow-lg: 0 12px 48px rgba(26,26,46,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 5%, rgba(249,66,58,0.14), transparent 35%),
+    radial-gradient(circle at 90% 10%, rgba(94,33,29,0.07), transparent 30%),
+    linear-gradient(180deg, #fff7f2 0%, var(--sand) 100%);
+}
+
+/* HEADER */
+.hero {
+  text-align: center;
+  padding: 3.5rem 2rem 2rem;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+  margin: 0 auto 1.2rem;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+}
+
+.badge {
+  display: inline-block;
+  background: var(--ink);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.6rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+  color: var(--ink);
+}
+
+.hero .subtitle {
+  color: var(--ink-faint);
+  font-size: 1.05rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* CARDS */
+.cards {
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding: 0 1.5rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.8rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-accent {
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  width: 48px;
+  transition: width 0.3s ease;
+}
+.card:hover .card-accent {
+  width: 72px;
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.card-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.card-icon.icon-causal {
+  background: #eef4ff;
+  color: #3b6bc4;
+}
+.card-icon.icon-coins {
+  background: #fef3e2;
+  color: #c67b1a;
+}
+.card-icon.icon-tests {
+  background: #e8f5ee;
+  color: #2d8a56;
+}
+
+.card-session {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+}
+
+.card h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin-bottom: 0.7rem;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.card p {
+  color: var(--ink-light);
+  font-size: 0.9rem;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.3rem;
+}
+.tag {
+  background: var(--sand);
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--ink);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  align-self: flex-start;
+}
+.card-btn:hover {
+  background: var(--accent);
+  transform: translateX(4px);
+}
+.card-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s;
+}
+.card-btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--sand-dark);
+}
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; gap: 1.2rem; }
+  .hero h1 { font-size: 2rem; }
+  .hero { padding: 2.5rem 1.5rem 1.5rem; }
+}
+
+/* FADE IN */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card:nth-child(1) { animation: fadeUp 0.5s ease 0.1s both; }
+.card:nth-child(2) { animation: fadeUp 0.5s ease 0.2s both; }
+.card:nth-child(3) { animation: fadeUp 0.5s ease 0.3s both; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="/umu-logo.png" alt="Universidad de Murcia" class="logo">
+  <div class="badge">G-9 de Universidades &middot; Universidad de Murcia</div>
+  <h1>Introducci&oacute;n al Dise&ntilde;o de Experimentos</h1>
+  <p class="subtitle">Laboratorios interactivos para aprender dise&ntilde;o experimental haciendo, no solo leyendo. Actividad transversal para estudiantes de doctorado.</p>
+</div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon icon-causal">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    </div>
+    <div class="card-session">Sesi&oacute;n 1</div>
+    <h2>Laboratorio de Inferencia Causal</h2>
+    <p>Juega a ser detective: distingue relaciones causales reales de correlaciones espurias, confusores y causalidad inversa con datos interactivos.</p>
+    <div class="card-tags">
+      <span class="tag">Causalidad</span>
+      <span class="tag">Correlaci&oacute;n</span>
+      <span class="tag">Confusores</span>
+    </div>
+    <a href="https://g9-causal-lab-sesion1.netlify.app" target="_blank" class="card-btn">
+      Entrar al laboratorio
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon icon-coins">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v0M9 9.5C9 8.12 10.34 7 12 7s3 1.12 3 2.5c0 1.1-.8 2-1.93 2.36a1 1 0 0 0-.57.64L12 14m0 2.5v0"/></svg>
+    </div>
+    <div class="card-session">Sesi&oacute;n 2</div>
+    <h2>Laboratorio de Monedas Trucadas</h2>
+    <p>Experimenta con significaci&oacute;n estad&iacute;stica, potencia y tama&ntilde;o muestral lanzando monedas y contrastando hip&oacute;tesis.</p>
+    <div class="card-tags">
+      <span class="tag">Contraste</span>
+      <span class="tag">Potencia</span>
+      <span class="tag">Error tipo I/II</span>
+    </div>
+    <a href="https://g9-monedas-trucadas.netlify.app" target="_blank" class="card-btn">
+      Entrar al laboratorio
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon icon-tests">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+    </div>
+    <div class="card-session">Sesi&oacute;n 3</div>
+    <h2>Laboratorio de Tests Estad&iacute;sticos</h2>
+    <p>Elige el test estad&iacute;stico correcto para cada escenario experimental: t-test, ANOVA, Chi-cuadrado, Mann-Whitney y m&aacute;s.</p>
+    <div class="card-tags">
+      <span class="tag">Tests</span>
+      <span class="tag">ANOVA</span>
+      <span class="tag">Regresi&oacute;n</span>
+    </div>
+    <a href="https://g9-tests-estadisticos.netlify.app" target="_blank" class="card-btn">
+      Entrar al laboratorio
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">
+  Universidad de Murcia &middot; Introducci&oacute;n al Dise&ntilde;o de Experimentos &middot; G-9 de Universidades
+</div>
+
+</body>
+</html>
